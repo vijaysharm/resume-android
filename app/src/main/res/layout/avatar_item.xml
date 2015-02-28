@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="@dimen/row_item_margins_half"
+    android:layout_marginLeft="@dimen/row_item_margins_half">
+
+    <ca.vijaysharma.resume.CircleView
+        android:layout_width="@dimen/circle_item_diameter"
+        android:layout_height="@dimen/circle_item_diameter"
+        android:layout_gravity="center"/>
+</FrameLayout>

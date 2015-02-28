@@ -5,9 +5,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -26,16 +26,30 @@ public class ResumeActivity extends Activity {
         ButterKnife.inject(this);
 
         profile.setAdapter(new ProfileAdapter(this));
+        preparePager(profile);
+
         experience.setAdapter(new ProfileAdapter(this));
+        preparePager(experience);
+
         social.setAdapter(new ProfileAdapter(this));
+        preparePager(social);
+
         skills.setAdapter(new ProfileAdapter(this));
+        preparePager(skills);
+    }
+
+    private void preparePager(ViewPager pager) {
+        pager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.row_item_margins));
+        pager.setOffscreenPageLimit(2);
     }
 
     private static class ProfileAdapter extends PagerAdapter {
         private final Context context;
+        private final LayoutInflater inflater;
 
         public ProfileAdapter(Context context) {
             this.context = context;
+            this.inflater = LayoutInflater.from(context);
         }
 
         @Override
@@ -45,14 +59,7 @@ public class ResumeActivity extends Activity {
 
         @Override
         public Object instantiateItem(ViewGroup collection, int position) {
-//            ImageView view = new ImageView(this.context);
-//            view.setImageResource(R.drawable.avatar);
-//
-//            return view;
-            TextView view = new TextView(this.context);
-            view.setText("View "  + position);
-            view.setTextColor(this.context.getResources().getColor(android.R.color.white));
-            view.setBackgroundColor(this.context.getResources().getColor(android.R.color.holo_red_dark));
+            View view = inflater.inflate(R.layout.avatar_item, collection, false);
             collection.addView(view);
 
             return view;
