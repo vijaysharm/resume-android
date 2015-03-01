@@ -2,18 +2,20 @@ package ca.vijaysharma.resume;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import ca.vijaysharma.resume.adapters.ExperienceAdapter;
+import ca.vijaysharma.resume.adapters.ProfileAdapter;
+import ca.vijaysharma.resume.adapters.SkillsAdapter;
+import ca.vijaysharma.resume.adapters.SocialAdapter;
 
 
 public class ResumeActivity extends Activity {
@@ -38,17 +40,10 @@ public class ResumeActivity extends Activity {
         getActionBar().setCustomView(R.layout.action_bar);
         applyInsets(toolbarHeight);
 
-        profile.setAdapter(new ProfileAdapter(this));
-        preparePager(profile);
-
-        experience.setAdapter(new ProfileAdapter(this));
-        preparePager(experience);
-
-        social.setAdapter(new ProfileAdapter(this));
-        preparePager(social);
-
-        skills.setAdapter(new ProfileAdapter(this));
-        preparePager(skills);
+        preparePager(profile, new ProfileAdapter(this));
+        preparePager(experience, new ExperienceAdapter(this));
+        preparePager(social, new SocialAdapter(this));
+        preparePager(skills, new SkillsAdapter(this));
     }
 
     private void applyInsets(final int toolbarHeight) {
@@ -62,46 +57,9 @@ public class ResumeActivity extends Activity {
         });
     }
 
-    private void preparePager(ViewPager pager) {
+    private void preparePager(ViewPager pager, PagerAdapter adapter) {
+        pager.setAdapter(adapter);
         pager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.row_item_margins));
         pager.setOffscreenPageLimit(2);
-    }
-
-    private static class ProfileAdapter extends PagerAdapter {
-        private final Context context;
-        private final LayoutInflater inflater;
-
-        public ProfileAdapter(Context context) {
-            this.context = context;
-            this.inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup collection, int position) {
-            View view = inflater.inflate(R.layout.avatar_item, collection, false);
-            collection.addView(view);
-
-            return view;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup collection, int position, Object view) {
-            collection.removeView((View) view);
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return PagerAdapter.POSITION_NONE;
-        }
     }
 }
