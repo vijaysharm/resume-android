@@ -13,7 +13,7 @@ public class CircleView extends View {
 
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(context.getResources().getColor(android.R.color.black));
+        paint.setColor(context.getResources().getColor(android.R.color.white));
     }
 
     @Override
