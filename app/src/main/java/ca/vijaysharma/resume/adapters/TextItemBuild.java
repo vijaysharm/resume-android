@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -8,6 +9,7 @@ import android.widget.FrameLayout.LayoutParams;
 import android.widget.TextView;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.utils.Typefaces;
 
 class TextItemBuild {
     private final Context context;
@@ -46,6 +48,9 @@ class TextItemBuild {
         text.setText(this.text);
         text.setTextColor(this.context.getResources().getColor(R.color.white));
         text.setBackgroundResource(this.backgroundDrawableResourceId);
+        float textSize = this.context.getResources().getDimension(R.dimen.circle_item_text_size) / this.context.getResources().getDisplayMetrics().density;
+        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        text.setTypeface(Typefaces.get(this.context.getString(R.string.thin)));
 
         container.addView(text);
 

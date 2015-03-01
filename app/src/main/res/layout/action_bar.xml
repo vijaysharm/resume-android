@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/vijay_sharma"
-        android:textColor="#ffffff"
-        android:fontFamily="sans-serif-thin"
+        android:textColor="@color/white"
+        android:fontFamily="@string/thin"
         android:textSize="@dimen/action_bar_title_text_size" />
 </LinearLayout>
