@@ -6,4 +6,5 @@
     <dimen name="circle_item_diameter">150dp</dimen>
     <dimen name="row_item_margins">-180dp</dimen>
     <dimen name="row_item_margins_half">900dp</dimen>
+    <dimen name="action_bar_title_text_size">20sp</dimen>
 </resources>
