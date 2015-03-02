@@ -2,13 +2,15 @@ package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.utils.Action1;
 
-public class ExperienceAdapter extends PagerAdapter {
+public class ExperienceAdapter extends PagerAdapter implements Action1<Object> {
     private final Context context;
     private final LayoutInflater inflater;
 
@@ -24,11 +26,12 @@ public class ExperienceAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
-        View view = new TextItemBuild(this.context)
+        View view = new TextButtonBuilder<>(this.context, null)
             .setText("Experience")
             .setConnectorColor(this.context.getResources().getColor(R.color.purple))
             .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle))
             .setAddConnection(position != 0)
+            .setListener(this)
             .build();
 
         collection.addView(view);
@@ -49,5 +52,10 @@ public class ExperienceAdapter extends PagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
+    }
+
+    @Override
+    public void call(Object item) {
+        Log.i("ExperienceAdapter", "Object: " + item);
     }
 }

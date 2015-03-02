@@ -5,44 +5,53 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
-import android.widget.TextView;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.Typefaces;
 
-class TextItemBuild {
+class TextButtonBuilder<T> {
     private final Context context;
 
     private String text;
     private Drawable backgroundDrawableResourceId;
     private int connectorColor;
     private boolean addConnection;
+    private Action1<T> listener;
+    private T object;
 
-    public TextItemBuild(Context context) {
+    public TextButtonBuilder(Context context, T object) {
         this.context = context;
-        this. addConnection = false;
+        this.addConnection = false;
+        this.object = object;
     }
 
-    public TextItemBuild setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
+    public TextButtonBuilder setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
         this.backgroundDrawableResourceId = backgroundDrawableResourceId;
         return this;
     }
 
-    public TextItemBuild setText(String text) {
+    public TextButtonBuilder setText(String text) {
         this.text = text;
         return this;
     }
 
-    public TextItemBuild setConnectorColor(int connectorColor) {
+    public TextButtonBuilder setConnectorColor(int connectorColor) {
         this.connectorColor = connectorColor;
         return this;
     }
 
-    public TextItemBuild setAddConnection(boolean addConnection) {
+    public TextButtonBuilder setAddConnection(boolean addConnection) {
         this.addConnection = addConnection;
+        return this;
+    }
+
+    public TextButtonBuilder setListener(Action1<T> listener) {
+        this.listener = listener;
         return this;
     }
 
@@ -62,19 +71,26 @@ class TextItemBuild {
         connection.setLayoutParams(params);
         connection.setBackgroundColor(connectorColor);
 
-        TextView text = new TextView(context);
+        Button button = new Button(context);
         int textWidth = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         int textHeight = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
-        text.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
-        text.setGravity(Gravity.CENTER);
-        text.setText(this.text);
-        text.setTextColor(this.context.getResources().getColor(R.color.white));
-        text.setBackground(this.backgroundDrawableResourceId);
+        button.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
+        button.setGravity(Gravity.CENTER);
+        button.setText(this.text);
+        button.setTextColor(this.context.getResources().getColor(R.color.white));
+        button.setBackground(this.backgroundDrawableResourceId);
         float textSize = this.context.getResources().getDimension(R.dimen.circle_item_text_size) / this.context.getResources().getDisplayMetrics().density;
-        text.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        text.setTypeface(Typefaces.get(this.context.getString(R.string.thin)));
+        button.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        button.setTypeface(Typefaces.get(this.context.getString(R.string.thin)));
+        button.setTransformationMethod(null);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null ) listener.call(object);
+            }
+        });
 
-        container.addView(text);
+        container.addView(button);
         if (addConnection) container.addView(connection);
 
         return container;
