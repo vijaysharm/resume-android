@@ -24,11 +24,13 @@ public class ExperienceAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
-//        View view = inflater.inflate(R.layout.avatar_item, collection, false);
         View view = new TextItemBuild(this.context)
             .setText("Experience")
-            .setBackgroundDrawableResourceId(R.drawable.purple_circle)
+            .setConnectorColor(this.context.getResources().getColor(R.color.purple))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle))
+            .setAddConnection(position != 0)
             .build();
+
         collection.addView(view);
 
         return view;

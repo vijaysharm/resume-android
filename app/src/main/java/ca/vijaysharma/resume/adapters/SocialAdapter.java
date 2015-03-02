@@ -24,10 +24,11 @@ public class SocialAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
-//        View view = inflater.inflate(R.layout.avatar_item, collection, false);
         View view = new TextItemBuild(this.context)
             .setText("Social")
-            .setBackgroundDrawableResourceId(R.drawable.yellow_circle)
+            .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.yellow_circle))
+            .setAddConnection(position != 0)
             .build();
         collection.addView(view);
 

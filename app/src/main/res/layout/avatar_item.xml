@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginRight="@dimen/row_item_margins_half"
-    android:layout_marginLeft="@dimen/row_item_margins_half">
+    android:layout_marginRight="90dp"
+    android:layout_marginLeft="90dp">
 
     <!--<ca.vijaysharma.resume.CircleView-->
         <!--android:layout_width="@dimen/circle_item_diameter"-->

@@ -24,10 +24,11 @@ public class ProfileAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup collection, int position) {
-//        View view = inflater.inflate(R.layout.avatar_item, collection, false);
         View view = new TextItemBuild(this.context)
             .setText("Profile")
-            .setBackgroundDrawableResourceId(R.drawable.white_circle)
+            .setConnectorColor(this.context.getResources().getColor(R.color.white))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle))
+            .setAddConnection(position != 0)
             .build();
         collection.addView(view);
 

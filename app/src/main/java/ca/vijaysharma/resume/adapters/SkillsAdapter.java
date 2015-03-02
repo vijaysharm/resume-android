@@ -27,7 +27,9 @@ public class SkillsAdapter extends PagerAdapter {
 //        View view = inflater.inflate(R.layout.avatar_item, collection, false);
         View view = new TextItemBuild(this.context)
             .setText("Skills")
-            .setBackgroundDrawableResourceId(R.drawable.green_circle)
+            .setConnectorColor(this.context.getResources().getColor(R.color.green))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.green_circle))
+            .setAddConnection(position != 0)
             .build();
         collection.addView(view);
 

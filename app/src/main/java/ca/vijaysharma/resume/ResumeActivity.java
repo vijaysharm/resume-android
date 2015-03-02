@@ -16,6 +16,7 @@ import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
 import ca.vijaysharma.resume.adapters.SocialAdapter;
+import ca.vijaysharma.resume.utils.Metrics;
 
 
 public class ResumeActivity extends Activity {
@@ -58,8 +59,11 @@ public class ResumeActivity extends Activity {
     }
 
     private void preparePager(ViewPager pager, PagerAdapter adapter) {
+        int screenWidthPx = Metrics.size(this).x;
+        int pageMarginPx = -1 * screenWidthPx / 2;
+
         pager.setAdapter(adapter);
-        pager.setPageMargin(getResources().getDimensionPixelOffset(R.dimen.row_item_margins));
+        pager.setPageMargin(pageMarginPx);
         pager.setOffscreenPageLimit(2);
     }
 }
