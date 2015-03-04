@@ -18,7 +18,6 @@ import ca.vijaysharma.resume.adapters.SkillsAdapter;
 import ca.vijaysharma.resume.adapters.SocialAdapter;
 import ca.vijaysharma.resume.utils.Metrics;
 
-
 public class ResumeActivity extends Activity {
     @InjectView(R.id.container) ViewGroup container;
     @InjectView(R.id.me) ViewPager profile;

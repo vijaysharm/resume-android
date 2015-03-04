@@ -1,45 +1,43 @@
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ResumeActivity">
-
-    <ScrollView
+    tools:context=".ResumeActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
-            android:id="@+id/container"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/me"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="@dimen/section_height">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/me"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
+        </android.support.v4.view.ViewPager>
 
-            </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/experience"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/section_height">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/experience"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
+        </android.support.v4.view.ViewPager>
 
-            </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/skills"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/section_height">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/skills"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
+        </android.support.v4.view.ViewPager>
 
-            </android.support.v4.view.ViewPager>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/social"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/section_height">
 
-            <android.support.v4.view.ViewPager
-                android:id="@+id/social"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
+        </android.support.v4.view.ViewPager>
 
-            </android.support.v4.view.ViewPager>
-
-        </LinearLayout>
-    </ScrollView>
-</merge>
+    </LinearLayout>
+</ScrollView>
