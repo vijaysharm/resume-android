@@ -2,6 +2,7 @@ package ca.vijaysharma.resume;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -16,7 +17,9 @@ import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
 import ca.vijaysharma.resume.adapters.SocialAdapter;
+import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.utils.Metrics;
+import de.greenrobot.event.EventBus;
 
 public class ResumeActivity extends Activity {
     @InjectView(R.id.container) ViewGroup container;
@@ -25,11 +28,14 @@ public class ResumeActivity extends Activity {
     @InjectView(R.id.skills) ViewPager skills;
     @InjectView(R.id.social) ViewPager social;
 
+    private EventBus bus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resume);
         ButterKnife.inject(this);
+        bus = EventBus.getDefault();
 
         final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
             new int[] { android.R.attr.actionBarSize });
@@ -40,10 +46,27 @@ public class ResumeActivity extends Activity {
         getActionBar().setCustomView(R.layout.action_bar);
         applyInsets(toolbarHeight);
 
-        preparePager(profile, new ProfileAdapter(this));
+        preparePager(profile, new ProfileAdapter(this, bus));
         preparePager(experience, new ExperienceAdapter(this));
         preparePager(social, new SocialAdapter(this));
         preparePager(skills, new SkillsAdapter(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bus.register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        bus.unregister(this);
+    }
+
+    public void onEvent(ShowDetailsEvent event) {
+        Intent intent = DetailActivity.start(this, event.getParcel());
+        startActivity(intent);
     }
 
     private void applyInsets(final int toolbarHeight) {

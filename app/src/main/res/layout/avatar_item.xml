@@ -6,7 +6,7 @@
     android:layout_marginRight="90dp"
     android:layout_marginLeft="90dp">
 
-    <!--<ca.vijaysharma.resume.CircleView-->
+    <!--<ca.vijaysharma.resume.utils.CircleView-->
         <!--android:layout_width="@dimen/circle_item_diameter"-->
         <!--android:layout_height="@dimen/circle_item_diameter"-->
         <!--android:layout_gravity="center"/>-->

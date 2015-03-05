@@ -8,14 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.events.ShowDetailsEvent;
+import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.Action1;
+import de.greenrobot.event.EventBus;
 
 public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
     private final Context context;
+    private final EventBus bus;
     private final LayoutInflater inflater;
 
-    public ProfileAdapter(Context context) {
+    public ProfileAdapter(Context context, EventBus bus) {
         this.context = context;
+        this.bus = bus;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -64,5 +69,13 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
     @Override
     public void call(Object item) {
         Log.i("ProfileAdapter", "Object: " + item);
+        DetailParcel parcel = DetailParcel.builder()
+            .detail1("Vijay Sharma")
+            .detail2("Senior Mobile Developer")
+            .detail3("Ottawa")
+            .hero(R.drawable.avatar)
+            .build();
+
+        bus.post(new ShowDetailsEvent(parcel));
     }
 }

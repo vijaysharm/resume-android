@@ -1,4 +1,4 @@
-package ca.vijaysharma.resume;
+package ca.vijaysharma.resume.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;
