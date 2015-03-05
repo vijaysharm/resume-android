@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content">
         <View
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:background="@color/white"/>
 
         <ca.vijaysharma.resume.utils.BezelImageView
@@ -66,7 +67,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="126dp"
+            android:layout_marginTop="136dp"
             android:layout_marginEnd="12dp"
             android:orientation="horizontal"
             android:layout_gravity="end">

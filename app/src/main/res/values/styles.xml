@@ -14,7 +14,15 @@
     </style>
 
     <style name="DetailTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/DetailActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
 
+    <style name="DetailActionBarStyle" parent="android:Theme.Material.Light">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="ResumeActionBarStyle" parent="android:Theme.Material.Light">

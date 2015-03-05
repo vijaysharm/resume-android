@@ -2,6 +2,7 @@ package ca.vijaysharma.resume;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
 import ca.vijaysharma.resume.adapters.SocialAdapter;
+import ca.vijaysharma.resume.events.IntentEvent;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.utils.Metrics;
 import de.greenrobot.event.EventBus;
@@ -37,14 +39,9 @@ public class ResumeActivity extends Activity {
         ButterKnife.inject(this);
         bus = EventBus.getDefault();
 
-        final TypedArray styledAttributes = getTheme().obtainStyledAttributes(
-            new int[] { android.R.attr.actionBarSize });
-        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
-        styledAttributes.recycle();
-
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(R.layout.action_bar);
-        applyInsets(toolbarHeight);
+        applyInsets(container, toolbarHeight(this));
 
         preparePager(profile, new ProfileAdapter(this, bus));
         preparePager(experience, new ExperienceAdapter(this));
@@ -64,12 +61,29 @@ public class ResumeActivity extends Activity {
         bus.unregister(this);
     }
 
+    @SuppressWarnings("unused")
     public void onEvent(ShowDetailsEvent event) {
-        Intent intent = DetailActivity.start(this, event.getParcel());
+        Intent intent = DetailsActivity.start(this, event.getParcel());
         startActivity(intent);
     }
 
-    private void applyInsets(final int toolbarHeight) {
+    @SuppressWarnings("unused")
+    public void onEvent(IntentEvent event) {
+        startActivity(event.getIntent());
+    }
+
+    private static int toolbarHeight(Context context) {
+        final TypedArray styledAttributes =
+                context.getTheme().obtainStyledAttributes(new int[] {
+                        android.R.attr.actionBarSize
+                });
+        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return toolbarHeight;
+    }
+
+    private static void applyInsets(ViewGroup container, final int toolbarHeight) {
         container.setFitsSystemWindows(true);
         container.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
             @Override

@@ -10,8 +10,8 @@
         <activity
             android:name=".ResumeActivity"
             android:label="@string/app_name"
-            android:theme="@style/ResumeTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/ResumeTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,11 +19,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".DetailsActivity"
             android:theme="@style/DetailTheme"
-            android:screenOrientation="portrait">
+            android:label="@string/title_activity_items" >
         </activity>
-
     </application>
 
 </manifest>

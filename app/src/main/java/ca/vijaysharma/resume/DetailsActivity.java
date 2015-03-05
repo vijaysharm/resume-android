@@ -3,8 +3,11 @@ package ca.vijaysharma.resume;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,8 +22,8 @@ import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.RoundedTransformation;
 
-// TODO: Need a toolbar and the body should be a View Pager
-public class DetailActivity extends Activity {
+
+public class DetailsActivity extends Activity {
     private static final String PARCELABLE_DATA_KEY = "details";
 
     @InjectView(R.id.hero_image) BezelImageView hero;
@@ -30,9 +33,10 @@ public class DetailActivity extends Activity {
     @InjectView(R.id.description_1) TextView description1;
     @InjectView(R.id.description_2) TextView description2;
     @InjectView(R.id.description_3) TextView description3;
+    @InjectView(R.id.container) ViewGroup container;
 
     public static Intent start(Context context, DetailParcel...parcels) {
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, DetailsActivity.class);
 
         ArrayList<DetailParcel> data = new ArrayList<>();
         Collections.addAll(data, parcels);
@@ -42,10 +46,12 @@ public class DetailActivity extends Activity {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         ButterKnife.inject(this);
+
+        applyInsets(container, statusBarHeight(this));
 
         ArrayList<DetailParcel> details = getIntent().getParcelableArrayListExtra(PARCELABLE_DATA_KEY);
         DetailParcel detail = details.get(0);
@@ -62,5 +68,35 @@ public class DetailActivity extends Activity {
             .resize(heroSize, heroSize)
             .transform(new RoundedTransformation())
             .into(hero);
+    }
+
+    private static int statusBarHeight(Context context) {
+        int result = 0;
+        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = context.getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    private static int toolbarHeight(Context context) {
+        final TypedArray styledAttributes =
+            context.getTheme().obtainStyledAttributes(new int[] {
+                android.R.attr.actionBarSize
+            });
+        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+
+        return toolbarHeight;
+    }
+    private static void applyInsets(ViewGroup container, final int toolbarHeight) {
+        container.setFitsSystemWindows(true);
+        container.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
+                view.setPadding(0, toolbarHeight, 0, insets.getSystemWindowInsetBottom());
+                return insets.consumeSystemWindowInsets();
+            }
+        });
     }
 }

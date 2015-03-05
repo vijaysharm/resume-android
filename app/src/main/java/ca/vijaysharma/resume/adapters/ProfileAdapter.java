@@ -39,7 +39,7 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
 //            .setListener(this)
 //            .build();
 
-        View view = new ImageButtonBuilder<>(this.context, null)
+        View view = new ImageButtonBuilder<>(this.context, new Object())
             .setConnectorColor(this.context.getResources().getColor(R.color.white))
             .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle))
             .setAddConnection(position != 0)
