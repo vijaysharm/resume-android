@@ -13,6 +13,10 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="DetailTheme" parent="AppTheme">
+
+    </style>
+
     <style name="ResumeActionBarStyle" parent="android:Theme.Material.Light">
         <item name="android:background">#64000000</item>
     </style>
