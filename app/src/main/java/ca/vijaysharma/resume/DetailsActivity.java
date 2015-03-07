@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -95,7 +96,7 @@ public class DetailsActivity extends Activity {
         title2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         title2.setText("Mobile Developer");
         title2.setTextColor(getResources().getColor(android.R.color.black));
-        title2.setTypeface(Typefaces.get(getString(R.string.light)));
+        title2.setTypeface(Typefaces.get(getString(R.string.light)), Typeface.ITALIC);
         linearLayout.addView(title2);
 
         TextView title3 = new TextView(this);
@@ -118,10 +119,11 @@ public class DetailsActivity extends Activity {
         linearLayout.setLayoutParams(frameLayoutParams);
         frameLayout.addView(linearLayout);
 
+        int spacing = (int)getResources().getDimension(R.dimen.space_between_action_items);
         ImageButton action1 = new ImageButton(this);
         linearLayoutParams = new LinearLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
         linearLayoutParams.gravity = Gravity.END;
-        linearLayoutParams.setMargins(0, 0, marginFromEdge, 0);
+        linearLayoutParams.setMargins(0, 0, spacing, 0);
         action1.setLayoutParams(linearLayoutParams);
         action1.setBackground(getDrawable(R.drawable.white_circle));
         action1.setImageResource(R.drawable.ic_public_white_24dp);
