@@ -3,6 +3,7 @@
 
     <string name="vijay_sharma">Vijay Sharma</string>
     <string name="thin">sans-serif-thin</string>
+    <string name="light">sans-serif-light</string>
     <string name="title_activity_items">ItemsActivity</string>
 
     <string name="hello_world">Hello world!</string>

@@ -105,6 +105,14 @@ public class BezelImageView extends ImageView {
         }
     }
 
+    public void setMaskDrawable(Drawable drawable) {
+        this.mMaskDrawable = drawable;
+    }
+
+    public void setBorderDrawable(Drawable drawable) {
+        this.mBorderDrawable = drawable;
+    }
+
     @Override
     protected boolean setFrame(int l, int t, int r, int b) {
         final boolean changed = super.setFrame(l, t, r, b);

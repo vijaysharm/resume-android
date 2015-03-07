@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
         <View
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="@dimen/background_view_height"
             android:background="@color/white"/>
 
         <ca.vijaysharma.resume.utils.BezelImageView
@@ -26,7 +26,6 @@
             android:clickable="true"
             android:focusable="true"
             app:maskDrawable="@drawable/circle_mask"
-            app:borderDrawable="@drawable/circle_mask"
             android:src="@drawable/avatar" />
 
         <LinearLayout
@@ -82,8 +81,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:maskDrawable="@drawable/circle_mask"
-                app:borderDrawable="@drawable/circle_mask"
-                android:src="@drawable/avatar" />
+                app:borderDrawable="@android:color/transparent"
+                android:src="@drawable/ic_public_white_18dp" />
 
             <ca.vijaysharma.resume.utils.BezelImageView
                 android:id="@+id/action_2"
@@ -94,8 +93,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:maskDrawable="@drawable/circle_mask"
-                app:borderDrawable="@drawable/circle_mask"
-                android:src="@drawable/avatar" />
+                android:src="@drawable/ic_email_white_36dp" />
         </LinearLayout>
 
         <LinearLayout
