@@ -45,6 +45,7 @@ public class DetailsActivity extends Activity {
 
         int toolbarHeight = toolbarHeight(this);
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
+        int statusBarHeight = statusBarHeight(this);
 
         ScrollView scrollView = new ScrollView(this);
         scrollView.setFillViewport(true);
@@ -138,9 +139,116 @@ public class DetailsActivity extends Activity {
         action2.setImageResource(R.drawable.ic_email_white_24dp);
         linearLayout.addView(action2);
 
+        int bodyMarginTop = statusBarHeight + toolbarHeight + heroDiameter;
+        linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        frameLayoutParams.setMargins(marginFromEdge, bodyMarginTop, marginFromEdge, 0);
+        linearLayout.setLayoutParams(frameLayoutParams);
+        frameLayout.addView(linearLayout);
+
+        for (int count = 0; count < 2; count++) {
+            addTextSection(linearLayout);
+        }
+
+        addReferenceSection(linearLayout);
+
         setContentView(scrollView);
 
-        applyInsets(scrollView, statusBarHeight(this));
+        applyInsets(scrollView, statusBarHeight);
+    }
+
+    private void addReferenceSection(LinearLayout linearLayout) {
+        int titleLeftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
+        int edgeMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
+
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        linearLayoutParams.setMargins(titleLeftMargin, 0, edgeMargin, 0);
+
+        TextView title = new TextView(this);
+        title.setLayoutParams(linearLayoutParams);
+        float textSize = getResources().getDimension(R.dimen.body_text_section_title) / getResources().getDisplayMetrics().density;
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        title.setText("References");
+        title.setAllCaps(true);
+        title.setTextColor(getResources().getColor(R.color.white));
+        title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
+        linearLayout.addView(title);
+
+        TextView name = new TextView(this);
+        textSize = getResources().getDimension(R.dimen.reference_name_text_size) / getResources().getDisplayMetrics().density;
+        name.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        name.setText("Chris Cameron");
+        name.setTextColor(getResources().getColor(R.color.white));
+        name.setTypeface(Typefaces.get(getString(R.string.thin)));
+
+        TextView position = new TextView(this);
+        textSize = getResources().getDimension(R.dimen.reference_position_text_size) / getResources().getDisplayMetrics().density;
+        position.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        position.setText("Director of engineering");
+        position.setTextColor(getResources().getColor(R.color.white));
+        position.setTypeface(Typefaces.get(getString(R.string.thin)));
+
+        BezelImageView avatar = new BezelImageView(this);
+        int heroDiameter = (int)getResources().getDimension(R.dimen.reference_avatar_diameter);
+        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
+        avatar.setLayoutParams(frameLayoutParams);
+        avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        avatar.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
+        avatar.setClickable(false);
+        avatar.setFocusable(false);
+        avatar.setImageResource(R.drawable.avatar);
+
+        linearLayoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        linearLayoutParams.setMargins(edgeMargin, 0, 0, 0);
+        LinearLayout l = new LinearLayout(this);
+        l.setLayoutParams(linearLayoutParams);
+        l.setOrientation(LinearLayout.VERTICAL);
+        l.addView(name);
+        l.addView(position);
+
+        LinearLayout r = new LinearLayout(this);
+        r.setOrientation(LinearLayout.HORIZONTAL);
+        r.addView(avatar);
+        r.addView(l);
+
+        linearLayout.addView(r);
+    }
+
+    private void addTextSection(LinearLayout linearLayout) {
+        int leftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
+        int rightMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
+
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        linearLayoutParams.setMargins(leftMargin, 0, rightMargin, 0);
+
+        TextView title = new TextView(this);
+        title.setLayoutParams(linearLayoutParams);
+        float textSize = getResources().getDimension(R.dimen.body_text_section_title) / getResources().getDisplayMetrics().density;
+        title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        title.setText("Bio");
+        title.setAllCaps(true);
+        title.setTextColor(getResources().getColor(R.color.white));
+        title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
+        linearLayout.addView(title);
+
+        TextView content = new TextView(this);
+        content.setLayoutParams(linearLayoutParams);
+        textSize = getResources().getDimension(R.dimen.body_text_section_content) / getResources().getDisplayMetrics().density;
+        content.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        content.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
+        content.setTextColor(getResources().getColor(R.color.white));
+        content.setTypeface(Typefaces.get(getString(R.string.thin)));
+        linearLayout.addView(content);
     }
 
     private static int statusBarHeight(Context context) {

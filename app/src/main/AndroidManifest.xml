@@ -21,7 +21,7 @@
         <activity
             android:name=".DetailsActivity"
             android:theme="@style/DetailTheme"
-            android:label="@string/title_activity_items" >
+            android:label="@string/app_name" >
         </activity>
     </application>
 

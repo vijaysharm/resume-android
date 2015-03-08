@@ -82,7 +82,7 @@
                 android:focusable="true"
                 app:maskDrawable="@drawable/circle_mask"
                 app:borderDrawable="@android:color/transparent"
-                android:src="@drawable/ic_public_white_18dp" />
+                android:src="@drawable/ic_public_white_24dp" />
 
             <ca.vijaysharma.resume.utils.BezelImageView
                 android:id="@+id/action_2"
@@ -93,7 +93,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 app:maskDrawable="@drawable/circle_mask"
-                android:src="@drawable/ic_email_white_36dp" />
+                android:src="@drawable/ic_email_white_24dp" />
         </LinearLayout>
 
         <LinearLayout
