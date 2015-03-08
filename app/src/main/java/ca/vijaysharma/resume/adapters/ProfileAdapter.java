@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
+import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.Action1;
+import ca.vijaysharma.resume.utils.Intents;
 import de.greenrobot.event.EventBus;
 
 public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
@@ -74,6 +76,15 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
             .detail2("Senior Mobile Developer")
             .detail3("Ottawa")
             .hero(R.drawable.avatar)
+            .primaryColor(R.color.white)
+            .action1(DetailAction.builder()
+                .action(R.drawable.ic_public_white_24dp)
+                .intent(Intents.createUrlIntent("http://www.vijaysharma.ca"))
+                .build())
+            .action2(DetailAction.builder()
+                .action(R.drawable.ic_email_white_24dp)
+                .intent(Intents.createEmailIntent("vijay.sharm@gmail.com"))
+                .build())
             .build();
 
         bus.post(new ShowDetailsEvent(parcel));

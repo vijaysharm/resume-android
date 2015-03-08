@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,22 +47,34 @@ public class DetailsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        ArrayList<DetailParcel> details = getIntent().getParcelableArrayListExtra(PARCELABLE_DATA_KEY);
+        final DetailParcel detail = details.get(0);
+
         int toolbarHeight = toolbarHeight(this);
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int statusBarHeight = statusBarHeight(this);
 
         ScrollView scrollView = new ScrollView(this);
         scrollView.setFillViewport(true);
-        scrollView.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        scrollView.setLayoutParams(new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.MATCH_PARENT
+        ));
 
         FrameLayout frameLayout = new FrameLayout(this);
-        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT));
+        frameLayout.setLayoutParams(new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        ));
         scrollView.addView(frameLayout);
 
         View background = new View(this);
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
-        background.setLayoutParams(new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, backgroundHeight));
-        background.setBackgroundColor(getResources().getColor(R.color.white));
+        background.setLayoutParams(new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.MATCH_PARENT,
+            backgroundHeight
+        ));
+        background.setBackgroundColor(getResources().getColor(detail.primaryColor()));
         frameLayout.addView(background);
 
         BezelImageView hero = new BezelImageView(this);
@@ -70,12 +86,20 @@ public class DetailsActivity extends Activity {
         hero.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
         hero.setClickable(false);
         hero.setFocusable(false);
-        hero.setImageResource(R.drawable.avatar);
         frameLayout.addView(hero);
+        Picasso.with(this)
+            .load(detail.hero())
+            .placeholder(R.color.background_color)
+//            .centerCrop()
+//            .resize(heroDiameter, heroDiameter)
+            .into(hero);
 
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        frameLayoutParams = new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams.WRAP_CONTENT,
+            FrameLayout.LayoutParams.WRAP_CONTENT
+        );
         frameLayoutParams.setMargins(0, toolbarHeight, marginFromEdge, 0);
         frameLayoutParams.gravity = Gravity.END;
         linearLayout.setLayoutParams(frameLayoutParams);
@@ -87,27 +111,31 @@ public class DetailsActivity extends Activity {
         title1.setLayoutParams(linearLayoutParams);
         float textSize = getResources().getDimension(R.dimen.title_1_text_size) / getResources().getDisplayMetrics().density;
         title1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        title1.setText("Vijay Sharma");
+        title1.setText(detail.detail1());
         title1.setTextColor(getResources().getColor(android.R.color.black));
         linearLayout.addView(title1);
 
-        TextView title2 = new TextView(this);
-        title2.setLayoutParams(linearLayoutParams);
-        textSize = getResources().getDimension(R.dimen.title_2_text_size) / getResources().getDisplayMetrics().density;
-        title2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        title2.setText("Mobile Developer");
-        title2.setTextColor(getResources().getColor(android.R.color.black));
-        title2.setTypeface(Typefaces.get(getString(R.string.light)), Typeface.ITALIC);
-        linearLayout.addView(title2);
+        if (!TextUtils.isEmpty(detail.detail2())) {
+            TextView title2 = new TextView(this);
+            title2.setLayoutParams(linearLayoutParams);
+            textSize = getResources().getDimension(R.dimen.title_2_text_size) / getResources().getDisplayMetrics().density;
+            title2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            title2.setText(detail.detail2());
+            title2.setTextColor(getResources().getColor(android.R.color.black));
+            title2.setTypeface(Typefaces.get(getString(R.string.light)), Typeface.ITALIC);
+            linearLayout.addView(title2);
+        }
 
-        TextView title3 = new TextView(this);
-        title3.setLayoutParams(linearLayoutParams);
-        textSize = getResources().getDimension(R.dimen.title_3_text_size) / getResources().getDisplayMetrics().density;
-        title3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        title3.setText("Ottawa");
-        title3.setTextColor(getResources().getColor(android.R.color.darker_gray));
-        title3.setTypeface(Typefaces.get(getString(R.string.thin)));
-        linearLayout.addView(title3);
+        if (!TextUtils.isEmpty(detail.detail3())) {
+            TextView title3 = new TextView(this);
+            title3.setLayoutParams(linearLayoutParams);
+            textSize = getResources().getDimension(R.dimen.title_3_text_size) / getResources().getDisplayMetrics().density;
+            title3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            title3.setText(detail.detail3());
+            title3.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            title3.setTypeface(Typefaces.get(getString(R.string.thin)));
+            linearLayout.addView(title3);
+        }
 
         int actionItemDiameter = (int)getResources().getDimension(R.dimen.action_item_diameter);
         int actionItemRadius = actionItemDiameter / 2;
@@ -121,22 +149,64 @@ public class DetailsActivity extends Activity {
         frameLayout.addView(linearLayout);
 
         int spacing = (int)getResources().getDimension(R.dimen.space_between_action_items);
-        ImageButton action1 = new ImageButton(this);
+        final ImageButton action1 = new ImageButton(this);
         linearLayoutParams = new LinearLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, spacing, 0);
         action1.setLayoutParams(linearLayoutParams);
         action1.setBackground(getDrawable(R.drawable.white_circle));
-        action1.setImageResource(R.drawable.ic_public_white_24dp);
+//        action1.setImageResource(R.drawable.ic_public_white_24dp);
+        Picasso.with(this)
+            .load(detail.action1().action())
+            .placeholder(R.color.background_color)
+//            .centerCrop()
+//          .resize(heroDiameter, heroDiameter)
+            .into(action1, new Callback() {
+                @Override
+                public void onSuccess() {
+                    action1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(detail.action1().intent());
+                        }
+                    });
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         linearLayout.addView(action1);
 
-        ImageButton action2 = new ImageButton(this);
+        final ImageButton action2 = new ImageButton(this);
         linearLayoutParams = new LinearLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, 0, 0);
         action2.setLayoutParams(linearLayoutParams);
         action2.setBackground(getDrawable(R.drawable.white_circle));
-        action2.setImageResource(R.drawable.ic_email_white_24dp);
+//        action2.setImageResource(R.drawable.ic_email_white_24dp);
+        Picasso.with(this)
+            .load(detail.action2().action())
+            .placeholder(R.color.background_color)
+//            .centerCrop()
+//          .resize(heroDiameter, heroDiameter)
+            .into(action2, new Callback() {
+                @Override
+                public void onSuccess() {
+                    action2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(detail.action2().intent());
+                        }
+                    });
+                }
+
+                @Override
+                public void onError() {
+
+                }
+            });
         linearLayout.addView(action2);
 
         int bodyMarginTop = statusBarHeight + toolbarHeight + heroDiameter;
