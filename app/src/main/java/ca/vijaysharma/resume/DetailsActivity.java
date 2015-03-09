@@ -290,7 +290,10 @@ public class DetailsActivity extends Activity {
         avatar.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
         avatar.setClickable(false);
         avatar.setFocusable(false);
-        avatar.setImageResource(R.drawable.avatar);
+        Picasso.with(this)
+            .load(R.drawable.avatar)
+            .placeholder(R.color.background_color)
+            .into(avatar);
 
         linearLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
