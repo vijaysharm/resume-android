@@ -2,6 +2,7 @@ package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -23,6 +24,7 @@ class ImageButtonBuilder<T> {
     private boolean addConnection;
     private Action1<T> listener;
     private T object;
+    private @DrawableRes int image;
 
     public ImageButtonBuilder(Context context, T object) {
         this.context = context;
@@ -30,23 +32,28 @@ class ImageButtonBuilder<T> {
         this.object = object;
     }
 
-    public ImageButtonBuilder setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
+    public ImageButtonBuilder<T> setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
         this.backgroundDrawableResourceId = backgroundDrawableResourceId;
         return this;
     }
 
-    public ImageButtonBuilder setConnectorColor(int connectorColor) {
+    public ImageButtonBuilder<T> setConnectorColor(int connectorColor) {
         this.connectorColor = connectorColor;
         return this;
     }
 
-    public ImageButtonBuilder setAddConnection(boolean addConnection) {
+    public ImageButtonBuilder<T> setAddConnection(boolean addConnection) {
         this.addConnection = addConnection;
         return this;
     }
 
-    public ImageButtonBuilder setListener(Action1<T> listener) {
+    public ImageButtonBuilder<T> setListener(Action1<T> listener) {
         this.listener = listener;
+        return this;
+    }
+
+    public ImageButtonBuilder<T> setImage(@DrawableRes int image) {
+        this.image = image;
         return this;
     }
 
@@ -80,7 +87,7 @@ class ImageButtonBuilder<T> {
 
         int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_image_diameter);
         Picasso.with(context)
-            .load(R.drawable.avatar)
+            .load(this.image)
             .placeholder(R.color.background_color)
             .centerCrop()
             .resize(avatarSize, avatarSize)

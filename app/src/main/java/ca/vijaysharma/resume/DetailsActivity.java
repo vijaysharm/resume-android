@@ -3,13 +3,8 @@ package ca.vijaysharma.resume;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -31,6 +26,7 @@ import java.util.Collections;
 
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.BezelImageView;
+import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.Typefaces;
 
@@ -90,7 +86,7 @@ public class DetailsActivity extends Activity {
         hero.setLayoutParams(frameLayoutParams);
         hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
         hero.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
-        hero.setBorderDrawable(borderDrawable(detail.primaryColor()));
+        hero.setBorderDrawable(Drawables.borderDrawable(this, detail.primaryColor()));
         hero.setClickable(false);
         hero.setFocusable(false);
         frameLayout.addView(hero);
@@ -161,7 +157,7 @@ public class DetailsActivity extends Activity {
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, spacing, 0);
         action1.setLayoutParams(linearLayoutParams);
-        action1.setBackground(rippleDrawable(detail.primaryColor()));
+        action1.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action1().action())
             .placeholder(R.color.background_color)
@@ -183,7 +179,7 @@ public class DetailsActivity extends Activity {
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, 0, 0);
         action2.setLayoutParams(linearLayoutParams);
-        action2.setBackground(rippleDrawable(detail.primaryColor()));
+        action2.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action2().action())
             .placeholder(R.color.background_color)
@@ -217,35 +213,6 @@ public class DetailsActivity extends Activity {
         setContentView(scrollView);
 
         applyInsets(scrollView, statusBarHeight);
-    }
-
-    private Drawable borderDrawable(@ColorRes int primaryColor) {
-        int borderThickness = (int)getResources().getDimension(R.dimen.circle_item_border_width);
-        int color = getResources().getColor(primaryColor);
-
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.OVAL);
-        shape.setStroke(borderThickness, color);
-        shape.setColor(null);
-
-        return shape;
-    }
-
-    private Drawable rippleDrawable(@ColorRes int primaryColor) {
-        int borderThickness = (int)getResources().getDimension(R.dimen.circle_item_border_width);
-        int color = getResources().getColor(primaryColor);
-        int background = getResources().getColor(R.color.background_color);
-
-
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.OVAL);
-        shape.setStroke(borderThickness, color);
-        shape.setColor(background);
-
-        RippleDrawable ripple = new RippleDrawable(ColorStateList.valueOf(color), shape, null);
-        ripple.setPaddingMode(RippleDrawable.PADDING_MODE_STACK);
-
-        return ripple;
     }
 
     private void addReferenceSection(DetailParcel detail, LinearLayout linearLayout) {

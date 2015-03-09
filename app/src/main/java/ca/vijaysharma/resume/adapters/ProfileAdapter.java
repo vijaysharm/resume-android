@@ -3,7 +3,6 @@ package ca.vijaysharma.resume.adapters;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,12 +17,10 @@ import de.greenrobot.event.EventBus;
 public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
     private final Context context;
     private final EventBus bus;
-    private final LayoutInflater inflater;
 
     public ProfileAdapter(Context context, EventBus bus) {
         this.context = context;
         this.bus = bus;
-        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -45,6 +42,7 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
             .setConnectorColor(this.context.getResources().getColor(R.color.white))
             .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle_button))
             .setAddConnection(position != 0)
+            .setImage(R.drawable.avatar)
             .setListener(this)
             .build();
 
@@ -76,7 +74,7 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
             .detail2("Senior Mobile Developer")
             .detail3("Ottawa")
             .hero(R.drawable.avatar)
-            .primaryColor(R.color.white)
+            .primaryColor(R.color.purple)
             .action1(DetailAction.builder()
                 .action(R.drawable.ic_public_white_24dp)
                 .intent(Intents.createUrlIntent("http://www.vijaysharma.ca"))

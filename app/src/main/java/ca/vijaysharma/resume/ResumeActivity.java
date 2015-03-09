@@ -44,7 +44,7 @@ public class ResumeActivity extends Activity {
         applyInsets(container, toolbarHeight(this));
 
         preparePager(profile, new ProfileAdapter(this, bus));
-        preparePager(experience, new ExperienceAdapter(this));
+        preparePager(experience, new ExperienceAdapter(this, bus));
         preparePager(social, new SocialAdapter(this));
         preparePager(skills, new SkillsAdapter(this));
     }

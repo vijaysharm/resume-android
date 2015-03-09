@@ -30,27 +30,27 @@ class TextButtonBuilder<T> {
         this.object = object;
     }
 
-    public TextButtonBuilder setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
+    public TextButtonBuilder<T> setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
         this.backgroundDrawableResourceId = backgroundDrawableResourceId;
         return this;
     }
 
-    public TextButtonBuilder setText(String text) {
+    public TextButtonBuilder<T> setText(String text) {
         this.text = text;
         return this;
     }
 
-    public TextButtonBuilder setConnectorColor(int connectorColor) {
+    public TextButtonBuilder<T> setConnectorColor(int connectorColor) {
         this.connectorColor = connectorColor;
         return this;
     }
 
-    public TextButtonBuilder setAddConnection(boolean addConnection) {
+    public TextButtonBuilder<T> setAddConnection(boolean addConnection) {
         this.addConnection = addConnection;
         return this;
     }
 
-    public TextButtonBuilder setListener(Action1<T> listener) {
+    public TextButtonBuilder<T> setListener(Action1<T> listener) {
         this.listener = listener;
         return this;
     }
