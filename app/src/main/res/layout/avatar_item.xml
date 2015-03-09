@@ -17,13 +17,13 @@
         <!--android:gravity="center"-->
         <!--android:text="Ho there"-->
         <!--android:textColor="@android:color/holo_red_dark"-->
-        <!--android:background="@drawable/white_circle"-->
+        <!--android:background="@drawable/white_circle_button"-->
         <!--/>-->
     <ImageButton
         android:layout_width="@dimen/circle_item_diameter"
         android:layout_height="@dimen/circle_item_diameter"
         android:layout_gravity="center"
-        android:background="@drawable/purple_circle_double_border"
+        android:background="@drawable/purple_circle_button"
 
         android:scaleType="centerCrop"
         />

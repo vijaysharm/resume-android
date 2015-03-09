@@ -29,7 +29,7 @@ public class ExperienceAdapter extends PagerAdapter implements Action1<Object> {
         View view = new TextButtonBuilder<>(this.context, null)
             .setText("Experience")
             .setConnectorColor(this.context.getResources().getColor(R.color.purple))
-            .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle_button))
             .setAddConnection(position != 0)
             .setListener(this)
             .build();

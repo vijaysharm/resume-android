@@ -29,7 +29,7 @@ public class SocialAdapter extends PagerAdapter implements Action1<Object> {
         View view = new TextButtonBuilder<>(this.context, null)
             .setText("Social")
             .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
-            .setBackgroundDrawable(this.context.getDrawable(R.drawable.yellow_circle))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.yellow_circle_button))
             .setAddConnection(position != 0)
             .setListener(this)
             .build();

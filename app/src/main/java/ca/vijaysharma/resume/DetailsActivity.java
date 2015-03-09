@@ -3,9 +3,13 @@ package ca.vijaysharma.resume;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -27,6 +31,7 @@ import java.util.Collections;
 
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.BezelImageView;
+import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.Typefaces;
 
 
@@ -50,9 +55,9 @@ public class DetailsActivity extends Activity {
         ArrayList<DetailParcel> details = getIntent().getParcelableArrayListExtra(PARCELABLE_DATA_KEY);
         final DetailParcel detail = details.get(0);
 
-        int toolbarHeight = toolbarHeight(this);
+        int toolbarHeight = Metrics.toolbarHeight(this);
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
-        int statusBarHeight = statusBarHeight(this);
+        int statusBarHeight = Metrics.statusBarHeight(this);
 
         ScrollView scrollView = new ScrollView(this);
         scrollView.setFillViewport(true);
@@ -78,20 +83,22 @@ public class DetailsActivity extends Activity {
         frameLayout.addView(background);
 
         BezelImageView hero = new BezelImageView(this);
-        int heroDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
+        int heroDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
+        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
         frameLayoutParams.setMargins(marginFromEdge, toolbarHeight, 0, 0);
         hero.setLayoutParams(frameLayoutParams);
         hero.setScaleType(ImageView.ScaleType.CENTER_CROP);
         hero.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
+        hero.setBorderDrawable(borderDrawable(detail.primaryColor()));
         hero.setClickable(false);
         hero.setFocusable(false);
         frameLayout.addView(hero);
         Picasso.with(this)
             .load(detail.hero())
             .placeholder(R.color.background_color)
-//            .centerCrop()
-//            .resize(heroDiameter, heroDiameter)
+            .centerCrop()
+            .resize(heroImageDiameter, heroImageDiameter)
             .into(hero);
 
         LinearLayout linearLayout = new LinearLayout(this);
@@ -154,14 +161,11 @@ public class DetailsActivity extends Activity {
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, spacing, 0);
         action1.setLayoutParams(linearLayoutParams);
-        action1.setBackground(getDrawable(R.drawable.white_circle));
-//        action1.setImageResource(R.drawable.ic_public_white_24dp);
+        action1.setBackground(rippleDrawable(detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action1().action())
             .placeholder(R.color.background_color)
-//            .centerCrop()
-//          .resize(heroDiameter, heroDiameter)
-            .into(action1, new Callback() {
+            .into(action1, new Callback.EmptyCallback() {
                 @Override
                 public void onSuccess() {
                     action1.setOnClickListener(new View.OnClickListener() {
@@ -171,11 +175,6 @@ public class DetailsActivity extends Activity {
                         }
                     });
                 }
-
-                @Override
-                public void onError() {
-
-                }
             });
         linearLayout.addView(action1);
 
@@ -184,14 +183,11 @@ public class DetailsActivity extends Activity {
         linearLayoutParams.gravity = Gravity.END;
         linearLayoutParams.setMargins(0, 0, 0, 0);
         action2.setLayoutParams(linearLayoutParams);
-        action2.setBackground(getDrawable(R.drawable.white_circle));
-//        action2.setImageResource(R.drawable.ic_email_white_24dp);
+        action2.setBackground(rippleDrawable(detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action2().action())
             .placeholder(R.color.background_color)
-//            .centerCrop()
-//          .resize(heroDiameter, heroDiameter)
-            .into(action2, new Callback() {
+            .into(action2, new Callback.EmptyCallback() {
                 @Override
                 public void onSuccess() {
                     action2.setOnClickListener(new View.OnClickListener() {
@@ -200,11 +196,6 @@ public class DetailsActivity extends Activity {
                             startActivity(detail.action2().intent());
                         }
                     });
-                }
-
-                @Override
-                public void onError() {
-
                 }
             });
         linearLayout.addView(action2);
@@ -218,17 +209,46 @@ public class DetailsActivity extends Activity {
         frameLayout.addView(linearLayout);
 
         for (int count = 0; count < 2; count++) {
-            addTextSection(linearLayout);
+            addTextSection(detail, linearLayout);
         }
 
-        addReferenceSection(linearLayout);
+        addReferenceSection(detail, linearLayout);
 
         setContentView(scrollView);
 
         applyInsets(scrollView, statusBarHeight);
     }
 
-    private void addReferenceSection(LinearLayout linearLayout) {
+    private Drawable borderDrawable(@ColorRes int primaryColor) {
+        int borderThickness = (int)getResources().getDimension(R.dimen.circle_item_border_width);
+        int color = getResources().getColor(primaryColor);
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setStroke(borderThickness, color);
+        shape.setColor(null);
+
+        return shape;
+    }
+
+    private Drawable rippleDrawable(@ColorRes int primaryColor) {
+        int borderThickness = (int)getResources().getDimension(R.dimen.circle_item_border_width);
+        int color = getResources().getColor(primaryColor);
+        int background = getResources().getColor(R.color.background_color);
+
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setStroke(borderThickness, color);
+        shape.setColor(background);
+
+        RippleDrawable ripple = new RippleDrawable(ColorStateList.valueOf(color), shape, null);
+        ripple.setPaddingMode(RippleDrawable.PADDING_MODE_STACK);
+
+        return ripple;
+    }
+
+    private void addReferenceSection(DetailParcel detail, LinearLayout linearLayout) {
         int titleLeftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
         int edgeMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
 
@@ -244,7 +264,7 @@ public class DetailsActivity extends Activity {
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         title.setText("References");
         title.setAllCaps(true);
-        title.setTextColor(getResources().getColor(R.color.white));
+        title.setTextColor(getResources().getColor(detail.primaryColor()));
         title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
         linearLayout.addView(title);
 
@@ -291,7 +311,7 @@ public class DetailsActivity extends Activity {
         linearLayout.addView(r);
     }
 
-    private void addTextSection(LinearLayout linearLayout) {
+    private void addTextSection(DetailParcel detail, LinearLayout linearLayout) {
         int leftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
         int rightMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
 
@@ -307,7 +327,7 @@ public class DetailsActivity extends Activity {
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         title.setText("Bio");
         title.setAllCaps(true);
-        title.setTextColor(getResources().getColor(R.color.white));
+        title.setTextColor(getResources().getColor(detail.primaryColor()));
         title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
         linearLayout.addView(title);
 
@@ -319,26 +339,6 @@ public class DetailsActivity extends Activity {
         content.setTextColor(getResources().getColor(R.color.white));
         content.setTypeface(Typefaces.get(getString(R.string.thin)));
         linearLayout.addView(content);
-    }
-
-    private static int statusBarHeight(Context context) {
-        int result = 0;
-        int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = context.getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    private static int toolbarHeight(Context context) {
-        final TypedArray styledAttributes =
-                context.getTheme().obtainStyledAttributes(new int[] {
-                    android.R.attr.actionBarSize
-                });
-        int toolbarHeight = (int) styledAttributes.getDimension(0, 0);
-        styledAttributes.recycle();
-
-        return toolbarHeight;
     }
 
     private static void applyInsets(ViewGroup container, final int toolbarHeight) {

@@ -36,14 +36,14 @@ public class ProfileAdapter extends PagerAdapter implements Action1<Object> {
 //        View view = new TextButtonBuilder<>(this.context, null)
 //            .setText("Profile")
 //            .setConnectorColor(this.context.getResources().getColor(R.color.white))
-//            .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle))
+//            .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle_button))
 //            .setAddConnection(position != 0)
 //            .setListener(this)
 //            .build();
 
         View view = new ImageButtonBuilder<>(this.context, new Object())
             .setConnectorColor(this.context.getResources().getColor(R.color.white))
-            .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle))
+            .setBackgroundDrawable(this.context.getDrawable(R.drawable.white_circle_button))
             .setAddConnection(position != 0)
             .setListener(this)
             .build();
