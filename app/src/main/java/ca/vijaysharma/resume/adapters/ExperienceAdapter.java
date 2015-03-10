@@ -5,6 +5,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.joda.time.Days;
+import org.joda.time.Months;
+import org.joda.time.Years;
+
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Experience;
@@ -59,9 +63,11 @@ public class ExperienceAdapter extends PagerAdapter {
                         DetailParcel parcel = DetailParcel.builder()
                             .detail1(experience.getName())
                             .detail2(experience.getPosition())
-                            .detail3("5 months")
+                            .detail3(timeSpent(experience))
                             .hero(experience.getLogo())
                             .primaryColor(experience.getPrimaryColor())
+                            .secondaryColor(experience.getSecondaryColor())
+                            .tertiaryColor(experience.getTertiaryColor())
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createUrlIntent(experience.getWebsite()))
@@ -81,6 +87,21 @@ public class ExperienceAdapter extends PagerAdapter {
         collection.addView(view);
 
         return view;
+    }
+
+    private String timeSpent(Experience experience) {
+        final Years years = Years.yearsBetween(experience.getStart(), experience.getEnd());
+        if (years.getYears() != 0) {
+            return years.getYears() + " years";
+        }
+
+        final Months months = Months.monthsBetween(experience.getStart(), experience.getEnd());
+        if (months.getMonths() != 0) {
+            return months.getMonths() + " months";
+        }
+
+        final Days days = Days.daysBetween(experience.getStart(), experience.getEnd());
+        return days.getDays() + " days";
     }
 
     @Override

@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 public class Experience {
     private final @DrawableRes int logo;
     private final @ColorRes int primaryColor;
+    private final @ColorRes int secondaryColor;
+    private final @ColorRes int tertiaryColor;
     private final String name;
     private final String position;
     private final DateTime start;
@@ -22,6 +24,8 @@ public class Experience {
     public Experience(
         @DrawableRes int logo,
         @ColorRes int primaryColor,
+        @ColorRes int secondaryColor,
+        @ColorRes int tertiaryColor,
         String name,
         String position,
         DateTime start,
@@ -35,6 +39,8 @@ public class Experience {
     ) {
         this.logo = logo;
         this.primaryColor = primaryColor;
+        this.secondaryColor = secondaryColor;
+        this.tertiaryColor = tertiaryColor;
         this.name = name;
         this.position = position;
         this.start = start;
@@ -51,8 +57,16 @@ public class Experience {
         return logo;
     }
 
-    public int getPrimaryColor() {
+    public @ColorRes int getPrimaryColor() {
         return primaryColor;
+    }
+
+    public @ColorRes int getSecondaryColor() {
+        return secondaryColor;
+    }
+
+    public @ColorRes int getTertiaryColor() {
+        return tertiaryColor;
     }
 
     public String getName() {

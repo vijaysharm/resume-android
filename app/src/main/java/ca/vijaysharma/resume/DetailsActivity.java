@@ -115,7 +115,7 @@ public class DetailsActivity extends Activity {
         float textSize = getResources().getDimension(R.dimen.title_1_text_size) / getResources().getDisplayMetrics().density;
         title1.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         title1.setText(detail.detail1());
-        title1.setTextColor(getResources().getColor(android.R.color.black));
+        title1.setTextColor(getResources().getColor(detail.secondaryColor()));
         linearLayout.addView(title1);
 
         if (!TextUtils.isEmpty(detail.detail2())) {
@@ -124,7 +124,7 @@ public class DetailsActivity extends Activity {
             textSize = getResources().getDimension(R.dimen.title_2_text_size) / getResources().getDisplayMetrics().density;
             title2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             title2.setText(detail.detail2());
-            title2.setTextColor(getResources().getColor(android.R.color.black));
+            title2.setTextColor(getResources().getColor(detail.secondaryColor()));
             title2.setTypeface(Typefaces.get(getString(R.string.light)), Typeface.ITALIC);
             linearLayout.addView(title2);
         }
@@ -135,7 +135,7 @@ public class DetailsActivity extends Activity {
             textSize = getResources().getDimension(R.dimen.title_3_text_size) / getResources().getDisplayMetrics().density;
             title3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             title3.setText(detail.detail3());
-            title3.setTextColor(getResources().getColor(android.R.color.darker_gray));
+            title3.setTextColor(getResources().getColor(detail.tertiaryColor()));
             title3.setTypeface(Typefaces.get(getString(R.string.thin)));
             linearLayout.addView(title3);
         }

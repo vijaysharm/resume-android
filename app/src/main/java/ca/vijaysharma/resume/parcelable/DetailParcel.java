@@ -13,6 +13,8 @@ public abstract class DetailParcel implements Parcelable {
     }
 
     public abstract @ColorRes int primaryColor();
+    public abstract @ColorRes int secondaryColor();
+    public abstract @ColorRes int tertiaryColor();
     public abstract @DrawableRes int hero();
 
     public abstract String detail1();
@@ -29,6 +31,8 @@ public abstract class DetailParcel implements Parcelable {
         Builder detail3(String detail);
         Builder hero(@DrawableRes int id);
         Builder primaryColor(@ColorRes int color);
+        Builder secondaryColor(@ColorRes int color);
+        Builder tertiaryColor(@ColorRes int color);
         Builder action1(DetailAction a);
         Builder action2(DetailAction a);
 

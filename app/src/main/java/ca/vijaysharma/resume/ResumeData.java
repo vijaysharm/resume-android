@@ -1,5 +1,7 @@
 package ca.vijaysharma.resume;
 
+import org.joda.time.DateTime;
+
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.Profile;
 import ca.vijaysharma.resume.models.Reference;
@@ -12,7 +14,7 @@ public class ResumeData {
         "http://www.vijaysharma.ca",
         "Ottawa, Ontario",
         "Senior Mobile Developer",
-        "Insert super hero biography",
+        "Insert super hero origin story",
         "Get my objective on"
     );
 
@@ -20,10 +22,12 @@ public class ResumeData {
         new Experience(
             R.drawable.younility,
             R.color.younility,
+            R.color.white,
+            R.color.grey,
             "Younility",
             "Senior Mobile Developer",
-            null,
-            null,
+            new DateTime("2014-10-01T00:00:00.000-03:00"),
+            new DateTime(),
             "https://www.younility.com",
             "Ottawa, Ontario",
             "Leaders in field communication software",
@@ -44,10 +48,12 @@ public class ResumeData {
         new Experience(
             R.drawable.signiant,
             R.color.signiant,
+            R.color.black,
+            R.color.grey,
             "Signiant",
             "Senior Mobile Developer",
-            null,
-            null,
+            new DateTime("2014-02-01T00:00:00.000-03:00"),
+            new DateTime("2014-10-01T00:00:00.000-03:00"),
             "https://www.signiant.com",
             "Kanata, Ontario",
             "Helps distributors ensure fast, secure delivery of large files over public and private networks.",
@@ -67,10 +73,12 @@ public class ResumeData {
         new Experience(
             R.drawable.intelerad,
             R.color.intelerad,
+            R.color.white,
+            R.color.grey,
             "Intelerad",
             "Senior Member of R&D",
-            null,
-            null,
+            new DateTime("2011-01-01T00:00:00.000-03:00"),
+            new DateTime("2014-02-01T00:00:00.000-03:00"),
             "https://www.intelerad.com",
             "Montreal, Quebec",
             "Provides medical imaging solutions and services to radiology groups, hospitals, imaging centers, and teleradiology businesses.",
