@@ -43,8 +43,8 @@ public class ResumeActivity extends Activity {
         getActionBar().setCustomView(R.layout.action_bar);
         applyInsets(container, toolbarHeight(this));
 
-        preparePager(profile, new ProfileAdapter(this, bus));
-        preparePager(experience, new ExperienceAdapter(this, bus));
+        preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile));
+        preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences));
         preparePager(social, new SocialAdapter(this));
         preparePager(skills, new SkillsAdapter(this));
     }

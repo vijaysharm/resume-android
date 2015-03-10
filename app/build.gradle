@@ -22,11 +22,12 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    provided 'com.google.auto.value:auto-value:1.0'
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'de.greenrobot:eventbus:2.4.0'
-
+    compile 'net.danlew:android.joda:2.7.1'
     compile 'com.github.frankiesardo:auto-parcel:0.3'
     apt 'com.github.frankiesardo:auto-parcel-processor:0.3'
 }

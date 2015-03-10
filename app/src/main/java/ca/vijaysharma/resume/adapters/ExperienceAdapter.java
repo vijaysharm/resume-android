@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
+import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.utils.Action1;
@@ -17,15 +18,21 @@ import de.greenrobot.event.EventBus;
 public class ExperienceAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
+    private final Experience[] experiences;
 
-    public ExperienceAdapter(Context context, EventBus bus) {
+    public ExperienceAdapter(
+        Context context,
+        EventBus bus,
+        Experience[] experiences
+    ) {
         this.context = context;
         this.bus = bus;
+        this.experiences = experiences;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 1 + experiences.length;
     }
 
     @Override
@@ -37,67 +44,33 @@ public class ExperienceAdapter extends PagerAdapter {
                 .setText("Experience")
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle_button))
-                .setAddConnection(position != 0)
-                .setListener(new Action1<Object>() {
-                    @Override
-                    public void call(Object item) {
-                        // Do nothing
-                    }
-                })
+                .setAddConnection(false)
                 .build();
-        } else if (position == 1) {
+        } else {
+            final Experience experience = experiences[position - 1];
             view = new ImageButtonBuilder<>(this.context, new Object())
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.purple))
-                .setImage(R.drawable.younility)
-                .setAddConnection(position != 0)
+                .setImage(experience.getLogo())
+                .setAddConnection(true)
                 .setListener(new Action1<Object>() {
                     @Override
                     public void call(Object item) {
                         DetailParcel parcel = DetailParcel.builder()
-                            .detail1("Younility")
-                            .detail2("Senior Mobile Developer")
+                            .detail1(experience.getName())
+                            .detail2(experience.getPosition())
                             .detail3("5 months")
-                            .hero(R.drawable.younility)
-                            .primaryColor(R.color.younility)
+                            .hero(experience.getLogo())
+                            .primaryColor(experience.getPrimaryColor())
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
-                                .intent(Intents.createUrlIntent("http://www.vijaysharma.ca"))
+                                .intent(Intents.createUrlIntent(experience.getWebsite()))
                                 .build())
                             .action2(DetailAction.builder()
-                                .action(R.drawable.ic_email_white_24dp)
-                                .intent(Intents.createEmailIntent("vijay.sharm@gmail.com"))
+                                .action(R.drawable.ic_place_white_24dp)
+                                .intent(Intents.createEmailIntent(experience.getLocation()))
                                 .build())
                             .build();
-
-                        bus.post(new ShowDetailsEvent(parcel));
-                    }
-                })
-                .build();
-        } else if (position == 2) {
-            view = new ImageButtonBuilder<>(this.context, new Object())
-                .setConnectorColor(this.context.getResources().getColor(R.color.purple))
-                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.purple))
-                .setImage(R.drawable.signiant)
-                .setAddConnection(position != 0)
-                .setListener(new Action1<Object>() {
-                    @Override
-                    public void call(Object item) {
-                        DetailParcel parcel = DetailParcel.builder()
-                                .detail1("Signiant")
-                                .detail2("Senior Mobile Developer")
-                                .detail3("10 months")
-                                .hero(R.drawable.signiant)
-                                .primaryColor(R.color.signiant)
-                                .action1(DetailAction.builder()
-                                    .action(R.drawable.ic_public_white_24dp)
-                                    .intent(Intents.createUrlIntent("http://www.vijaysharma.ca"))
-                                    .build())
-                                .action2(DetailAction.builder()
-                                    .action(R.drawable.ic_email_white_24dp)
-                                    .intent(Intents.createEmailIntent("vijay.sharm@gmail.com"))
-                                    .build())
-                                .build();
 
                         bus.post(new ShowDetailsEvent(parcel));
                     }

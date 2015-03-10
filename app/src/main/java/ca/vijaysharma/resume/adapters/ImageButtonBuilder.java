@@ -19,7 +19,7 @@ import ca.vijaysharma.resume.utils.RoundedTransformation;
 class ImageButtonBuilder<T> {
     private final Context context;
 
-    private Drawable backgroundDrawableResourceId;
+    private Drawable backgroundDrawable;
     private int connectorColor;
     private boolean addConnection;
     private Action1<T> listener;
@@ -33,7 +33,7 @@ class ImageButtonBuilder<T> {
     }
 
     public ImageButtonBuilder<T> setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
-        this.backgroundDrawableResourceId = backgroundDrawableResourceId;
+        this.backgroundDrawable = backgroundDrawableResourceId;
         return this;
     }
 
@@ -77,7 +77,7 @@ class ImageButtonBuilder<T> {
         int textWidth = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         int textHeight = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         button.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
-        button.setBackground(this.backgroundDrawableResourceId);
+        button.setBackground(this.backgroundDrawable);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
