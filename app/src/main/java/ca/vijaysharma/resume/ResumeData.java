@@ -25,7 +25,7 @@ public class ResumeData {
             null,
             null,
             "https://www.younility.com",
-            "Nepean, Ottawa",
+            "Ottawa, Ontario",
             "Leaders in field communication software",
             new String[] {
                 "Boostrapped continuous delivery environment for both iOS and Android",
@@ -49,7 +49,7 @@ public class ResumeData {
             null,
             null,
             "https://www.signiant.com",
-            "Kanata, Ottawa",
+            "Kanata, Ontario",
             "Helps distributors ensure fast, secure delivery of large files over public and private networks.",
             new String[] {
                 "Developed Cloud and Mobile-based solutions that extend the reach of Signiant products beyond traditional enterprise environments",
@@ -62,6 +62,29 @@ public class ResumeData {
             }, new Reference[] {
                 new Reference("Peter Hodgkinson", "Software Developer", R.drawable.avatar),
                 new Reference("Peter Boos", "Director of Engineering", R.drawable.avatar)
+            }
+        ),
+        new Experience(
+            R.drawable.intelerad,
+            R.color.intelerad,
+            "Intelerad",
+            "Senior Member of R&D",
+            null,
+            null,
+            "https://www.intelerad.com",
+            "Montreal, Quebec",
+            "Provides medical imaging solutions and services to radiology groups, hospitals, imaging centers, and teleradiology businesses.",
+            new String[] {
+                "Lead the development of the company's new flagship online clinical image viewer using latest HTML5 technologies to develop a high performance viewer targeted for the web and mobile devices",
+                "Wrote, managed and peer-reviewed requirements, design and test plan documents for all team projects, working closely with stakeholders to ensure both company's best interest, and the integrity of the software",
+                "Architected new advanced visualization 3D application to integrate into large enterprise code base, working closely with UI designers to develop cutting edge, feature rich applications",
+                "Mentored new employees to adapt to company's culture, in a lead position on projects, and spearheading new software development practices",
+                "Developed support for multiple platforms including Mobile-Web, Android and iOS"
+            }, new String[]{
+                "AngularJS", "EmberJS", "GWT", "Android", "iOS", "Tomcat", "PostgreSQL"
+            }, new Reference[] {
+                new Reference("Hormoz Pirzadeh", "Director of Engineering", R.drawable.avatar),
+                new Reference("Amos Chan", "Software Developer", R.drawable.avatar)
             }
         )
     };
