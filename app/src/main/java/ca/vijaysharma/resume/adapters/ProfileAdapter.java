@@ -11,9 +11,12 @@ import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Profile;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
+import ca.vijaysharma.resume.parcelable.Section;
+import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
+import ca.vijaysharma.resume.utils.Lists;
 import de.greenrobot.event.EventBus;
 
 public class ProfileAdapter extends PagerAdapter {
@@ -40,6 +43,8 @@ public class ProfileAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup collection, int position) {
         View view = null;
         if (position == 0) {
+            final Section objective = TextSection.create("Objective", Lists.newArrayList(profile.getObjective()));
+            final Section biography = TextSection.create("Bio", Lists.newArrayList(profile.getBiography()));
             view = new ImageButtonBuilder<>(this.context, new Object())
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
@@ -54,6 +59,8 @@ public class ProfileAdapter extends PagerAdapter {
                             .detail3(profile.getLocation())
                             .hero(profile.getAvatarId())
                             .primaryColor(R.color.white)
+                            .secondaryColor(R.color.black)
+                            .tertiaryColor(R.color.grey)
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createUrlIntent(profile.getWebsite()))
@@ -62,6 +69,9 @@ public class ProfileAdapter extends PagerAdapter {
                                 .action(R.drawable.ic_email_white_24dp)
                                 .intent(Intents.createEmailIntent(profile.getEmail()))
                                 .build())
+                            .sections(Lists.newArrayList(
+                                objective, biography
+                            ))
                             .build();
 
                         bus.post(new ShowDetailsEvent(parcel));

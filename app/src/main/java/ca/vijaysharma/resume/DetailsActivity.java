@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -25,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import ca.vijaysharma.resume.parcelable.DetailParcel;
+import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
+import ca.vijaysharma.resume.parcelable.ReferenceSection;
+import ca.vijaysharma.resume.parcelable.Section;
+import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
@@ -204,18 +209,26 @@ public class DetailsActivity extends Activity {
         linearLayout.setLayoutParams(frameLayoutParams);
         frameLayout.addView(linearLayout);
 
-        for (int count = 0; count < 2; count++) {
-            addTextSection(detail, linearLayout);
+        for (Section section : detail.sections()) {
+            if (section instanceof TextSection) {
+                TextSection textSection = (TextSection) section;
+                addTextSection(detail.primaryColor(), textSection, linearLayout);
+            } else if (section instanceof ReferenceSection) {
+                ReferenceSection referenceSection = (ReferenceSection)section;
+                addReferenceSection(detail.primaryColor(), referenceSection, linearLayout);
+            }
         }
-
-        addReferenceSection(detail, linearLayout);
 
         setContentView(scrollView);
 
         applyInsets(scrollView, statusBarHeight);
     }
 
-    private void addReferenceSection(DetailParcel detail, LinearLayout linearLayout) {
+    private void addReferenceSection(
+        @ColorRes int primaryColor,
+        ReferenceSection detail,
+        LinearLayout linearLayout
+    ) {
         int titleLeftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
         int edgeMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
 
@@ -229,59 +242,65 @@ public class DetailsActivity extends Activity {
         title.setLayoutParams(linearLayoutParams);
         float textSize = getResources().getDimension(R.dimen.body_text_section_title) / getResources().getDisplayMetrics().density;
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        title.setText("References");
+        title.setText(detail.name());
         title.setAllCaps(true);
-        title.setTextColor(getResources().getColor(detail.primaryColor()));
+        title.setTextColor(getResources().getColor(primaryColor));
         title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
         linearLayout.addView(title);
 
-        TextView name = new TextView(this);
-        textSize = getResources().getDimension(R.dimen.reference_name_text_size) / getResources().getDisplayMetrics().density;
-        name.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        name.setText("Chris Cameron");
-        name.setTextColor(getResources().getColor(R.color.white));
-        name.setTypeface(Typefaces.get(getString(R.string.thin)));
+        for (ReferenceItemSection section : detail.items()) {
+            TextView name = new TextView(this);
+            textSize = getResources().getDimension(R.dimen.reference_name_text_size) / getResources().getDisplayMetrics().density;
+            name.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            name.setText(section.name());
+            name.setTextColor(getResources().getColor(R.color.white));
+            name.setTypeface(Typefaces.get(getString(R.string.thin)));
 
-        TextView position = new TextView(this);
-        textSize = getResources().getDimension(R.dimen.reference_position_text_size) / getResources().getDisplayMetrics().density;
-        position.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        position.setText("Director of engineering");
-        position.setTextColor(getResources().getColor(R.color.white));
-        position.setTypeface(Typefaces.get(getString(R.string.thin)));
+            TextView position = new TextView(this);
+            textSize = getResources().getDimension(R.dimen.reference_position_text_size) / getResources().getDisplayMetrics().density;
+            position.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            position.setText(section.position());
+            position.setTextColor(getResources().getColor(R.color.white));
+            position.setTypeface(Typefaces.get(getString(R.string.thin)));
 
-        BezelImageView avatar = new BezelImageView(this);
-        int heroDiameter = (int)getResources().getDimension(R.dimen.reference_avatar_diameter);
-        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
-        avatar.setLayoutParams(frameLayoutParams);
-        avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        avatar.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
-        avatar.setClickable(false);
-        avatar.setFocusable(false);
-        Picasso.with(this)
-            .load(R.drawable.avatar)
-            .placeholder(R.color.background_color)
-            .into(avatar);
+            BezelImageView avatar = new BezelImageView(this);
+            int heroDiameter = (int) getResources().getDimension(R.dimen.reference_avatar_diameter);
+            FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
+            avatar.setLayoutParams(frameLayoutParams);
+            avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            avatar.setMaskDrawable(getResources().getDrawable(R.drawable.circle_mask));
+            avatar.setClickable(false);
+            avatar.setFocusable(false);
+            Picasso.with(this)
+                .load(section.avatar())
+                .placeholder(R.color.background_color)
+                .into(avatar);
 
-        linearLayoutParams = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        linearLayoutParams.setMargins(edgeMargin, 0, 0, 0);
-        LinearLayout l = new LinearLayout(this);
-        l.setLayoutParams(linearLayoutParams);
-        l.setOrientation(LinearLayout.VERTICAL);
-        l.addView(name);
-        l.addView(position);
+            linearLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            linearLayoutParams.setMargins(edgeMargin, 0, 0, 0);
+            LinearLayout l = new LinearLayout(this);
+            l.setLayoutParams(linearLayoutParams);
+            l.setOrientation(LinearLayout.VERTICAL);
+            l.addView(name);
+            l.addView(position);
 
-        LinearLayout r = new LinearLayout(this);
-        r.setOrientation(LinearLayout.HORIZONTAL);
-        r.addView(avatar);
-        r.addView(l);
+            LinearLayout r = new LinearLayout(this);
+            r.setOrientation(LinearLayout.HORIZONTAL);
+            r.addView(avatar);
+            r.addView(l);
 
-        linearLayout.addView(r);
+            linearLayout.addView(r);
+        }
     }
 
-    private void addTextSection(DetailParcel detail, LinearLayout linearLayout) {
+    private void addTextSection(
+        @ColorRes int primaryColor,
+        TextSection detail,
+        LinearLayout linearLayout
+    ) {
         int leftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
         int rightMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
 
@@ -295,20 +314,22 @@ public class DetailsActivity extends Activity {
         title.setLayoutParams(linearLayoutParams);
         float textSize = getResources().getDimension(R.dimen.body_text_section_title) / getResources().getDisplayMetrics().density;
         title.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        title.setText("Bio");
+        title.setText(detail.name());
         title.setAllCaps(true);
-        title.setTextColor(getResources().getColor(detail.primaryColor()));
+        title.setTextColor(getResources().getColor(primaryColor));
         title.setTypeface(Typefaces.get(getString(R.string.sans_serif)), Typeface.BOLD);
         linearLayout.addView(title);
 
-        TextView content = new TextView(this);
-        content.setLayoutParams(linearLayoutParams);
-        textSize = getResources().getDimension(R.dimen.body_text_section_content) / getResources().getDisplayMetrics().density;
-        content.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        content.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s");
-        content.setTextColor(getResources().getColor(R.color.white));
-        content.setTypeface(Typefaces.get(getString(R.string.thin)));
-        linearLayout.addView(content);
+        for (String item : detail.items()) {
+            TextView content = new TextView(this);
+            content.setLayoutParams(linearLayoutParams);
+            textSize = getResources().getDimension(R.dimen.body_text_section_content) / getResources().getDisplayMetrics().density;
+            content.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+            content.setText(item);
+            content.setTextColor(getResources().getColor(R.color.white));
+            content.setTypeface(Typefaces.get(getString(R.string.thin)));
+            linearLayout.addView(content);
+        }
     }
 
     private static void applyInsets(ViewGroup container, final int toolbarHeight) {

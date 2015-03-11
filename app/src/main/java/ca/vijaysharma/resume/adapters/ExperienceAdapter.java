@@ -9,14 +9,22 @@ import org.joda.time.Days;
 import org.joda.time.Months;
 import org.joda.time.Years;
 
+import java.util.ArrayList;
+
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Experience;
+import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
+import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
+import ca.vijaysharma.resume.parcelable.ReferenceSection;
+import ca.vijaysharma.resume.parcelable.Section;
+import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
+import ca.vijaysharma.resume.utils.Lists;
 import de.greenrobot.event.EventBus;
 
 public class ExperienceAdapter extends PagerAdapter {
@@ -52,6 +60,19 @@ public class ExperienceAdapter extends PagerAdapter {
                 .build();
         } else {
             final Experience experience = experiences[position - 1];
+            final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
+            final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
+
+            ArrayList<ReferenceItemSection> items = new ArrayList<>();
+            for (Reference reference : experience.getReferences()) {
+                items.add(ReferenceItemSection.create(
+                    reference.getName(),
+                    reference.getName(),
+                    reference.getAvatar())
+                );
+            }
+            final Section references = ReferenceSection.create("References", items);
+
             view = new ImageButtonBuilder<>(this.context, new Object())
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.purple))
@@ -76,6 +97,9 @@ public class ExperienceAdapter extends PagerAdapter {
                                 .action(R.drawable.ic_place_white_24dp)
                                 .intent(Intents.createEmailIntent(experience.getLocation()))
                                 .build())
+                            .sections(Lists.newArrayList(
+                                company, work, references
+                            ))
                             .build();
 
                         bus.post(new ShowDetailsEvent(parcel));

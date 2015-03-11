@@ -4,6 +4,8 @@ import android.os.Parcelable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
+import java.util.ArrayList;
+
 import auto.parcel.AutoParcel;
 
 @AutoParcel
@@ -24,6 +26,8 @@ public abstract class DetailParcel implements Parcelable {
     public abstract DetailAction action1();
     public abstract DetailAction action2();
 
+    public abstract ArrayList<Section> sections();
+
     @AutoParcel.Builder
     public interface Builder {
         Builder detail1(String detail);
@@ -35,6 +39,7 @@ public abstract class DetailParcel implements Parcelable {
         Builder tertiaryColor(@ColorRes int color);
         Builder action1(DetailAction a);
         Builder action2(DetailAction a);
+        Builder sections(ArrayList<Section> sections);
 
         DetailParcel build();
     }
