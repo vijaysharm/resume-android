@@ -84,7 +84,7 @@ public class ExperienceAdapter extends PagerAdapter {
                         DetailParcel parcel = DetailParcel.builder()
                             .detail1(experience.getName())
                             .detail2(experience.getPosition())
-                            .detail3(timeSpent(experience))
+                            .detail3(duration(experience))
                             .hero(experience.getLogo())
                             .primaryColor(experience.getPrimaryColor())
                             .secondaryColor(experience.getSecondaryColor())
@@ -113,7 +113,7 @@ public class ExperienceAdapter extends PagerAdapter {
         return view;
     }
 
-    private String timeSpent(Experience experience) {
+    private String duration(Experience experience) {
         final Years years = Years.yearsBetween(experience.getStart(), experience.getEnd());
         if (years.getYears() != 0) {
             return years.getYears() + " years";

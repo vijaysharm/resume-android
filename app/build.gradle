@@ -28,6 +28,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.0'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'net.danlew:android.joda:2.7.1'
+    compile 'org.lucasr.dspec:dspec:0.1.1'
     compile 'com.github.frankiesardo:auto-parcel:0.3'
     apt 'com.github.frankiesardo:auto-parcel-processor:0.3'
 }
