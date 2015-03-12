@@ -266,8 +266,11 @@ public class DetailsActivity extends Activity {
 
         int edgeMargin = (int) getResources().getDimension(R.dimen.margin_from_edge);
         int itemSpacer = (int) getResources().getDimension(R.dimen.space_between_body_items);
+        int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
 
-        for (ReferenceItemSection section : detail.items()) {
+        final ArrayList<ReferenceItemSection> items = detail.items();
+        for (int index = 0; index < items.size(); index++) {
+            ReferenceItemSection section = items.get(index);
             TextView name = new TextView(this);
             float textSize = getResources().getDimension(R.dimen.reference_name_text_size) / getResources().getDisplayMetrics().density;
             name.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
@@ -313,7 +316,7 @@ public class DetailsActivity extends Activity {
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             );
-            linearLayoutParams.setMargins(0, itemSpacer, 0, 0);
+            linearLayoutParams.setMargins(0, index == 0 ? firstItemSpacer : itemSpacer, 0, 0);
             LinearLayout r = new LinearLayout(this);
             r.setLayoutParams(linearLayoutParams);
             r.setOrientation(LinearLayout.HORIZONTAL);
@@ -334,14 +337,16 @@ public class DetailsActivity extends Activity {
         int leftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
         int rightMargin = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int itemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_items);
+        int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
+
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         );
-        linearLayoutParams.setMargins(leftMargin, itemSpacer, rightMargin, 0);
 
         final ArrayList<String> items = detail.items();
         for (int index = 0; index < items.size(); index++) {
+            linearLayoutParams.setMargins(leftMargin, index == 0 ? firstItemSpacer : itemSpacer, rightMargin, 0);
             String item = items.get(index);
             TextView content = new TextView(this);
             content.setLayoutParams(linearLayoutParams);
