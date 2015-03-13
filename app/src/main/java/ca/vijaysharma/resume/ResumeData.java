@@ -41,8 +41,8 @@ public class ResumeData {
             }, new String[]{
                "iOS", "XCode", "Cocoapods", "Android", "Intellij", "Gradle", "Circle CI", "Git", "NFC"
             }, new Reference[] {
-               new Reference("Chris Cameron", "CTO", R.drawable.avatar),
-               new Reference("Ryan Cassels", "CEO", R.drawable.avatar)
+               new Reference("Chris Cameron", "Chief Technology Officer", R.drawable.person_image_empty),
+               new Reference("Ryan Cassels", "Chief Executive Officer", R.drawable.person_image_empty)
             }
         ),
         new Experience(
@@ -66,8 +66,8 @@ public class ResumeData {
             }, new String[]{
                 "MarionetteJS", "Java", "Android", "iOS", "AWS Elastic Beanstalk", "Jersey", "DynamoDB", "Maven", "SVN"
             }, new Reference[] {
-                new Reference("Peter Hodgkinson", "Software Developer", R.drawable.avatar),
-                new Reference("Peter Boos", "Director of Engineering", R.drawable.avatar)
+                new Reference("Peter Hodgkinson", "Software Developer", R.drawable.person_image_empty),
+                new Reference("Peter Boos", "Director of Engineering", R.drawable.person_image_empty)
             }
         ),
         new Experience(
@@ -91,8 +91,9 @@ public class ResumeData {
             }, new String[]{
                 "AngularJS", "EmberJS", "GWT", "Android", "iOS", "Tomcat", "PostgreSQL"
             }, new Reference[] {
-                new Reference("Hormoz Pirzadeh", "Director of Engineering", R.drawable.avatar),
-                new Reference("Amos Chan", "Software Developer", R.drawable.avatar)
+                new Reference("Hormoz Pirzadeh", "Director of Engineering", R.drawable.person_image_empty),
+                new Reference("Kent Tse", "Director of Engineering", R.drawable.person_image_empty),
+                new Reference("Amos Chan", "Software Developer", R.drawable.person_image_empty)
             }
         )
     };

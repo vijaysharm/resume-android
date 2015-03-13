@@ -67,7 +67,7 @@ public class ExperienceAdapter extends PagerAdapter {
             for (Reference reference : experience.getReferences()) {
                 items.add(ReferenceItemSection.create(
                     reference.getName(),
-                    reference.getName(),
+                    reference.getPosition(),
                     reference.getAvatar())
                 );
             }
