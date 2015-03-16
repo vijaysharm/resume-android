@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume.utils;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
@@ -8,8 +9,8 @@ import java.util.ArrayList;
 public class ObservableScrollView extends ScrollView {
     private ArrayList<Callbacks> mCallbacks = new ArrayList<Callbacks>();
 
-    public ObservableScrollView(Context context) {
-        super(context);
+    public ObservableScrollView(Context context, AttributeSet attributes) {
+        super(context, attributes);
     }
 
     @Override

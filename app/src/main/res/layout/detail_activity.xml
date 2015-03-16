@@ -1,111 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".DetailActivity">
-    <FrameLayout
+    android:layout_height="wrap_content"
+    tools:context=".DetailActivity"
+    >
+    <ca.vijaysharma.resume.utils.ObservableScrollView
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/background_view_height"
-            android:background="@color/white"/>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
-        <ca.vijaysharma.resume.utils.BezelImageView
-            android:id="@+id/hero_image"
-            android:scaleType="centerCrop"
-            android:layout_width="@dimen/circle_item_diameter"
-            android:layout_height="@dimen/circle_item_diameter"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="?android:actionBarSize"
-            android:clickable="true"
-            android:focusable="true"
-            app:maskDrawable="@drawable/circle_mask"
-            android:src="@drawable/avatar" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?android:actionBarSize"
-            android:layout_marginEnd="12dp"
-            android:orientation="vertical"
-            android:layout_gravity="end">
-            <TextView
-                android:id="@+id/description_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                tools:text="Vijay Sharma"
-                android:textSize="24sp"
-                android:textColor="@android:color/black" />
-            <TextView
-                android:id="@+id/description_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                tools:text="Senior Mobile Developer"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-light"
-                android:textStyle="italic"
-                android:textColor="@android:color/black" />
-            <TextView
-                android:id="@+id/description_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@android:color/darker_gray"
-                tools:text="Ottawa"
-                android:textSize="14sp"
-                android:fontFamily="sans-serif-thin" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="136dp"
-            android:layout_marginEnd="12dp"
-            android:orientation="horizontal"
-            android:layout_gravity="end">
-
-            <ca.vijaysharma.resume.utils.BezelImageView
-                android:id="@+id/action_1"
-                android:scaleType="centerCrop"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:maskDrawable="@drawable/circle_mask"
-                app:borderDrawable="@android:color/transparent"
-                android:src="@drawable/ic_public_white_24dp" />
-
-            <ca.vijaysharma.resume.utils.BezelImageView
-                android:id="@+id/action_2"
-                android:scaleType="centerCrop"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="end"
-                android:clickable="true"
-                android:focusable="true"
-                app:maskDrawable="@drawable/circle_mask"
-                android:src="@drawable/ic_email_white_24dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/body"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="210dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            >
+            android:layout_height="wrap_content">
+            <View
+                android:id="@+id/background"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/background_view_height"
+                android:background="@color/white"/>
 
-        </LinearLayout>
-    </FrameLayout>
-</ScrollView>
+            <ca.vijaysharma.resume.utils.BezelImageView
+                android:id="@+id/hero_image"
+                android:scaleType="centerCrop"
+                android:layout_width="@dimen/circle_item_diameter"
+                android:layout_height="@dimen/circle_item_diameter"
+                android:layout_marginStart="@dimen/margin_from_edge"
+                android:layout_marginTop="?android:actionBarSize"
+                android:clickable="true"
+                android:focusable="true"
+                app:maskDrawable="@drawable/circle_mask"
+                android:src="@drawable/avatar" />
+
+            <LinearLayout
+                android:id="@+id/description_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?android:actionBarSize"
+                android:layout_marginEnd="@dimen/margin_from_edge"
+                android:orientation="vertical"
+                android:layout_gravity="end">
+                <TextView
+                    android:id="@+id/description_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    tools:text="@string/vijay_sharma"
+                    android:textSize="@dimen/title_1_text_size"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/description_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    tools:text="Senior Mobile Developer"
+                    android:textSize="@dimen/title_2_text_size"
+                    android:fontFamily="@string/light"
+                    android:textStyle="italic"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/description_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:textColor="@android:color/darker_gray"
+                    tools:text="Ottawa"
+                    android:textSize="@dimen/title_3_text_size"
+                    android:fontFamily="@string/thin" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/button_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="136dp"
+                android:layout_marginEnd="@dimen/margin_from_edge"
+                android:orientation="horizontal"
+                android:layout_gravity="end">
+
+                <ImageButton
+                    android:id="@+id/action_1"
+                    android:scaleType="centerCrop"
+                    android:layout_width="@dimen/action_item_diameter"
+                    android:layout_height="@dimen/action_item_diameter"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/space_between_action_items"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_public_white_24dp" />
+
+                <ImageButton
+                    android:id="@+id/action_2"
+                    android:scaleType="centerCrop"
+                    android:layout_width="@dimen/action_item_diameter"
+                    android:layout_height="@dimen/action_item_diameter"
+                    android:layout_gravity="end"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_email_white_24dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="210dp"
+                android:layout_marginEnd="@dimen/margin_from_edge"
+                android:layout_marginStart="@dimen/margin_from_edge"
+                >
+
+            </LinearLayout>
+        </FrameLayout>
+    </ca.vijaysharma.resume.utils.ObservableScrollView>
+</FrameLayout>
