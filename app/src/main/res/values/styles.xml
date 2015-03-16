@@ -1,32 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light">
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowBackground">@color/background_color</item>
-    </style>
-
-    <style name="ResumeTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/ResumeActionBarStyle</item>
-        <item name="android:windowActionBarOverlay">false</item>
-        <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-
-    <style name="DetailTheme" parent="AppTheme">
-        <item name="android:actionBarStyle">@style/DetailActionBarStyle</item>
         <item name="android:windowActionBarOverlay">false</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-
-    <style name="DetailActionBarStyle" parent="android:Theme.Material.Light">
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
-    <style name="ResumeActionBarStyle" parent="android:Theme.Material.Light">
-        <item name="android:background">#64000000</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 </resources>

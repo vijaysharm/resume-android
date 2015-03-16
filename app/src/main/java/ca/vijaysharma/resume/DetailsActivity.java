@@ -1,12 +1,15 @@
 package ca.vijaysharma.resume;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -16,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -33,6 +35,7 @@ import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
+import ca.vijaysharma.resume.utils.ObservableScrollView;
 import ca.vijaysharma.resume.utils.Typefaces;
 
 
@@ -49,6 +52,12 @@ public class DetailsActivity extends Activity {
         return intent;
     }
 
+    private BezelImageView hero;
+    private TextView title1;
+    private TextView title2;
+    private TextView title3;
+    private ActionBar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,19 +69,27 @@ public class DetailsActivity extends Activity {
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int statusBarHeight = Metrics.statusBarHeight(this);
 
-        ScrollView scrollView = new ScrollView(this);
+        ObservableScrollView scrollView = new ObservableScrollView(this);
         scrollView.setFillViewport(true);
         scrollView.setLayoutParams(new FrameLayout.LayoutParams(
-            FrameLayout.LayoutParams.MATCH_PARENT,
-            FrameLayout.LayoutParams.MATCH_PARENT
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
         ));
-
+        scrollView.addCallbacks(new ObservableScrollView.Callbacks() {
+            @Override
+            public void onScrollChanged(ObservableScrollView view, int deltaX, int deltaY) {
+                handleScroll(view, deltaX, deltaY);
+            }
+        });
         FrameLayout frameLayout = new FrameLayout(this);
         frameLayout.setLayoutParams(new FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.WRAP_CONTENT
         ));
         scrollView.addView(frameLayout);
+
+        toolbar = getActionBar();
+        toolbar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(detail.primaryColor())));
 
         View background = new View(this);
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
@@ -83,7 +100,8 @@ public class DetailsActivity extends Activity {
         background.setBackgroundColor(getResources().getColor(detail.primaryColor()));
         frameLayout.addView(background);
 
-        BezelImageView hero = new BezelImageView(this);
+
+        hero = new BezelImageView(this);
         int heroDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
         int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
@@ -113,7 +131,7 @@ public class DetailsActivity extends Activity {
         linearLayout.setLayoutParams(frameLayoutParams);
         frameLayout.addView(linearLayout);
 
-        TextView title1 = new TextView(this);
+        title1 = new TextView(this);
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         linearLayoutParams.gravity = Gravity.END;
         title1.setLayoutParams(linearLayoutParams);
@@ -124,7 +142,7 @@ public class DetailsActivity extends Activity {
         linearLayout.addView(title1);
 
         if (!TextUtils.isEmpty(detail.detail2())) {
-            TextView title2 = new TextView(this);
+            title2 = new TextView(this);
             title2.setLayoutParams(linearLayoutParams);
             textSize = getResources().getDimension(R.dimen.title_2_text_size) / getResources().getDisplayMetrics().density;
             title2.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
@@ -135,7 +153,7 @@ public class DetailsActivity extends Activity {
         }
 
         if (!TextUtils.isEmpty(detail.detail3())) {
-            TextView title3 = new TextView(this);
+            title3 = new TextView(this);
             title3.setLayoutParams(linearLayoutParams);
             textSize = getResources().getDimension(R.dimen.title_3_text_size) / getResources().getDisplayMetrics().density;
             title3.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
@@ -368,5 +386,17 @@ public class DetailsActivity extends Activity {
                 return insets.consumeSystemWindowInsets();
             }
         });
+    }
+
+    private void handleScroll(ObservableScrollView view, int deltaX, int deltaY) {
+        Log.d("DetailsActivity", "Scroll: " + view.getScrollY());
+
+        int maxHeight = Metrics.toolbarHeight(this);
+        float percentScrolled = 1 - ((float)view.getScrollY() / maxHeight);
+        percentScrolled = Math.max(0, percentScrolled);
+        Log.d("DetailsActivity", "Scale: " + percentScrolled);
+
+        hero.setScaleX(percentScrolled);
+        hero.setScaleY(percentScrolled);
     }
 }

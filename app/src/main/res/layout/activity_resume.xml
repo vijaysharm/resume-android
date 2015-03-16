@@ -1,43 +1,68 @@
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ResumeActivity"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fillViewport="true">
-    <LinearLayout
-        android:id="@+id/container"
+    tools:context=".ResumeActivity"    
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <Toolbar
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="#64000000"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:elevation="4dp"
+        android:title="@null"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/vijay_sharma"
+            android:textColor="@color/white"
+            android:fontFamily="@string/thin"
+            android:textSize="@dimen/action_bar_title_text_size" />
+    </Toolbar>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/me"
+        android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/section_height">
-
-        </android.support.v4.view.ViewPager>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/experience"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/section_height">
-
-        </android.support.v4.view.ViewPager>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/skills"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/section_height">
-
-        </android.support.v4.view.ViewPager>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/social"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/section_height">
-
-        </android.support.v4.view.ViewPager>
-
-    </LinearLayout>
-</ScrollView>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+    
+            <android.support.v4.view.ViewPager
+                android:id="@+id/me"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/section_height">
+    
+            </android.support.v4.view.ViewPager>
+    
+            <android.support.v4.view.ViewPager
+                android:id="@+id/experience"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/section_height">
+    
+            </android.support.v4.view.ViewPager>
+    
+            <android.support.v4.view.ViewPager
+                android:id="@+id/skills"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/section_height">
+    
+            </android.support.v4.view.ViewPager>
+    
+            <android.support.v4.view.ViewPager
+                android:id="@+id/social"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/section_height">
+    
+            </android.support.v4.view.ViewPager>
+    
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>

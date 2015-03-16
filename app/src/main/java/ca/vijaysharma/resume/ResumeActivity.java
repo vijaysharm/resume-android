@@ -1,6 +1,5 @@
 package ca.vijaysharma.resume;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.widget.Toolbar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -29,6 +29,7 @@ public class ResumeActivity extends Activity {
     @InjectView(R.id.experience) ViewPager experience;
     @InjectView(R.id.skills) ViewPager skills;
     @InjectView(R.id.social) ViewPager social;
+    @InjectView(R.id.toolbar) Toolbar toolbar;
 
     private EventBus bus;
 
@@ -39,8 +40,8 @@ public class ResumeActivity extends Activity {
         ButterKnife.inject(this);
         bus = EventBus.getDefault();
 
-        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getActionBar().setCustomView(R.layout.action_bar);
+        setActionBar(toolbar);
+        getActionBar().setTitle(null);
         applyInsets(container, toolbarHeight(this));
 
         preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile));
