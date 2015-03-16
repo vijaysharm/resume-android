@@ -5,16 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
+import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -59,6 +60,7 @@ public class DetailsActivity extends Activity {
     @InjectView(R.id.description_3) TextView title3;
     @InjectView(R.id.action_1) ImageButton action1;
     @InjectView(R.id.action_2) ImageButton action2;
+    @InjectView(R.id.toolbar) Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,9 @@ public class DetailsActivity extends Activity {
         int statusBarHeight = Metrics.statusBarHeight(this);
 
         applyInsets(scrollView, statusBarHeight);
+
+        setActionBar(toolbar);
+        getActionBar().setTitle(detail.detail1());
 
         scrollView.addCallbacks(new ObservableScrollView.Callbacks() {
             @Override
@@ -92,12 +97,25 @@ public class DetailsActivity extends Activity {
         hero.setBorderDrawable(Drawables.borderDrawable(this, detail.primaryColor()));
         hero.setClickable(false);
         hero.setFocusable(false);
+        hero.setScaleX(0);
+        hero.setScaleY(0);
         Picasso.with(this)
             .load(detail.hero())
             .placeholder(R.color.background_color)
             .centerCrop()
             .resize(heroImageDiameter, heroImageDiameter)
-            .into(hero);
+            .into(hero, new Callback.EmptyCallback() {
+                @Override
+                public void onSuccess() {
+                    hero.animate()
+                        .setStartDelay(100)
+                        .setDuration(700)
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setInterpolator(new OvershootInterpolator(3.0f))
+                        .start();
+                }
+            });
 
         frameLayoutParams = new FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -125,6 +143,8 @@ public class DetailsActivity extends Activity {
         frameLayoutParams.gravity = Gravity.END;
         buttonContainer.setLayoutParams(frameLayoutParams);
 
+        action1.setScaleX(0);
+        action1.setScaleY(0);
         action1.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action1().action())
@@ -132,6 +152,13 @@ public class DetailsActivity extends Activity {
             .into(action1, new Callback.EmptyCallback() {
                 @Override
                 public void onSuccess() {
+                    action1.animate()
+                            .setStartDelay(200)
+                            .setDuration(700)
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setInterpolator(new OvershootInterpolator(3.0f))
+                            .start();
                     action1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -141,6 +168,8 @@ public class DetailsActivity extends Activity {
                 }
             });
 
+        action2.setScaleX(0);
+        action2.setScaleY(0);
         action2.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         Picasso.with(this)
             .load(detail.action2().action())
@@ -148,6 +177,13 @@ public class DetailsActivity extends Activity {
                 .into(action2, new Callback.EmptyCallback() {
                     @Override
                     public void onSuccess() {
+                        action2.animate()
+                            .setStartDelay(300)
+                            .setDuration(700)
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setInterpolator(new OvershootInterpolator(3.0f))
+                            .start();
                         action2.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -277,14 +313,14 @@ public class DetailsActivity extends Activity {
     }
 
     private void handleScroll(ObservableScrollView view, int deltaX, int deltaY) {
-        Log.d("DetailsActivity", "Scroll: " + view.getScrollY());
-
-        int maxHeight = Metrics.toolbarHeight(this);
-        float percentScrolled = 1 - ((float)view.getScrollY() / maxHeight);
-        percentScrolled = Math.max(0, percentScrolled);
-        Log.d("DetailsActivity", "Scale: " + percentScrolled);
-
-        hero.setScaleX(percentScrolled);
-        hero.setScaleY(percentScrolled);
+//        Log.d("DetailsActivity", "Scroll: " + view.getScrollY());
+//
+//        int maxHeight = Metrics.toolbarHeight(this);
+//        float percentScrolled = 1 - ((float)view.getScrollY() / maxHeight);
+//        percentScrolled = Math.max(0, percentScrolled);
+//        Log.d("DetailsActivity", "Scale: " + percentScrolled);
+//
+//        hero.setScaleX(percentScrolled);
+//        hero.setScaleY(percentScrolled);
     }
 }

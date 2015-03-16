@@ -7,6 +7,27 @@
     android:layout_height="wrap_content"
     tools:context=".DetailActivity"
     >
+
+    <Toolbar
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:elevation="4dp"
+        android:title="@null"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@string/thin"
+            android:textSize="@dimen/action_bar_title_text_size"
+            tools:text="@string/vijay_sharma"/>
+    </Toolbar>
+
     <ca.vijaysharma.resume.utils.ObservableScrollView
         android:id="@+id/container"
         android:layout_width="match_parent"
