@@ -3,8 +3,10 @@ package ca.vijaysharma.resume;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +55,6 @@ public class DetailsActivity extends Activity {
     @InjectView(R.id.background) View background;
     @InjectView(R.id.hero_image) BezelImageView hero;
     @InjectView(R.id.description_container) LinearLayout descriptionContainer;
-    @InjectView(R.id.button_container) LinearLayout buttonContainer;
     @InjectView(R.id.body) LinearLayout body;
     @InjectView(R.id.description_1) TextView title1;
     @InjectView(R.id.description_2) TextView title2;
@@ -74,7 +75,7 @@ public class DetailsActivity extends Activity {
         int toolbarHeight = Metrics.toolbarHeight(this);
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int statusBarHeight = Metrics.statusBarHeight(this);
-
+        final Point windowSize = Metrics.size(this);
         applyInsets(scrollView, statusBarHeight);
 
         setActionBar(toolbar);
@@ -108,12 +109,12 @@ public class DetailsActivity extends Activity {
                 @Override
                 public void onSuccess() {
                     hero.animate()
-                        .setStartDelay(100)
-                        .setDuration(700)
-                        .scaleX(1.0f)
-                        .scaleY(1.0f)
-                        .setInterpolator(new OvershootInterpolator(3.0f))
-                        .start();
+                            .setStartDelay(100)
+                            .setDuration(700)
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setInterpolator(new OvershootInterpolator(3.0f))
+                            .start();
                 }
             });
 
@@ -127,25 +128,48 @@ public class DetailsActivity extends Activity {
 
         title1.setText(detail.detail1());
         title1.setTextColor(getResources().getColor(detail.secondaryColor()));
+        title1.setTranslationX(windowSize.x);
+        title1.animate()
+            .setStartDelay(200)
+            .setDuration(500)
+            .translationX(0)
+            .start();
 
-        title2.setText(detail.detail2());
+        title2.setText(TextUtils.isEmpty(detail.detail2()) ? "" : detail.detail2());
+        title3.setVisibility(TextUtils.isEmpty(detail.detail2()) ? View.INVISIBLE : View.VISIBLE);
         title2.setTextColor(getResources().getColor(detail.secondaryColor()));
+        title2.setTranslationX(windowSize.x);
+        title2.animate()
+            .setStartDelay(300)
+            .setDuration(500)
+            .translationX(0)
+            .start();
 
-        title3.setText(detail.detail3());
+        title3.setText(TextUtils.isEmpty(detail.detail3()) ? "" : detail.detail3());
+        title3.setVisibility(TextUtils.isEmpty(detail.detail3()) ? View.INVISIBLE : View.VISIBLE);
         title3.setTextColor(getResources().getColor(detail.tertiaryColor()));
+        title3.setTranslationX(windowSize.x);
+        title3.animate()
+            .setStartDelay(250)
+            .setDuration(500)
+            .translationX(0)
+            .start();
 
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
         int actionItemDiameter = (int)getResources().getDimension(R.dimen.action_item_diameter);
         int actionItemRadius = actionItemDiameter / 2;
         int actionButtonTopMargin = backgroundHeight - actionItemRadius;
-        frameLayoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        frameLayoutParams.setMargins(0, actionButtonTopMargin, marginFromEdge, 0);
+
+        int spaceBetweenActionItems = (int)getResources().getDimension(R.dimen.space_between_action_items);
+        int action2Position = marginFromEdge + actionItemDiameter + spaceBetweenActionItems;
+        frameLayoutParams = new FrameLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
+        frameLayoutParams.setMargins(0, actionButtonTopMargin, action2Position, 0);
         frameLayoutParams.gravity = Gravity.END;
-        buttonContainer.setLayoutParams(frameLayoutParams);
 
         action1.setScaleX(0);
         action1.setScaleY(0);
         action1.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
+        action1.setLayoutParams(frameLayoutParams);
         Picasso.with(this)
             .load(detail.action1().action())
             .placeholder(R.color.background_color)
@@ -168,9 +192,14 @@ public class DetailsActivity extends Activity {
                 }
             });
 
+        frameLayoutParams = new FrameLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
+        frameLayoutParams.setMargins(0, actionButtonTopMargin, marginFromEdge, 0);
+        frameLayoutParams.gravity = Gravity.END;
+
         action2.setScaleX(0);
         action2.setScaleY(0);
         action2.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
+        action2.setLayoutParams(frameLayoutParams);
         Picasso.with(this)
             .load(detail.action2().action())
             .placeholder(R.color.background_color)
@@ -178,11 +207,11 @@ public class DetailsActivity extends Activity {
                     @Override
                     public void onSuccess() {
                         action2.animate()
-                            .setStartDelay(300)
-                            .setDuration(700)
-                            .scaleX(1.0f)
-                            .scaleY(1.0f)
-                            .setInterpolator(new OvershootInterpolator(3.0f))
+                                .setStartDelay(300)
+                                .setDuration(700)
+                                .scaleX(1.0f)
+                                .scaleY(1.0f)
+                                .setInterpolator(new OvershootInterpolator(3.0f))
                             .start();
                         action2.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -252,11 +281,24 @@ public class DetailsActivity extends Activity {
             TextView position = (TextView) view.findViewById(R.id.position);
             position.setText(section.position());
 
-            BezelImageView avatar = (BezelImageView) view.findViewById(R.id.avatar);
+            final BezelImageView avatar = (BezelImageView) view.findViewById(R.id.avatar);
+            avatar.setScaleX(0);
+            avatar.setScaleY(0);
             Picasso.with(this)
                 .load(section.avatar())
                 .placeholder(R.color.background_color)
-                .into(avatar);
+                .into(avatar, new Callback.EmptyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        avatar.animate()
+                            .setStartDelay(100)
+                            .setDuration(700)
+                            .scaleX(1.0f)
+                            .scaleY(1.0f)
+                            .setInterpolator(new OvershootInterpolator(1.5f))
+                            .start();
+                    }
+                });
 
             LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,

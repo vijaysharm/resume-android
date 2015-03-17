@@ -91,36 +91,29 @@
                     android:textSize="@dimen/title_3_text_size"
                     android:fontFamily="@string/thin" />
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/button_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
+            <ImageButton
+                android:id="@+id/action_1"
+                android:scaleType="centerCrop"
+                android:layout_width="@dimen/action_item_diameter"
+                android:layout_height="@dimen/action_item_diameter"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/space_between_action_items"
                 android:layout_marginTop="136dp"
-                android:layout_marginEnd="@dimen/margin_from_edge"
-                android:orientation="horizontal"
-                android:layout_gravity="end">
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_public_white_24dp" />
 
-                <ImageButton
-                    android:id="@+id/action_1"
-                    android:scaleType="centerCrop"
-                    android:layout_width="@dimen/action_item_diameter"
-                    android:layout_height="@dimen/action_item_diameter"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="@dimen/space_between_action_items"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_public_white_24dp" />
-
-                <ImageButton
-                    android:id="@+id/action_2"
-                    android:scaleType="centerCrop"
-                    android:layout_width="@dimen/action_item_diameter"
-                    android:layout_height="@dimen/action_item_diameter"
-                    android:layout_gravity="end"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_email_white_24dp" />
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/action_2"
+                android:scaleType="centerCrop"
+                android:layout_width="@dimen/action_item_diameter"
+                android:layout_height="@dimen/action_item_diameter"
+                android:layout_marginTop="136dp"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_email_white_24dp" />
 
             <LinearLayout
                 android:id="@+id/body"
