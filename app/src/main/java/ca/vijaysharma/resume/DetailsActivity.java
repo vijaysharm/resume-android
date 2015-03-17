@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,6 @@ import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
-import com.facebook.rebound.SpringUtil;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -42,8 +43,9 @@ import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.ObservableScrollView;
 
+import static com.facebook.rebound.SpringUtil.mapValueFromRangeToRange;
+
 /*
- TODO: Details need to animate in/out on scroll
  TODO: Toolbar title should animate in/out on visbility
  TODO: Background for the status bar is currently a different view. It should be the background
  TODO: Action button hit areas should shrink with scroll
@@ -63,13 +65,22 @@ public class DetailsActivity extends Activity {
         return intent;
     }
 
+    private final Handler handler = new Handler();
     private final SpringSystem springSystem = SpringSystem.create();
     private Spring heroSpring;
     private Spring action1Spring;
     private Spring action2Spring;
+    private Spring detail1Spring;
+    private Spring detail2Spring;
+    private Spring detail3Spring;
     private SimpleSpringListener heroSpringListener;
     private SimpleSpringListener action1SpringListener;
     private SimpleSpringListener action2SpringListener;
+    private SimpleSpringListener detail1SpringListener;
+    private SimpleSpringListener detail2SpringListener;
+    private SimpleSpringListener detail3SpringListener;
+
+    private DetailParcel detail;
 
     @InjectView(R.id.scrollView) ObservableScrollView scrollView;
     @InjectView(R.id.container) ViewGroup container;
@@ -84,22 +95,31 @@ public class DetailsActivity extends Activity {
     @InjectView(R.id.action_1) ImageButton action1;
     @InjectView(R.id.action_2) ImageButton action2;
     @InjectView(R.id.toolbar) Toolbar toolbar;
+    @InjectView(R.id.title) TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         ButterKnife.inject(this);
+        final Point windowSize = Metrics.size(this);
+
         heroSpring = springSystem.createSpring();
         action1Spring = springSystem.createSpring();
         action2Spring = springSystem.createSpring();
+        detail1Spring = springSystem.createSpring();
+        detail2Spring = springSystem.createSpring();
+        detail3Spring = springSystem.createSpring();
         heroSpring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
         action1Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
         action2Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
+        detail1Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 16));
+        detail2Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 16));
+        detail3Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 16));
         heroSpringListener = new SimpleSpringListener() {
             @Override
             public void onSpringUpdate(Spring spring) {
-                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
                 hero.setScaleX(mappedValue);
                 hero.setScaleY(mappedValue);
             }
@@ -108,7 +128,7 @@ public class DetailsActivity extends Activity {
             @Override
             public void onSpringUpdate(Spring spring) {
                 // TODO: the hit area still exists
-                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
                 action1.setScaleX(mappedValue);
                 action1.setScaleY(mappedValue);
             }
@@ -117,24 +137,44 @@ public class DetailsActivity extends Activity {
             @Override
             public void onSpringUpdate(Spring spring) {
                 // TODO: the hit area still exists
-                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
                 action2.setScaleX(mappedValue);
                 action2.setScaleY(mappedValue);
             }
         };
+        detail1SpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, windowSize.x, 0);
+                Log.i("DetailsActivity", "Current value: " + spring.getCurrentValue() + ", Mapped: " + mappedValue);
+                title1.setTranslationX(mappedValue);
+            }
+        };
+        detail2SpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, windowSize.x, 0);
+                title2.setTranslationX(mappedValue);
+            }
+        };
+        detail3SpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, windowSize.x, 0);
+                title3.setTranslationX(mappedValue);
+            }
+        };
 
         ArrayList<DetailParcel> details = getIntent().getParcelableArrayListExtra(PARCELABLE_DATA_KEY);
-        final DetailParcel detail = details.get(0);
+        detail = details.get(0);
 
         int toolbarHeight = Metrics.toolbarHeight(this);
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int statusBarHeight = Metrics.statusBarHeight(this);
-        final Point windowSize = Metrics.size(this);
         applyInsets(container, statusBarHeight);
 
         toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
         toolbar.setNavigationIcon(detail.back());
-        TextView title = (TextView)toolbar.findViewById(R.id.title);
         title.setText(detail.detail1());
         title.setTextColor(getResources().getColor(detail.secondaryColor()));
 
@@ -154,32 +194,12 @@ public class DetailsActivity extends Activity {
         statusBarBackground.setBackgroundColor(getResources().getColor(detail.primaryColor()));
 
         int heroDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
-        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
         frameLayoutParams.setMargins(marginFromEdge, toolbarHeight, 0, 0);
         hero.setLayoutParams(frameLayoutParams);
         hero.setBorderDrawable(Drawables.borderDrawable(this, detail.primaryColor()));
         hero.setClickable(false);
         hero.setFocusable(false);
-        hero.setScaleX(0);
-        hero.setScaleY(0);
-        Picasso.with(this)
-            .load(detail.hero())
-            .placeholder(R.color.background_color)
-            .centerCrop()
-            .resize(heroImageDiameter, heroImageDiameter)
-            .into(hero, new Callback.EmptyCallback() {
-                @Override
-                public void onSuccess() {
-                    hero.animate()
-                            .setStartDelay(100)
-                            .setDuration(700)
-                            .scaleX(1.0f)
-                            .scaleY(1.0f)
-                            .setInterpolator(new OvershootInterpolator(3.0f))
-                            .start();
-                }
-            });
 
         frameLayoutParams = new FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -191,32 +211,14 @@ public class DetailsActivity extends Activity {
 
         title1.setText(detail.detail1());
         title1.setTextColor(getResources().getColor(detail.secondaryColor()));
-        title1.setTranslationX(windowSize.x);
-        title1.animate()
-            .setStartDelay(200)
-            .setDuration(500)
-            .translationX(0)
-            .start();
 
         title2.setText(TextUtils.isEmpty(detail.detail2()) ? "" : detail.detail2());
         title3.setVisibility(TextUtils.isEmpty(detail.detail2()) ? View.INVISIBLE : View.VISIBLE);
         title2.setTextColor(getResources().getColor(detail.secondaryColor()));
-        title2.setTranslationX(windowSize.x);
-        title2.animate()
-            .setStartDelay(300)
-            .setDuration(500)
-            .translationX(0)
-            .start();
 
         title3.setText(TextUtils.isEmpty(detail.detail3()) ? "" : detail.detail3());
         title3.setVisibility(TextUtils.isEmpty(detail.detail3()) ? View.INVISIBLE : View.VISIBLE);
         title3.setTextColor(getResources().getColor(detail.tertiaryColor()));
-        title3.setTranslationX(windowSize.x);
-        title3.animate()
-            .setStartDelay(250)
-            .setDuration(500)
-            .translationX(0)
-            .start();
 
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
         int actionItemDiameter = (int)getResources().getDimension(R.dimen.action_item_diameter);
@@ -229,61 +231,15 @@ public class DetailsActivity extends Activity {
         frameLayoutParams.setMargins(0, actionButtonTopMargin, action2Position, 0);
         frameLayoutParams.gravity = Gravity.END;
 
-        action1.setScaleX(0);
-        action1.setScaleY(0);
         action1.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         action1.setLayoutParams(frameLayoutParams);
-        Picasso.with(this)
-            .load(detail.action1().action())
-            .placeholder(R.color.background_color)
-            .into(action1, new Callback.EmptyCallback() {
-                @Override
-                public void onSuccess() {
-                    action1.animate()
-                            .setStartDelay(200)
-                            .setDuration(700)
-                            .scaleX(1.0f)
-                            .scaleY(1.0f)
-                            .setInterpolator(new OvershootInterpolator(3.0f))
-                            .start();
-                    action1.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(detail.action1().intent());
-                        }
-                    });
-                }
-            });
 
         frameLayoutParams = new FrameLayout.LayoutParams(actionItemDiameter, actionItemDiameter);
         frameLayoutParams.setMargins(0, actionButtonTopMargin, marginFromEdge, 0);
         frameLayoutParams.gravity = Gravity.END;
 
-        action2.setScaleX(0);
-        action2.setScaleY(0);
         action2.setBackground(Drawables.rippleDrawable(this, detail.primaryColor()));
         action2.setLayoutParams(frameLayoutParams);
-        Picasso.with(this)
-            .load(detail.action2().action())
-            .placeholder(R.color.background_color)
-                .into(action2, new Callback.EmptyCallback() {
-                    @Override
-                    public void onSuccess() {
-                        action2.animate()
-                                .setStartDelay(300)
-                                .setDuration(700)
-                                .scaleX(1.0f)
-                                .scaleY(1.0f)
-                                .setInterpolator(new OvershootInterpolator(3.0f))
-                            .start();
-                        action2.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                startActivity(detail.action2().intent());
-                            }
-                        });
-                    }
-                });
 
         int bodyMarginTop = toolbarHeight + heroDiameter; // + statusBarHeight
         frameLayoutParams = new FrameLayout.LayoutParams(
@@ -316,9 +272,111 @@ public class DetailsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
         heroSpring.addListener(heroSpringListener);
         action1Spring.addListener(action1SpringListener);
         action2Spring.addListener(action2SpringListener);
+        detail1Spring.addListener(detail1SpringListener);
+        detail2Spring.addListener(detail2SpringListener);
+        detail3Spring.addListener(detail3SpringListener);
+
+        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
+        final Point windowSize = Metrics.size(this);
+
+        hero.setScaleX(0);
+        hero.setScaleY(0);
+        heroSpring.setCurrentValue(1);
+        Picasso.with(this)
+            .load(detail.hero())
+                .placeholder(R.color.background_color)
+                .centerCrop()
+                .resize(heroImageDiameter, heroImageDiameter)
+                .into(hero, new Callback.EmptyCallback() {
+                    @Override
+                    public void onSuccess() {
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                heroSpring.setEndValue(0);
+                            }
+                        }, 500);
+                    }
+                });
+
+        detail1Spring.setCurrentValue(0);
+        title1.setTranslationX(windowSize.x);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail1Spring.setEndValue(1);
+            }
+        }, 600);
+
+        detail2Spring.setCurrentValue(0);
+        title2.setTranslationX(windowSize.x);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail2Spring.setEndValue(1);
+            }
+        }, 700);
+
+        detail3Spring.setCurrentValue(0);
+        title3.setTranslationX(windowSize.x);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail3Spring.setEndValue(1);
+            }
+        }, 400);
+
+        action1Spring.setCurrentValue(1);
+        action1.setScaleX(0);
+        action1.setScaleY(0);
+        Picasso.with(this)
+            .load(detail.action1().action())
+            .placeholder(R.color.background_color)
+            .into(action1, new Callback.EmptyCallback() {
+                @Override
+                public void onSuccess() {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            action1Spring.setEndValue(0);
+                        }
+                    }, 200);
+                    action1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(detail.action1().intent());
+                        }
+                    });
+                }
+            });
+
+        action2Spring.setCurrentValue(1);
+        action2.setScaleX(0);
+        action2.setScaleY(0);
+        Picasso.with(this)
+            .load(detail.action2().action())
+            .placeholder(R.color.background_color)
+            .into(action2, new Callback.EmptyCallback() {
+                @Override
+                public void onSuccess() {
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            action2Spring.setEndValue(0);
+                        }
+                    }, 300);
+                    action2.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(detail.action2().intent());
+                        }
+                    });
+                }
+            });
     }
 
     @Override
@@ -327,9 +385,16 @@ public class DetailsActivity extends Activity {
         heroSpring.removeListener(heroSpringListener);
         action1Spring.removeListener(action1SpringListener);
         action2Spring.removeListener(action2SpringListener);
+        detail1Spring.removeListener(detail1SpringListener);
+        detail2Spring.removeListener(detail2SpringListener);
+        detail3Spring.removeListener(detail3SpringListener);
     }
 
-    private void sectionTitle(int primaryColor, String titleString, LinearLayout linearLayout) {
+    private void sectionTitle(
+        int primaryColor,
+        String titleString,
+        LinearLayout linearLayout
+    ) {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final TextView title = (TextView) inflater.inflate(R.layout.text_detail_section_header, linearLayout, false);
         title.setText(titleString);
@@ -367,7 +432,7 @@ public class DetailsActivity extends Activity {
 
             TextView position = (TextView) view.findViewById(R.id.position);
             position.setText(section.position());
-            position.setTranslationY(-10.0f);
+            position.setTranslationY(-15.0f);
             position.setAlpha(0);
             position.animate()
                 .setStartDelay(400)
@@ -433,7 +498,7 @@ public class DetailsActivity extends Activity {
             TextView content = (TextView) inflater.inflate(R.layout.text_detail_section_body, linearLayout, false);
             content.setLayoutParams(linearLayoutParams);
             content.setText(item);
-            content.setTranslationY(-10.0f);
+            content.setTranslationY(-15.0f);
             content.setAlpha(0);
             content.animate()
                 .setStartDelay(400)
@@ -463,14 +528,34 @@ public class DetailsActivity extends Activity {
 
         heroSpring.setEndValue(view.getScrollY() > maxHeight ? 1 : 0);
         action1Spring.setEndValue(view.getScrollY() > maxHeight - 15 ? 1 : 0);
-        action2Spring.setEndValue(view.getScrollY() > maxHeight - 20 ? 1 : 0);
+        action2Spring.setEndValue(view.getScrollY() > maxHeight - 30 ? 1 : 0);
 
         int difference = backgroundHeight - maxHeight;
-        toolbar.findViewById(R.id.title).setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
+        title.setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
         toolbar.setBackgroundColor(
             view.getScrollY() > difference ?
             getResources().getColor(detail.primaryColor()) :
             getResources().getColor(android.R.color.transparent)
         );
+
+        final int endValue = view.getScrollY() > maxHeight ? 0 : 1;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail1Spring.setEndValue(endValue);
+            }
+        }, 200);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail2Spring.setEndValue(endValue);
+            }
+        }, 300);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                detail3Spring.setEndValue(endValue);
+            }
+        }, 400);
     }
 }

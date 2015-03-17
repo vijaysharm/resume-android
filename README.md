@@ -1,5 +1,6 @@
 Resume
 ======
+An app that showcases animation on android and my resume
 
 TODO
 ====
@@ -10,6 +11,4 @@ TODO
 1. Finish Social section
 1. Finish Skill section
 1. Add programming projects
-1. Scroll to minimize toolbar on detail page
-1. Add 'x' or '<-' button on detail toolbar
 
