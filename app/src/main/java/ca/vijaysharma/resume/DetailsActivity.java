@@ -277,9 +277,25 @@ public class DetailsActivity extends Activity {
 
             TextView name = (TextView) view.findViewById(R.id.name);
             name.setText(section.name());
+            name.setTranslationY(-10.0f);
+            name.setAlpha(0);
+            name.animate()
+                .setStartDelay(400)
+                .setDuration(500)
+                .translationY(0)
+                .alpha(1)
+                .start();
 
             TextView position = (TextView) view.findViewById(R.id.position);
             position.setText(section.position());
+            position.setTranslationY(-10.0f);
+            position.setAlpha(0);
+            position.animate()
+                .setStartDelay(400)
+                .setDuration(500)
+                .translationY(0)
+                .alpha(1)
+                .start();
 
             final BezelImageView avatar = (BezelImageView) view.findViewById(R.id.avatar);
             avatar.setScaleX(0);
@@ -338,7 +354,15 @@ public class DetailsActivity extends Activity {
             TextView content = (TextView) inflater.inflate(R.layout.text_detail_section_body, linearLayout, false);
             content.setLayoutParams(linearLayoutParams);
             content.setText(item);
-            content.setTextColor(getResources().getColor(R.color.white));
+            content.setTranslationY(-10.0f);
+            content.setAlpha(0);
+            content.animate()
+                .setStartDelay(400)
+                .setDuration(500)
+                .translationY(0)
+                .alpha(1)
+                .start();
+
             linearLayout.addView(content);
         }
     }
