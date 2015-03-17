@@ -19,6 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
+import com.facebook.rebound.SpringSystem;
+import com.facebook.rebound.SpringUtil;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +42,6 @@ import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.ObservableScrollView;
 
-
 public class DetailsActivity extends Activity {
     private static final String PARCELABLE_DATA_KEY = "details";
 
@@ -50,6 +54,14 @@ public class DetailsActivity extends Activity {
 
         return intent;
     }
+
+    private final SpringSystem springSystem = SpringSystem.create();
+    private Spring heroSpring;
+    private Spring action1Spring;
+    private Spring action2Spring;
+    private SimpleSpringListener heroSpringListener;
+    private SimpleSpringListener action1SpringListener;
+    private SimpleSpringListener action2SpringListener;
 
     @InjectView(R.id.container) ObservableScrollView scrollView;
     @InjectView(R.id.background) View background;
@@ -68,6 +80,38 @@ public class DetailsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
         ButterKnife.inject(this);
+        heroSpring = springSystem.createSpring();
+        action1Spring = springSystem.createSpring();
+        action2Spring = springSystem.createSpring();
+        heroSpring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
+        action1Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
+        action2Spring.setSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(40, 3));
+        heroSpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                hero.setScaleX(mappedValue);
+                hero.setScaleY(mappedValue);
+            }
+        };
+        action1SpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                // TODO: the hit area still exists
+                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                action1.setScaleX(mappedValue);
+                action1.setScaleY(mappedValue);
+            }
+        };
+        action2SpringListener = new SimpleSpringListener() {
+            @Override
+            public void onSpringUpdate(Spring spring) {
+                // TODO: the hit area still exists
+                float mappedValue = (float) SpringUtil.mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, 1, 0);
+                action2.setScaleX(mappedValue);
+                action2.setScaleY(mappedValue);
+            }
+        };
 
         ArrayList<DetailParcel> details = getIntent().getParcelableArrayListExtra(PARCELABLE_DATA_KEY);
         final DetailParcel detail = details.get(0);
@@ -78,6 +122,7 @@ public class DetailsActivity extends Activity {
         final Point windowSize = Metrics.size(this);
         applyInsets(scrollView, statusBarHeight);
 
+        toolbar.setBackgroundColor(getResources().getColor(detail.primaryColor()));
         setActionBar(toolbar);
         getActionBar().setTitle(detail.detail1());
 
@@ -250,6 +295,22 @@ public class DetailsActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        heroSpring.addListener(heroSpringListener);
+        action1Spring.addListener(action1SpringListener);
+        action2Spring.addListener(action2SpringListener);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        heroSpring.removeListener(heroSpringListener);
+        action1Spring.removeListener(action1SpringListener);
+        action2Spring.removeListener(action2SpringListener);
+    }
+
     private void sectionTitle(int primaryColor, String titleString, LinearLayout linearLayout) {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final TextView title = (TextView) inflater.inflate(R.layout.text_detail_section_header, linearLayout, false);
@@ -280,9 +341,9 @@ public class DetailsActivity extends Activity {
             name.setTranslationY(-10.0f);
             name.setAlpha(0);
             name.animate()
-                .setStartDelay(400)
+                    .setStartDelay(400)
                 .setDuration(500)
-                .translationY(0)
+                    .translationY(0)
                 .alpha(1)
                 .start();
 
@@ -379,14 +440,13 @@ public class DetailsActivity extends Activity {
     }
 
     private void handleScroll(ObservableScrollView view, int deltaX, int deltaY) {
-//        Log.d("DetailsActivity", "Scroll: " + view.getScrollY());
-//
-//        int maxHeight = Metrics.toolbarHeight(this);
-//        float percentScrolled = 1 - ((float)view.getScrollY() / maxHeight);
-//        percentScrolled = Math.max(0, percentScrolled);
-//        Log.d("DetailsActivity", "Scale: " + percentScrolled);
-//
-//        hero.setScaleX(percentScrolled);
-//        hero.setScaleY(percentScrolled);
+        heroSpring.setEndValue(view.getScrollY() > 10 ? 1 : 0);
+        action1Spring.setEndValue(view.getScrollY() > 15 ? 1 : 0);
+        action2Spring.setEndValue(view.getScrollY() > 20 ? 1 : 0);
+
+        int maxHeight = Metrics.toolbarHeight(this);
+        int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
+        int difference = backgroundHeight - maxHeight;
+        toolbar.setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
     }
 }
