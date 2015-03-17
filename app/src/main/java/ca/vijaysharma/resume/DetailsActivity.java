@@ -42,6 +42,14 @@ import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.ObservableScrollView;
 
+/*
+ TODO: Details need to animate in/out on scroll
+ TODO: Toolbar title should animate in/out on visbility
+ TODO: Background for the status bar is currently a different view. It should be the background
+ TODO: Action button hit areas should shrink with scroll
+ TODO: Hero transition with Hero image
+ TODO: Support swipe left/right with ViewPager
+ */
 public class DetailsActivity extends Activity {
     private static final String PARCELABLE_DATA_KEY = "details";
 
@@ -63,8 +71,10 @@ public class DetailsActivity extends Activity {
     private SimpleSpringListener action1SpringListener;
     private SimpleSpringListener action2SpringListener;
 
-    @InjectView(R.id.container) ObservableScrollView scrollView;
+    @InjectView(R.id.scrollView) ObservableScrollView scrollView;
+    @InjectView(R.id.container) ViewGroup container;
     @InjectView(R.id.background) View background;
+    @InjectView(R.id.status_bar_background) View statusBarBackground;
     @InjectView(R.id.hero_image) BezelImageView hero;
     @InjectView(R.id.description_container) LinearLayout descriptionContainer;
     @InjectView(R.id.body) LinearLayout body;
@@ -120,20 +130,28 @@ public class DetailsActivity extends Activity {
         int marginFromEdge = (int)getResources().getDimension(R.dimen.margin_from_edge);
         int statusBarHeight = Metrics.statusBarHeight(this);
         final Point windowSize = Metrics.size(this);
-        applyInsets(scrollView, statusBarHeight);
+        applyInsets(container, statusBarHeight);
 
-        toolbar.setBackgroundColor(getResources().getColor(detail.primaryColor()));
+        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        toolbar.setNavigationIcon(detail.back());
+        TextView title = (TextView)toolbar.findViewById(R.id.title);
+        title.setText(detail.detail1());
+        title.setTextColor(getResources().getColor(detail.secondaryColor()));
+
         setActionBar(toolbar);
-        getActionBar().setTitle(detail.detail1());
+        getActionBar().setTitle(null);
+        getActionBar().setDisplayShowHomeEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         scrollView.addCallbacks(new ObservableScrollView.Callbacks() {
             @Override
             public void onScrollChanged(ObservableScrollView view, int deltaX, int deltaY) {
-                handleScroll(view, deltaX, deltaY);
+                handleScroll(view, detail);
             }
         });
 
         background.setBackgroundColor(getResources().getColor(detail.primaryColor()));
+        statusBarBackground.setBackgroundColor(getResources().getColor(detail.primaryColor()));
 
         int heroDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
         int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
@@ -341,9 +359,9 @@ public class DetailsActivity extends Activity {
             name.setTranslationY(-10.0f);
             name.setAlpha(0);
             name.animate()
-                    .setStartDelay(400)
+                .setStartDelay(400)
                 .setDuration(500)
-                    .translationY(0)
+                .translationY(0)
                 .alpha(1)
                 .start();
 
@@ -439,14 +457,20 @@ public class DetailsActivity extends Activity {
         });
     }
 
-    private void handleScroll(ObservableScrollView view, int deltaX, int deltaY) {
-        heroSpring.setEndValue(view.getScrollY() > 10 ? 1 : 0);
-        action1Spring.setEndValue(view.getScrollY() > 15 ? 1 : 0);
-        action2Spring.setEndValue(view.getScrollY() > 20 ? 1 : 0);
-
+    private void handleScroll(ObservableScrollView view, DetailParcel detail) {
         int maxHeight = Metrics.toolbarHeight(this);
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
+
+        heroSpring.setEndValue(view.getScrollY() > maxHeight ? 1 : 0);
+        action1Spring.setEndValue(view.getScrollY() > maxHeight - 15 ? 1 : 0);
+        action2Spring.setEndValue(view.getScrollY() > maxHeight - 20 ? 1 : 0);
+
         int difference = backgroundHeight - maxHeight;
-        toolbar.setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
+        toolbar.findViewById(R.id.title).setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
+        toolbar.setBackgroundColor(
+            view.getScrollY() > difference ?
+            getResources().getColor(detail.primaryColor()) :
+            getResources().getColor(android.R.color.transparent)
+        );
     }
 }

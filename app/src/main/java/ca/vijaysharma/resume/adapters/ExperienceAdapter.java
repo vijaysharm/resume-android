@@ -86,6 +86,7 @@ public class ExperienceAdapter extends PagerAdapter {
                             .detail2(experience.getPosition())
                             .detail3(duration(experience))
                             .hero(experience.getLogo())
+                            .back(R.drawable.ic_arrow_back_white_24dp)
                             .primaryColor(experience.getPrimaryColor())
                             .secondaryColor(experience.getSecondaryColor())
                             .tertiaryColor(experience.getTertiaryColor())

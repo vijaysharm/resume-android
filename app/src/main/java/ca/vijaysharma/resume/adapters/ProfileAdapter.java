@@ -58,6 +58,7 @@ public class ProfileAdapter extends PagerAdapter {
                             .detail2(profile.getTitle())
                             .detail3(profile.getLocation())
                             .hero(profile.getAvatarId())
+                            .back(R.drawable.ic_arrow_back_black_24dp)
                             .primaryColor(R.color.white)
                             .secondaryColor(R.color.black)
                             .tertiaryColor(R.color.grey)
