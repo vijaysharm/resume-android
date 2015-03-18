@@ -278,28 +278,16 @@ public class DetailsActivity extends Activity {
         detail2Spring.addListener(detail2SpringListener);
         detail3Spring.addListener(detail3SpringListener);
 
-        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         final Point windowSize = Metrics.size(this);
 
-//        hero.setScaleX(0);
-//        hero.setScaleY(0);
+        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         heroSpring.setCurrentValue(0);
         Picasso.with(this)
             .load(detail.hero())
                 .placeholder(R.color.background_color)
                 .centerCrop()
                 .resize(heroImageDiameter, heroImageDiameter)
-                .into(hero, new Callback.EmptyCallback() {
-                    @Override
-                    public void onSuccess() {
-//                        handler.postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                heroSpring.setEndValue(0);
-//                            }
-//                        }, 500);
-                    }
-                });
+                .into(hero);
 
         detail1Spring.setCurrentValue(0);
         title1.setTranslationX(windowSize.x);
