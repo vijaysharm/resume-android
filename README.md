@@ -2,6 +2,11 @@ Resume
 ======
 An app that showcases animation on android and my resume
 
+Sketch Prototype
+================
+I wanted to take a design first approach to this project, so I started with a sketch of the app.
+![](Sketch.png)
+
 TODO
 ====
 1. Use JSON file from web project
