@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -65,7 +66,13 @@ public class ResumeActivity extends Activity {
     @SuppressWarnings("unused")
     public void onEvent(ShowDetailsEvent event) {
         Intent intent = DetailsActivity.start(this, event.getParcel());
-        startActivity(intent);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+            this,
+            event.getView(),
+            "hero"
+        );
+
+        startActivity(intent, options.toBundle());
     }
 
     @SuppressWarnings("unused")

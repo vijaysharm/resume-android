@@ -21,7 +21,6 @@ import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
-import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Lists;
@@ -73,14 +72,14 @@ public class ExperienceAdapter extends PagerAdapter {
             }
             final Section references = ReferenceSection.create("References", items);
 
-            view = new ImageButtonBuilder<>(this.context, new Object())
+            view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.purple))
                 .setImage(experience.getLogo())
                 .setAddConnection(true)
-                .setListener(new Action1<Object>() {
+                .setListener(new View.OnClickListener() {
                     @Override
-                    public void call(Object item) {
+                    public void onClick(View view) {
                         DetailParcel parcel = DetailParcel.builder()
                             .detail1(experience.getName())
                             .detail2(experience.getPosition())
@@ -103,7 +102,7 @@ public class ExperienceAdapter extends PagerAdapter {
                             ))
                             .build();
 
-                        bus.post(new ShowDetailsEvent(parcel));
+                        bus.post(new ShowDetailsEvent(parcel, view));
                     }
                 })
                 .build();

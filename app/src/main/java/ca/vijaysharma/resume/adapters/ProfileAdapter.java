@@ -13,7 +13,6 @@ import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
-import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Lists;
@@ -45,14 +44,14 @@ public class ProfileAdapter extends PagerAdapter {
         if (position == 0) {
             final Section objective = TextSection.create("Objective", Lists.newArrayList(profile.getObjective()));
             final Section biography = TextSection.create("Bio", Lists.newArrayList(profile.getBiography()));
-            view = new ImageButtonBuilder<>(this.context, new Object())
+            view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setAddConnection(false)
                 .setImage(profile.getAvatarId())
-                .setListener(new Action1<Object>() {
+                .setListener(new View.OnClickListener() {
                     @Override
-                    public void call(Object item) {
+                    public void onClick(View view) {
                         DetailParcel parcel = DetailParcel.builder()
                             .detail1(profile.getName())
                             .detail2(profile.getTitle())
@@ -63,44 +62,44 @@ public class ProfileAdapter extends PagerAdapter {
                             .secondaryColor(R.color.black)
                             .tertiaryColor(R.color.grey)
                             .action1(DetailAction.builder()
-                                .action(R.drawable.ic_public_white_24dp)
-                                .intent(Intents.createUrlIntent(profile.getWebsite()))
-                                .build())
+                                    .action(R.drawable.ic_public_white_24dp)
+                                    .intent(Intents.createUrlIntent(profile.getWebsite()))
+                                    .build())
                             .action2(DetailAction.builder()
-                                .action(R.drawable.ic_email_white_24dp)
-                                .intent(Intents.createEmailIntent(profile.getEmail()))
-                                .build())
+                                    .action(R.drawable.ic_email_white_24dp)
+                                    .intent(Intents.createEmailIntent(profile.getEmail()))
+                                    .build())
                             .sections(Lists.newArrayList(
-                                objective, biography
+                                    objective, biography
                             ))
                             .build();
 
-                        bus.post(new ShowDetailsEvent(parcel));
+                        bus.post(new ShowDetailsEvent(parcel, view));
                     }
                 })
                 .build();
         } else if (position == 1) {
-            view = new ImageButtonBuilder<>(this.context, new Object())
+            view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.ic_public_white_48dp)
-                .setListener(new Action1<Object>() {
+                .setListener(new View.OnClickListener() {
                     @Override
-                    public void call(Object item) {
+                    public void onClick(View v) {
                         bus.post(IntentEvent.urlEvent(profile.getWebsite()));
                     }
                 })
                 .build();
         } else if (position == 2) {
-            view = new ImageButtonBuilder<>(this.context, new Object())
+            view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.ic_email_white_36dp)
-                .setListener(new Action1<Object>() {
+                .setListener(new View.OnClickListener() {
                     @Override
-                    public void call(Object item) {
+                    public void onClick(View v) {
                         bus.post(IntentEvent.urlEvent(profile.getEmail()));
                     }
                 })

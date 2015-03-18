@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -46,10 +47,9 @@ import ca.vijaysharma.resume.utils.ObservableScrollView;
 import static com.facebook.rebound.SpringUtil.mapValueFromRangeToRange;
 
 /*
- TODO: Toolbar title should animate in/out on visbility
+ TODO: Toolbar title should animate in/out on visibility
  TODO: Background for the status bar is currently a different view. It should be the background
  TODO: Action button hit areas should shrink with scroll
- TODO: Hero transition with Hero image
  TODO: Support swipe left/right with ViewPager
  */
 public class DetailsActivity extends Activity {
@@ -180,8 +180,6 @@ public class DetailsActivity extends Activity {
 
         setActionBar(toolbar);
         getActionBar().setTitle(null);
-        getActionBar().setDisplayShowHomeEnabled(true);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         scrollView.addCallbacks(new ObservableScrollView.Callbacks() {
             @Override
@@ -283,9 +281,9 @@ public class DetailsActivity extends Activity {
         int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
         final Point windowSize = Metrics.size(this);
 
-        hero.setScaleX(0);
-        hero.setScaleY(0);
-        heroSpring.setCurrentValue(1);
+//        hero.setScaleX(0);
+//        hero.setScaleY(0);
+        heroSpring.setCurrentValue(0);
         Picasso.with(this)
             .load(detail.hero())
                 .placeholder(R.color.background_color)
@@ -294,12 +292,12 @@ public class DetailsActivity extends Activity {
                 .into(hero, new Callback.EmptyCallback() {
                     @Override
                     public void onSuccess() {
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                heroSpring.setEndValue(0);
-                            }
-                        }, 500);
+//                        handler.postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                heroSpring.setEndValue(0);
+//                            }
+//                        }, 500);
                     }
                 });
 
@@ -388,6 +386,16 @@ public class DetailsActivity extends Activity {
         detail1Spring.removeListener(detail1SpringListener);
         detail2Spring.removeListener(detail2SpringListener);
         detail3Spring.removeListener(detail3SpringListener);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finishAfterTransition();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void sectionTitle(

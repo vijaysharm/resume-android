@@ -7,52 +7,48 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
-import android.widget.ImageButton;
 
 import com.squareup.picasso.Picasso;
 
 import ca.vijaysharma.resume.R;
-import ca.vijaysharma.resume.utils.Action1;
+import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Metrics;
-import ca.vijaysharma.resume.utils.RoundedTransformation;
 
-class ImageButtonBuilder<T> {
+class ImageButtonBuilder {
     private final Context context;
 
     private Drawable backgroundDrawable;
     private int connectorColor;
     private boolean addConnection;
-    private Action1<T> listener;
-    private T object;
     private @DrawableRes int image;
+    private View.OnClickListener listener;
 
-    public ImageButtonBuilder(Context context, T object) {
+    public ImageButtonBuilder(Context context) {
         this.context = context;
         this.addConnection = false;
-        this.object = object;
     }
 
-    public ImageButtonBuilder<T> setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
+    public ImageButtonBuilder setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
         this.backgroundDrawable = backgroundDrawableResourceId;
         return this;
     }
 
-    public ImageButtonBuilder<T> setConnectorColor(int connectorColor) {
+    public ImageButtonBuilder setConnectorColor(int connectorColor) {
         this.connectorColor = connectorColor;
         return this;
     }
 
-    public ImageButtonBuilder<T> setAddConnection(boolean addConnection) {
+    public ImageButtonBuilder setAddConnection(boolean addConnection) {
         this.addConnection = addConnection;
         return this;
     }
 
-    public ImageButtonBuilder<T> setListener(Action1<T> listener) {
+    public ImageButtonBuilder setListener(View.OnClickListener listener) {
         this.listener = listener;
         return this;
     }
 
-    public ImageButtonBuilder<T> setImage(@DrawableRes int image) {
+    public ImageButtonBuilder setImage(@DrawableRes int image) {
         this.image = image;
         return this;
     }
@@ -73,17 +69,13 @@ class ImageButtonBuilder<T> {
         connection.setLayoutParams(params);
         connection.setBackgroundColor(connectorColor);
 
-        ImageButton button = new ImageButton(context);
+        BezelImageView button = new BezelImageView(context);
         int textWidth = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         int textHeight = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
+        button.setMaskDrawable(this.context.getResources().getDrawable(R.drawable.circle_mask));
         button.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
-        button.setBackground(this.backgroundDrawable);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null ) listener.call(object);
-            }
-        });
+        button.setBorderDrawable(this.backgroundDrawable);
+        button.setOnClickListener(this.listener);
 
         int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_image_diameter);
         Picasso.with(context)
@@ -91,7 +83,6 @@ class ImageButtonBuilder<T> {
             .placeholder(R.color.background_color)
             .centerCrop()
             .resize(avatarSize, avatarSize)
-            .transform(new RoundedTransformation())
             .into(button);
 
         container.addView(button);

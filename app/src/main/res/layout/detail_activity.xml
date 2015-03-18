@@ -26,6 +26,7 @@
 
             <ca.vijaysharma.resume.utils.BezelImageView
                 android:id="@+id/hero_image"
+                android:transitionName="hero"
                 android:scaleType="centerCrop"
                 android:layout_width="@dimen/circle_item_diameter"
                 android:layout_height="@dimen/circle_item_diameter"
