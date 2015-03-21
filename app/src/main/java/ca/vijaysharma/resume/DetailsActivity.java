@@ -403,6 +403,10 @@ public class DetailsActivity extends Activity {
         ReferenceSection detail,
         LinearLayout linearLayout
     ) {
+        final ArrayList<ReferenceItemSection> items = detail.items();
+        if (items.isEmpty())
+            return;
+
         sectionTitle(primaryColor, detail.name(), linearLayout);
 
         int itemSpacer = (int) getResources().getDimension(R.dimen.space_between_body_items);
@@ -410,7 +414,7 @@ public class DetailsActivity extends Activity {
 
         final LayoutInflater inflater = LayoutInflater.from(this);
 
-        final ArrayList<ReferenceItemSection> items = detail.items();
+
         for (int index = 0; index < items.size(); index++) {
             ReferenceItemSection section = items.get(index);
             View view = inflater.inflate(R.layout.reference_detail_section_body, linearLayout, false);
@@ -473,6 +477,10 @@ public class DetailsActivity extends Activity {
         TextSection detail,
         LinearLayout linearLayout
     ) {
+        final ArrayList<String> items = detail.items();
+        if (items.isEmpty())
+            return;
+
         sectionTitle(primaryColor, detail.name(), linearLayout);
 
         int leftMargin = (int)getResources().getDimension(R.dimen.body_section_margin);
@@ -487,7 +495,6 @@ public class DetailsActivity extends Activity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        final ArrayList<String> items = detail.items();
         for (int index = 0; index < items.size(); index++) {
             linearLayoutParams.setMargins(leftMargin, index == 0 ? firstItemSpacer : itemSpacer, rightMargin, 0);
             String item = items.get(index);

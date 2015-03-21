@@ -10,6 +10,7 @@ import org.joda.time.Months;
 import org.joda.time.Years;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
@@ -29,12 +30,12 @@ import de.greenrobot.event.EventBus;
 public class ExperienceAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
-    private final Experience[] experiences;
+    private final List<Experience> experiences;
 
     public ExperienceAdapter(
         Context context,
         EventBus bus,
-        Experience[] experiences
+        List<Experience> experiences
     ) {
         this.context = context;
         this.bus = bus;
@@ -43,7 +44,7 @@ public class ExperienceAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 1 + experiences.length;
+        return 1 + experiences.size();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class ExperienceAdapter extends PagerAdapter {
                 .setAddConnection(false)
                 .build();
         } else {
-            final Experience experience = experiences[position - 1];
+            final Experience experience = experiences.get(position - 1);
             final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
             final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
 

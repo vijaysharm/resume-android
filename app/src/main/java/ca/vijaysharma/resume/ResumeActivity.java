@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.Toolbar;
 
+import com.google.gson.Gson;
+
+import java.util.Map;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import ca.vijaysharma.resume.adapters.ExperienceAdapter;
@@ -25,6 +29,15 @@ import ca.vijaysharma.resume.utils.Metrics;
 import de.greenrobot.event.EventBus;
 
 public class ResumeActivity extends Activity {
+    private static final String PARCELABLE_DATA_KEY = "details";
+
+    public static Intent start(Context context, String data) {
+        Intent intent = new Intent(context, ResumeActivity.class);
+        intent.putExtra(PARCELABLE_DATA_KEY, data);
+
+        return intent;
+    }
+
     @InjectView(R.id.container) ViewGroup container;
     @InjectView(R.id.me) ViewPager profile;
     @InjectView(R.id.experience) ViewPager experience;
@@ -45,8 +58,12 @@ public class ResumeActivity extends Activity {
         getActionBar().setTitle(null);
         applyInsets(container, toolbarHeight(this));
 
-        preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile));
-        preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences));
+        Intent intent = getIntent();
+        String data = intent.getStringExtra(PARCELABLE_DATA_KEY);
+        Gson gson = new Gson();
+        Map<String, Object> resume = gson.fromJson(data, Map.class);
+        preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile(resume)));
+        preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences(resume)));
         preparePager(social, new SocialAdapter(this));
         preparePager(skills, new SkillsAdapter(this));
     }
