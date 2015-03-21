@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -146,7 +145,6 @@ public class DetailsActivity extends Activity {
             @Override
             public void onSpringUpdate(Spring spring) {
                 float mappedValue = (float) mapValueFromRangeToRange(spring.getCurrentValue(), 0, 1, windowSize.x, 0);
-                Log.i("DetailsActivity", "Current value: " + spring.getCurrentValue() + ", Mapped: " + mappedValue);
                 title1.setTranslationX(mappedValue);
             }
         };

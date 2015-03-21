@@ -27,7 +27,7 @@ public class ResumeData {
     static {
         String younility = "Younility";
         logos.put(younility, R.drawable.younility);
-        logos.put(younility, R.drawable.younility);
+        primaries.put(younility, R.color.younility);
 
         String intelerad = "Intelerad Medical Systems";
         companyNames.put(intelerad, "Intelerad");
@@ -35,10 +35,18 @@ public class ResumeData {
         primaries.put(intelerad, R.color.intelerad);
 
         String signiant = "Signiant";
-        companyNames.put(signiant, "Intelerad");
         logos.put(signiant, R.drawable.signiant);
         primaries.put(signiant, R.color.signiant);
         secondaries.put(signiant, R.color.black);
+
+        String robarts = "Robarts Research Imaging Institute";
+        companyNames.put(robarts, "Robarts");
+        logos.put(robarts, R.drawable.robarts);
+        primaries.put(robarts, R.color.robarts);
+
+        String concorida = "Concordia University";
+        logos.put(concorida, R.drawable.concordia);
+        primaries.put(concorida, R.color.concordia);
 
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
 
