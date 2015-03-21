@@ -55,7 +55,7 @@ public class ResumeData {
 
     public static Profile profile(Map<String, Object> data) {
         String name = v(data, "name");
-        String position = v(data, "position");
+        String position = v(data, "title");
         List<String> address = v(data, "address");
         String location = address.get(1);
         String email = address.get(4);
