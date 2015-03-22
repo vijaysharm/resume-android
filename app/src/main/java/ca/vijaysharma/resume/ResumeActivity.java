@@ -65,7 +65,7 @@ public class ResumeActivity extends Activity {
         preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile(resume)));
         preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences(resume)));
         preparePager(social, new SocialAdapter(this, bus, ResumeData.social(resume)));
-        preparePager(skills, new SkillsAdapter(this));
+        preparePager(skills, new SkillsAdapter(this, bus, ResumeData.skills(resume)));
     }
 
     @Override

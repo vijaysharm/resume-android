@@ -18,4 +18,15 @@ public class Intents {
 
         return intent;
     }
+
+    public static Intent createEmptyIntent() {
+        Intent intent = new Intent();
+        intent.putExtra("EMPTY_INTENT", true);
+
+        return intent;
+    }
+
+    public static boolean isEmpty(Intent intent) {
+        return intent.getBooleanExtra("EMPTY_INTENT", false);
+    }
 }

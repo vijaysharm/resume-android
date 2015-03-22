@@ -14,6 +14,7 @@ import java.util.Map;
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.Profile;
 import ca.vijaysharma.resume.models.Reference;
+import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.models.Social;
 
 public class ResumeData {
@@ -124,6 +125,13 @@ public class ResumeData {
         return experience;
     }
 
+    public static List<Skill> skills(Map<String, Object> data) {
+        ArrayList<Skill> skills = new ArrayList<>(4);
+        skills.add(new Skill("Android", R.drawable.android_256, R.color.green));
+
+        return skills;
+    }
+
     public static List<Social> social(Map<String, Object> data) {
         Map<String, Object> contact = v(data, "contact");
         List<Map<String, Object>> outlets = v(contact, "outlet");
@@ -144,6 +152,7 @@ public class ResumeData {
 
         return socials;
     }
+
     private static String company(String name) {
         String found = companyNames.get(name);
         return TextUtils.isEmpty(found) ? name : found;

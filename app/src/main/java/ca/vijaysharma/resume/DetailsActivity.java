@@ -40,6 +40,7 @@ import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Drawables;
+import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.ObservableScrollView;
 
@@ -337,6 +338,7 @@ public class DetailsActivity extends Activity {
                     });
                 }
             });
+        action1.setVisibility(Intents.isEmpty(detail.action1().intent()) ? View.GONE : View.VISIBLE);
 
         action2Spring.setCurrentValue(1);
         action2.setScaleX(0);
@@ -361,6 +363,7 @@ public class DetailsActivity extends Activity {
                     });
                 }
             });
+        action2.setVisibility(Intents.isEmpty(detail.action2().intent()) ? View.GONE : View.VISIBLE);
     }
 
     @Override
