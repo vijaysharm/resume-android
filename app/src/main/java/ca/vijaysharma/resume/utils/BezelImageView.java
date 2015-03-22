@@ -97,12 +97,10 @@ public class BezelImageView extends ImageView {
         // Always want a cache allocated.
         mCacheBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
 
-        if (mDesaturateOnPress) {
-            // Create a desaturate color filter for pressed state.
-            ColorMatrix cm = new ColorMatrix();
-            cm.setSaturation(0);
-            mDesaturateColorFilter = new ColorMatrixColorFilter(cm);
-        }
+        // Create a desaturate color filter for pressed state.
+        ColorMatrix cm = new ColorMatrix();
+        cm.setSaturation(0);
+        mDesaturateColorFilter = new ColorMatrixColorFilter(cm);
     }
 
     public void setMaskDrawable(Drawable drawable) {
@@ -111,6 +109,10 @@ public class BezelImageView extends ImageView {
 
     public void setBorderDrawable(Drawable drawable) {
         this.mBorderDrawable = drawable;
+    }
+
+    public void setDesaturateOnPress(boolean desaturateOnPress) {
+        this.mDesaturateOnPress = desaturateOnPress;
     }
 
     @Override

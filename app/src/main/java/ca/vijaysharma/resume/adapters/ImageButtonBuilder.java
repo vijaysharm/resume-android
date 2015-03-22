@@ -17,6 +17,7 @@ import ca.vijaysharma.resume.utils.Metrics;
 class ImageButtonBuilder {
     private final Context context;
 
+    private Drawable borderDrawable;
     private Drawable backgroundDrawable;
     private int connectorColor;
     private boolean addConnection;
@@ -28,8 +29,13 @@ class ImageButtonBuilder {
         this.addConnection = false;
     }
 
-    public ImageButtonBuilder setBackgroundDrawable(Drawable backgroundDrawableResourceId) {
-        this.backgroundDrawable = backgroundDrawableResourceId;
+    public ImageButtonBuilder setBorderDrawable(Drawable borderDrawable) {
+        this.borderDrawable = borderDrawable;
+        return this;
+    }
+
+    public ImageButtonBuilder setBackgroundDrawable(Drawable drawable) {
+        this.backgroundDrawable = drawable;
         return this;
     }
 
@@ -74,8 +80,10 @@ class ImageButtonBuilder {
         int textHeight = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         button.setMaskDrawable(this.context.getResources().getDrawable(R.drawable.circle_mask));
         button.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
-        button.setBorderDrawable(this.backgroundDrawable);
+        button.setBackground(this.backgroundDrawable);
+        button.setBorderDrawable(this.borderDrawable);
         button.setOnClickListener(this.listener);
+        button.setDesaturateOnPress(true);
 
         int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_image_diameter);
         Picasso.with(context)

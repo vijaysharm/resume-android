@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.support.annotation.ColorRes;
 
@@ -21,6 +23,26 @@ public class Drawables {
         shape.setColor(null);
 
         return shape;
+    }
+
+    public static Drawable doubleBorderDrawable(Context context, @ColorRes int primaryColor) {
+        int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
+        int color = context.getResources().getColor(primaryColor);
+        int innerColor = context.getResources().getColor(R.color.background_color);
+
+        GradientDrawable outter = new GradientDrawable();
+        outter.setShape(GradientDrawable.OVAL);
+        outter.setStroke(borderThickness, color);
+        outter.setColor(null);
+
+        GradientDrawable inner = new GradientDrawable();
+        inner.setShape(GradientDrawable.OVAL);
+        inner.setColor(null);
+        inner.setStroke(borderThickness, innerColor);
+
+        InsetDrawable inset = new InsetDrawable(inner, borderThickness);
+
+        return new LayerDrawable(new Drawable[]{outter, inset});
     }
 
     public static Drawable rippleDrawable(Context context, @ColorRes int primaryColor) {

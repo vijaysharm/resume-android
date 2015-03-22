@@ -46,7 +46,7 @@ public class ProfileAdapter extends PagerAdapter {
             final Section biography = TextSection.create("Bio", Lists.newArrayList(profile.getBiography()));
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
+                .setBorderDrawable(Drawables.doubleBorderDrawable(this.context, R.color.white))
                 .setAddConnection(false)
                 .setImage(profile.getAvatarId())
                 .setListener(new View.OnClickListener() {
@@ -81,7 +81,8 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 1) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
+                .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.ic_public_white_48dp)
                 .setListener(new View.OnClickListener() {
@@ -94,7 +95,8 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 2) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBackgroundDrawable(Drawables.borderDrawable(this.context, R.color.white))
+                .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.ic_email_white_36dp)
                 .setListener(new View.OnClickListener() {
