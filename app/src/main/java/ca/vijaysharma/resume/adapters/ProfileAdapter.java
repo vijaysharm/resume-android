@@ -62,15 +62,15 @@ public class ProfileAdapter extends PagerAdapter {
                             .secondaryColor(R.color.black)
                             .tertiaryColor(R.color.grey)
                             .action1(DetailAction.builder()
-                                    .action(R.drawable.ic_public_white_24dp)
-                                    .intent(Intents.createUrlIntent(profile.getWebsite()))
-                                    .build())
+                                .action(R.drawable.ic_public_white_24dp)
+                                .intent(Intents.createUrlIntent(profile.getWebsite()))
+                                .build())
                             .action2(DetailAction.builder()
-                                    .action(R.drawable.ic_email_white_24dp)
-                                    .intent(Intents.createEmailIntent(profile.getEmail()))
-                                    .build())
+                                .action(R.drawable.email_48)
+                                .intent(Intents.createEmailIntent(profile.getEmail()))
+                                .build())
                             .sections(Lists.newArrayList(
-                                    objective, biography
+                                objective, biography
                             ))
                             .build();
 
@@ -84,7 +84,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
-                .setImage(R.drawable.ic_public_white_48dp)
+                .setImage(R.drawable.globe_256)
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -98,7 +98,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
-                .setImage(R.drawable.ic_email_white_36dp)
+                .setImage(R.drawable.email_256)
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
