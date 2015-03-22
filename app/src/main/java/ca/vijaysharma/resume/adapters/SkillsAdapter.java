@@ -53,7 +53,6 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
             final Skill skill = skills.get(position - 1);
             View view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.green))
-                .setBorderDrawable(Drawables.doubleBorderDrawable(this.context, R.color.green))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.green))
                 .setImage(skill.getLogo())
                 .setAddConnection(true)

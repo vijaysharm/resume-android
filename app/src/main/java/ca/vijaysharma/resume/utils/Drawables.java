@@ -13,6 +13,16 @@ import ca.vijaysharma.resume.R;
 
 public class Drawables {
 
+    public static Drawable borderlessDrawable(Context context, @ColorRes int primaryColor) {
+        int color = context.getResources().getColor(primaryColor);
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setShape(GradientDrawable.OVAL);
+        shape.setColor(ColorStateList.valueOf(color));
+
+        return shape;
+    }
+
     public static Drawable borderDrawable(Context context, @ColorRes int primaryColor) {
         int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
         int color = context.getResources().getColor(primaryColor);

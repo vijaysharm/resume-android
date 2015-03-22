@@ -195,6 +195,7 @@ public class DetailsActivity extends Activity {
         frameLayoutParams.setMargins(marginFromEdge, toolbarHeight, 0, 0);
         hero.setLayoutParams(frameLayoutParams);
         hero.setBorderDrawable(Drawables.borderDrawable(this, detail.primaryColor()));
+        hero.setBackground(Drawables.borderlessDrawable(this, R.color.background_color));
         hero.setClickable(false);
         hero.setFocusable(false);
 
@@ -207,14 +208,15 @@ public class DetailsActivity extends Activity {
         descriptionContainer.setLayoutParams(frameLayoutParams);
 
         title1.setText(detail.detail1());
+        title1.setVisibility(TextUtils.isEmpty(detail.detail1()) ? View.GONE : View.VISIBLE);
         title1.setTextColor(getResources().getColor(detail.secondaryColor()));
 
         title2.setText(TextUtils.isEmpty(detail.detail2()) ? "" : detail.detail2());
-        title3.setVisibility(TextUtils.isEmpty(detail.detail2()) ? View.INVISIBLE : View.VISIBLE);
+        title3.setVisibility(TextUtils.isEmpty(detail.detail2()) ? View.GONE : View.VISIBLE);
         title2.setTextColor(getResources().getColor(detail.secondaryColor()));
 
         title3.setText(TextUtils.isEmpty(detail.detail3()) ? "" : detail.detail3());
-        title3.setVisibility(TextUtils.isEmpty(detail.detail3()) ? View.INVISIBLE : View.VISIBLE);
+        title3.setVisibility(TextUtils.isEmpty(detail.detail3()) ? View.GONE : View.VISIBLE);
         title3.setTextColor(getResources().getColor(detail.tertiaryColor()));
 
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
