@@ -85,7 +85,7 @@ class ImageButtonBuilder {
         button.setOnClickListener(this.listener);
         button.setDesaturateOnPress(true);
 
-        int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_image_diameter);
+        int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_item_diameter);
         Picasso.with(context)
             .load(this.image)
             .placeholder(R.color.background_color)

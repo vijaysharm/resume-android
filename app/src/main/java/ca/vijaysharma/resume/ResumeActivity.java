@@ -64,7 +64,7 @@ public class ResumeActivity extends Activity {
         Map<String, Object> resume = gson.fromJson(data, Map.class);
         preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile(resume)));
         preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences(resume)));
-        preparePager(social, new SocialAdapter(this));
+        preparePager(social, new SocialAdapter(this, bus, ResumeData.social(resume)));
         preparePager(skills, new SkillsAdapter(this));
     }
 

@@ -14,6 +14,7 @@ import java.util.Map;
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.Profile;
 import ca.vijaysharma.resume.models.Reference;
+import ca.vijaysharma.resume.models.Social;
 
 public class ResumeData {
     private static final Map<String, String> companyNames = new HashMap<>();
@@ -123,6 +124,26 @@ public class ResumeData {
         return experience;
     }
 
+    public static List<Social> social(Map<String, Object> data) {
+        Map<String, Object> contact = v(data, "contact");
+        List<Map<String, Object>> outlets = v(contact, "outlet");
+        ArrayList<Social> socials = new ArrayList<>(4);
+        for (Map<String, Object> outlet : outlets) {
+            String name = v(outlet, "title");
+            String url = v(outlet, "url");
+            if ("twitter".equals(name)) {
+                socials.add(new Social("Twitter", url, R.drawable.twitter_256));
+            } else if ("github".equals(name)) {
+                socials.add(new Social("Github", url, R.drawable.github_256));
+            } else if ("linkedIn".equals(name)) {
+                socials.add(new Social("LinkedIn", url, R.drawable.linkedin_256));
+            } else if ("stackoverflow".equals(name)) {
+                socials.add(new Social("StackOverflow", url, R.drawable.stackoverflow_256));
+            }
+        }
+
+        return socials;
+    }
     private static String company(String name) {
         String found = companyNames.get(name);
         return TextUtils.isEmpty(found) ? name : found;

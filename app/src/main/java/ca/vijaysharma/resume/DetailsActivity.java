@@ -278,14 +278,14 @@ public class DetailsActivity extends Activity {
 
         final Point windowSize = Metrics.size(this);
 
-        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_image_diameter);
+        int heroImageDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
         heroSpring.setCurrentValue(0);
         Picasso.with(this)
             .load(detail.hero())
-                .placeholder(R.color.background_color)
-                .centerCrop()
-                .resize(heroImageDiameter, heroImageDiameter)
-                .into(hero);
+            .placeholder(R.color.background_color)
+            .centerCrop()
+            .resize(heroImageDiameter, heroImageDiameter)
+            .into(hero);
 
         detail1Spring.setCurrentValue(0);
         title1.setTranslationX(windowSize.x);
