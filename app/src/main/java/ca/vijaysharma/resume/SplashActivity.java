@@ -48,12 +48,14 @@ public class SplashActivity extends Activity {
                     // TODO: If there's no data, then send the user to a friendly
                     // TODO: activity that says they need internet to get resume
                     startActivity(ResumeActivity.start(SplashActivity.this, data));
+                    finishAfterTransition();
                 }
 
                 @Override
                 public void onNext(String data) {
                     preferences.edit().putString("RESUME_DATA", data).apply();
                     startActivity(ResumeActivity.start(SplashActivity.this, data));
+                    finishAfterTransition();
                 }
             });
     }

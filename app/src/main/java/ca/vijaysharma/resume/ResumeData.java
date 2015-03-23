@@ -127,7 +127,11 @@ public class ResumeData {
 
     public static List<Skill> skills(Map<String, Object> data) {
         ArrayList<Skill> skills = new ArrayList<>(4);
-        skills.add(new Skill("Android", R.drawable.android_256, R.color.green));
+        skills.add(new Skill("Android", R.drawable.android_256, R.color.android));
+        skills.add(new Skill("iOS", R.drawable.apple_256, R.color.apple));
+        skills.add(new Skill("Frontend Web", R.drawable.html5_256, R.color.html5));
+        skills.add(new Skill("Backend", R.drawable.cloud_256, R.color.white));
+        skills.add(new Skill("Storage", R.drawable.storage_256, R.color.grey));
 
         return skills;
     }
