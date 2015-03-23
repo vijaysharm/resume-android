@@ -8,9 +8,9 @@ I wanted to take a design first approach to this project, so I started with a sk
 ![](images/sketch.png)
 
 Then I applied myself to implement it as faithful as I could
-![](images/resume_1.png =250x)
-![](images/resume_2.png =250x)
-![](images/resume_3.png =250x)
+![](images/resume_1.png)
+![](images/resume_2.png)
+![](images/resume_3.png)
 
 And I wanted to play around with animations. I apologize for the poor GIF saturation colors.
 ![](images/resume.mov.gif)
