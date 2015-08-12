@@ -5,11 +5,7 @@ import android.net.Uri;
 
 public class Intents {
     public static Intent createEmailIntent(String email) {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_EMAIL, email);
-
-        return intent;
+        return new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", email, null));
     }
 
     public static Intent createUrlIntent(String url) {

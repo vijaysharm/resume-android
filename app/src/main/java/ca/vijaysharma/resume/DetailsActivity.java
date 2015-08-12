@@ -31,8 +31,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
 import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
@@ -82,26 +82,26 @@ public class DetailsActivity extends Activity {
 
     private DetailParcel detail;
 
-    @InjectView(R.id.scrollView) ObservableScrollView scrollView;
-    @InjectView(R.id.container) ViewGroup container;
-    @InjectView(R.id.background) View background;
-    @InjectView(R.id.status_bar_background) View statusBarBackground;
-    @InjectView(R.id.hero_image) BezelImageView hero;
-    @InjectView(R.id.description_container) LinearLayout descriptionContainer;
-    @InjectView(R.id.body) LinearLayout body;
-    @InjectView(R.id.description_1) TextView title1;
-    @InjectView(R.id.description_2) TextView title2;
-    @InjectView(R.id.description_3) TextView title3;
-    @InjectView(R.id.action_1) ImageButton action1;
-    @InjectView(R.id.action_2) ImageButton action2;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
-    @InjectView(R.id.title) TextView title;
+    @Bind(R.id.scrollView) ObservableScrollView scrollView;
+    @Bind(R.id.container) ViewGroup container;
+    @Bind(R.id.background) View background;
+    @Bind(R.id.status_bar_background) View statusBarBackground;
+    @Bind(R.id.hero_image) BezelImageView hero;
+    @Bind(R.id.description_container) LinearLayout descriptionContainer;
+    @Bind(R.id.body) LinearLayout body;
+    @Bind(R.id.description_1) TextView title1;
+    @Bind(R.id.description_2) TextView title2;
+    @Bind(R.id.description_3) TextView title3;
+    @Bind(R.id.action_1) ImageButton action1;
+    @Bind(R.id.action_2) ImageButton action2;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.title) TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.detail_activity);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         final Point windowSize = Metrics.size(this);
 
         heroSpring = springSystem.createSpring();

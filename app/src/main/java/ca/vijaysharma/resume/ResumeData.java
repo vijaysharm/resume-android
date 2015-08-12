@@ -50,7 +50,16 @@ public class ResumeData {
         logos.put(concorida, R.drawable.concordia);
         primaries.put(concorida, R.color.concordia);
 
+        String kwilt = "Kwilt";
+        logos.put(kwilt, R.drawable.kwilt);
+        primaries.put(kwilt, R.color.kwilt);
+
+        String toptal = "Toptal";
+        logos.put(toptal, R.drawable.toptal);
+        primaries.put(toptal, R.color.toptal);
+
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
+        positionNames.put("Android Consultant at Datacap Systems Inc", "Android Consultant");
 
         avatars.put("Vijay Sharma", R.drawable.avatar);
     }

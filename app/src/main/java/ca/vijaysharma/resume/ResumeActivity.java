@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import java.util.Map;
 
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Bind;
 import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
@@ -38,12 +38,12 @@ public class ResumeActivity extends Activity {
         return intent;
     }
 
-    @InjectView(R.id.container) ViewGroup container;
-    @InjectView(R.id.me) ViewPager profile;
-    @InjectView(R.id.experience) ViewPager experience;
-    @InjectView(R.id.skills) ViewPager skills;
-    @InjectView(R.id.social) ViewPager social;
-    @InjectView(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.container) ViewGroup container;
+    @Bind(R.id.me) ViewPager profile;
+    @Bind(R.id.experience) ViewPager experience;
+    @Bind(R.id.skills) ViewPager skills;
+    @Bind(R.id.social) ViewPager social;
+    @Bind(R.id.toolbar) Toolbar toolbar;
 
     private EventBus bus;
 
@@ -51,7 +51,7 @@ public class ResumeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resume);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         bus = EventBus.getDefault();
 
         setActionBar(toolbar);

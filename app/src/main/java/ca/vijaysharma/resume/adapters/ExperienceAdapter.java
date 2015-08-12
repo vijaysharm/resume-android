@@ -117,12 +117,12 @@ public class ExperienceAdapter extends PagerAdapter {
     private String duration(Experience experience) {
         final Years years = Years.yearsBetween(experience.getStart(), experience.getEnd());
         if (years.getYears() != 0) {
-            return years.getYears() + " years";
+            return years.getYears() == 1 ? years.getYears() + " year" : years.getYears() + " years";
         }
 
         final Months months = Months.monthsBetween(experience.getStart(), experience.getEnd());
         if (months.getMonths() != 0) {
-            return months.getMonths() + " months";
+            return months.getMonths() == 1 ? months.getMonths() + " month" : months.getMonths() + " months";
         }
 
         final Days days = Days.daysBetween(experience.getStart(), experience.getEnd());

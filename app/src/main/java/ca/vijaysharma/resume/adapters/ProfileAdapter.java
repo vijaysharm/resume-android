@@ -102,7 +102,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        bus.post(IntentEvent.urlEvent(profile.getEmail()));
+                        bus.post(IntentEvent.emailEvent(profile.getEmail()));
                     }
                 })
                 .build();
