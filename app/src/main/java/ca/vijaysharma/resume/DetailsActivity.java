@@ -269,8 +269,8 @@ public class DetailsActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         heroSpring.addListener(heroSpringListener);
         action1Spring.addListener(action1SpringListener);
@@ -369,8 +369,8 @@ public class DetailsActivity extends Activity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onStop() {
+        super.onStop();
         heroSpring.removeListener(heroSpringListener);
         action1Spring.removeListener(action1SpringListener);
         action2Spring.removeListener(action2SpringListener);
