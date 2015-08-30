@@ -1,12 +1,12 @@
 package ca.vijaysharma.resume;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -52,7 +52,7 @@ import static com.facebook.rebound.SpringUtil.mapValueFromRangeToRange;
  TODO: Action button hit areas should shrink with scroll
  TODO: Support swipe left/right with ViewPager
  */
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends AppCompatActivity {
     private static final String PARCELABLE_DATA_KEY = "details";
 
     public static Intent start(Context context, DetailParcel...parcels) {

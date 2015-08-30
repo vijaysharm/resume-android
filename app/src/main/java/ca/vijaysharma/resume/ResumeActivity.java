@@ -1,6 +1,5 @@
 package ca.vijaysharma.resume;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +7,7 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
@@ -17,8 +17,8 @@ import com.google.gson.Gson;
 
 import java.util.Map;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
@@ -28,7 +28,7 @@ import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.utils.Metrics;
 import de.greenrobot.event.EventBus;
 
-public class ResumeActivity extends Activity {
+public class ResumeActivity extends AppCompatActivity {
     private static final String PARCELABLE_DATA_KEY = "details";
 
     public static Intent start(Context context, String data) {
