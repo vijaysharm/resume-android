@@ -47,7 +47,7 @@ public class ProfileAdapter extends PagerAdapter {
             final Section biography = TextSection.create("Bio", Lists.newArrayList(profile.getBiography()));
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBorderDrawable(Drawables.doubleBorderDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.white))
                 .setAddConnection(false)
                 .setImage(profile.getAvatarId())
                 .setListener(new View.OnClickListener() {
@@ -82,7 +82,6 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 1) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.globe_256)
@@ -96,7 +95,6 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 2) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
-                .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
                 .setAddConnection(true)
                 .setImage(R.drawable.email_256)

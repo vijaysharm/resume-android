@@ -68,7 +68,7 @@ public class ExperienceAdapter extends PagerAdapter {
             final ListItem item = experiences.get(position - 1);
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
-                .setBorderDrawable(Drawables.doubleBorderDrawable(this.context, R.color.purple))
+                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.purple))
                 .setImage(item.logo)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {

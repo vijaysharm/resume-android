@@ -48,7 +48,6 @@ public class SocialAdapter extends PagerAdapter implements Action1<Object> {
             final Social social = socials.get(position - 1);
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
-                .setBorderDrawable(Drawables.borderDrawable(this.context, R.color.yellow))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.yellow))
                 .setAddConnection(true)
                 .setImage(social.getIcon())

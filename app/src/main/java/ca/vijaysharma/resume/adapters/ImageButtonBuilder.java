@@ -7,17 +7,17 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
+import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import ca.vijaysharma.resume.R;
-import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Metrics;
+import ca.vijaysharma.resume.utils.RoundedTransformation;
 
 class ImageButtonBuilder {
     private final Context context;
 
-    private Drawable borderDrawable;
     private Drawable backgroundDrawable;
     private int connectorColor;
     private boolean addConnection;
@@ -27,11 +27,6 @@ class ImageButtonBuilder {
     public ImageButtonBuilder(Context context) {
         this.context = context;
         this.addConnection = false;
-    }
-
-    public ImageButtonBuilder setBorderDrawable(Drawable borderDrawable) {
-        this.borderDrawable = borderDrawable;
-        return this;
     }
 
     public ImageButtonBuilder setBackgroundDrawable(Drawable drawable) {
@@ -75,21 +70,19 @@ class ImageButtonBuilder {
         connection.setLayoutParams(params);
         connection.setBackgroundColor(connectorColor);
 
-        BezelImageView button = new BezelImageView(context);
+        ImageView button = new ImageView(context);
         int textWidth = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
         int textHeight = (int) context.getResources().getDimension(R.dimen.circle_item_diameter);
-        button.setMaskDrawable(this.context.getResources().getDrawable(R.drawable.circle_mask));
         button.setLayoutParams(new LayoutParams(textWidth, textHeight, Gravity.CENTER));
         button.setBackground(this.backgroundDrawable);
-        button.setBorderDrawable(this.borderDrawable);
         button.setOnClickListener(this.listener);
-        button.setDesaturateOnPress(true);
 
         int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_item_diameter);
         Picasso.with(context)
             .load(this.image)
             .placeholder(R.color.background_color)
             .centerCrop()
+            .transform(new RoundedTransformation())
             .resize(avatarSize, avatarSize)
             .into(button);
 

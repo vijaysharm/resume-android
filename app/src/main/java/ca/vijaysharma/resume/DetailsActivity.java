@@ -17,6 +17,7 @@ import android.view.WindowInsets;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toolbar;
@@ -43,6 +44,7 @@ import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.ObservableScrollView;
+import ca.vijaysharma.resume.utils.RoundedTransformation;
 
 import static com.facebook.rebound.SpringUtil.mapValueFromRangeToRange;
 
@@ -86,7 +88,7 @@ public class DetailsActivity extends AppCompatActivity {
     @Bind(R.id.container) ViewGroup container;
     @Bind(R.id.background) View background;
     @Bind(R.id.status_bar_background) View statusBarBackground;
-    @Bind(R.id.hero_image) BezelImageView hero;
+    @Bind(R.id.hero_image) ImageView hero;
     @Bind(R.id.description_container) LinearLayout descriptionContainer;
     @Bind(R.id.body) LinearLayout body;
     @Bind(R.id.description_1) TextView title1;
@@ -194,8 +196,7 @@ public class DetailsActivity extends AppCompatActivity {
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
         frameLayoutParams.setMargins(marginFromEdge, toolbarHeight, 0, 0);
         hero.setLayoutParams(frameLayoutParams);
-        hero.setBorderDrawable(Drawables.borderDrawable(this, detail.primaryColor()));
-        hero.setBackground(Drawables.borderlessDrawable(this, R.color.background_color));
+        hero.setBackground(Drawables.doubleBorderDrawable(this, detail.primaryColor()));
         hero.setClickable(false);
         hero.setFocusable(false);
 
@@ -287,6 +288,7 @@ public class DetailsActivity extends AppCompatActivity {
             .load(detail.hero())
             .placeholder(R.color.background_color)
             .centerCrop()
+            .transform(new RoundedTransformation())
             .resize(heroImageDiameter, heroImageDiameter)
             .into(hero);
 

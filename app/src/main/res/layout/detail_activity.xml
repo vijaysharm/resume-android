@@ -24,7 +24,7 @@
                 android:layout_height="@dimen/background_view_height"
                 android:background="@color/white"/>
 
-            <ca.vijaysharma.resume.utils.BezelImageView
+            <ImageView
                 android:id="@+id/hero_image"
                 android:transitionName="hero"
                 android:scaleType="centerCrop"
@@ -34,7 +34,6 @@
                 android:layout_marginTop="?android:actionBarSize"
                 android:clickable="true"
                 android:focusable="true"
-                app:maskDrawable="@drawable/circle_mask"
                 android:src="@drawable/avatar"/>
 
             <LinearLayout

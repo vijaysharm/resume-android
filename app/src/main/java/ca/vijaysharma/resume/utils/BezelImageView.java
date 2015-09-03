@@ -43,7 +43,7 @@ public class BezelImageView extends ImageView {
     private Paint mBlackPaint;
     private Paint mMaskedPaint;
 
-    private Rect mBounds;
+    private Rect bounds;
     private RectF mBoundsF;
 
     private Drawable mBorderDrawable;
@@ -52,10 +52,10 @@ public class BezelImageView extends ImageView {
     private ColorMatrixColorFilter mDesaturateColorFilter;
     private boolean mDesaturateOnPress = false;
 
-    private boolean mCacheValid = false;
-    private Bitmap mCacheBitmap;
-    private int mCachedWidth;
-    private int mCachedHeight;
+    private boolean cacheValid = false;
+    private Bitmap cacheBitmap;
+    private int cachedWidth;
+    private int cachedHeight;
 
     public BezelImageView(Context context) {
         this(context, null);
@@ -69,8 +69,11 @@ public class BezelImageView extends ImageView {
         super(context, attrs, defStyle);
 
         // Attribute initialization
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BezelImageView,
-                defStyle, 0);
+        final TypedArray a = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.BezelImageView,
+            defStyle, 0
+        );
 
         mMaskDrawable = a.getDrawable(R.styleable.BezelImageView_maskDrawable);
         if (mMaskDrawable != null) {
@@ -95,7 +98,7 @@ public class BezelImageView extends ImageView {
         mMaskedPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
         // Always want a cache allocated.
-        mCacheBitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        cacheBitmap = null;
 
         // Create a desaturate color filter for pressed state.
         ColorMatrix cm = new ColorMatrix();
@@ -118,18 +121,18 @@ public class BezelImageView extends ImageView {
     @Override
     protected boolean setFrame(int l, int t, int r, int b) {
         final boolean changed = super.setFrame(l, t, r, b);
-        mBounds = new Rect(0, 0, r - l, b - t);
-        mBoundsF = new RectF(mBounds);
+        bounds = new Rect(0, 0, r - l, b - t);
+        mBoundsF = new RectF(bounds);
 
         if (mBorderDrawable != null) {
-            mBorderDrawable.setBounds(mBounds);
+            mBorderDrawable.setBounds(bounds);
         }
         if (mMaskDrawable != null) {
-            mMaskDrawable.setBounds(mBounds);
+            mMaskDrawable.setBounds(bounds);
         }
 
         if (changed) {
-            mCacheValid = false;
+            cacheValid = false;
         }
 
         return changed;
@@ -137,32 +140,34 @@ public class BezelImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (mBounds == null) {
+        if (bounds == null) {
             return;
         }
 
-        int width = mBounds.width();
-        int height = mBounds.height();
+        int width = bounds.width();
+        int height = bounds.height();
 
         if (width == 0 || height == 0) {
             return;
         }
 
-        if (!mCacheValid || width != mCachedWidth || height != mCachedHeight) {
+        if (!cacheValid || width != cachedWidth || height != cachedHeight) {
             // Need to redraw the cache
-            if (width == mCachedWidth && height == mCachedHeight) {
+            if (width == cachedWidth && height == cachedHeight) {
                 // Have a correct-sized bitmap cache already allocated. Just erase it.
-                mCacheBitmap.eraseColor(0);
+                cacheBitmap.eraseColor(0);
             } else {
                 // Allocate a new bitmap with the correct dimensions.
-                mCacheBitmap.recycle();
+                if (cacheBitmap != null)
+                    cacheBitmap.recycle();
+
                 //noinspection AndroidLintDrawAllocation
-                mCacheBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-                mCachedWidth = width;
-                mCachedHeight = height;
+                cacheBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                cachedWidth = width;
+                cachedHeight = height;
             }
 
-            Canvas cacheCanvas = new Canvas(mCacheBitmap);
+            Canvas cacheCanvas = new Canvas(cacheBitmap);
             if (mMaskDrawable != null) {
                 int sc = cacheCanvas.save();
                 mMaskDrawable.draw(cacheCanvas);
@@ -174,7 +179,7 @@ public class BezelImageView extends ImageView {
                 cacheCanvas.restoreToCount(sc);
             } else if (mDesaturateOnPress && isPressed()) {
                 int sc = cacheCanvas.save();
-                cacheCanvas.drawRect(0, 0, mCachedWidth, mCachedHeight, mBlackPaint);
+                cacheCanvas.drawRect(0, 0, cachedWidth, cachedHeight, mBlackPaint);
                 mMaskedPaint.setColorFilter(mDesaturateColorFilter);
                 cacheCanvas.saveLayer(mBoundsF, mMaskedPaint,
                         Canvas.HAS_ALPHA_LAYER_SAVE_FLAG | Canvas.FULL_COLOR_LAYER_SAVE_FLAG);
@@ -190,7 +195,7 @@ public class BezelImageView extends ImageView {
         }
 
         // Draw from cache
-        canvas.drawBitmap(mCacheBitmap, mBounds.left, mBounds.top, null);
+        canvas.drawBitmap(cacheBitmap, bounds.left, bounds.top, null);
     }
 
     @Override
