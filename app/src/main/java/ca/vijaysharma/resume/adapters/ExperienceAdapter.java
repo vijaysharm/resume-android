@@ -13,8 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.ResumeData;
+import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Experience;
+import ca.vijaysharma.resume.models.ListItem;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
@@ -30,15 +33,18 @@ import de.greenrobot.event.EventBus;
 public class ExperienceAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
-    private final List<Experience> experiences;
+    private final Storage storage;
+    private final List<ListItem> experiences;
 
     public ExperienceAdapter(
         Context context,
         EventBus bus,
-        List<Experience> experiences
+        Storage storage,
+        List<ListItem> experiences
     ) {
         this.context = context;
         this.bus = bus;
+        this.storage = storage;
         this.experiences = experiences;
     }
 
@@ -59,51 +65,16 @@ public class ExperienceAdapter extends PagerAdapter {
                 .setAddConnection(false)
                 .build();
         } else {
-            final Experience experience = experiences.get(position - 1);
-            final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
-            final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
-
-            ArrayList<ReferenceItemSection> items = new ArrayList<>();
-            for (Reference reference : experience.getReferences()) {
-                items.add(ReferenceItemSection.create(
-                    reference.getName(),
-                    reference.getPosition(),
-                    reference.getAvatar())
-                );
-            }
-            final Section references = ReferenceSection.create("References", items);
-
+            final ListItem item = experiences.get(position - 1);
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBorderDrawable(Drawables.doubleBorderDrawable(this.context, R.color.purple))
-                .setImage(experience.getLogo())
+                .setImage(item.logo)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        DetailParcel parcel = DetailParcel.builder()
-                            .detail1(experience.getName())
-                            .detail2(experience.getPosition())
-                            .detail3(duration(experience))
-                            .hero(experience.getLogo())
-                            .back(R.drawable.ic_arrow_back_white_24dp)
-                            .primaryColor(experience.getPrimaryColor())
-                            .secondaryColor(experience.getSecondaryColor())
-                            .tertiaryColor(experience.getTertiaryColor())
-                            .action1(DetailAction.builder()
-                                .action(R.drawable.ic_public_white_24dp)
-                                .intent(Intents.createUrlIntent(experience.getWebsite()))
-                                .build())
-                            .action2(DetailAction.builder()
-                                .action(R.drawable.ic_place_white_24dp)
-                                .intent(Intents.createEmailIntent(experience.getLocation()))
-                                .build())
-                            .sections(Lists.newArrayList(
-                                company, work, references
-                            ))
-                            .build();
-
-                        bus.post(new ShowDetailsEvent(parcel, view));
+                        show(item.index, view);
                     }
                 })
                 .build();
@@ -112,6 +83,45 @@ public class ExperienceAdapter extends PagerAdapter {
         collection.addView(view);
 
         return view;
+    }
+
+    private void show(int index, View view) {
+        final Experience experience = ResumeData.experienceDetail(index, storage.read());
+        final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
+        final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
+
+        ArrayList<ReferenceItemSection> items = new ArrayList<>();
+        for (Reference reference : experience.getReferences()) {
+            items.add(ReferenceItemSection.create(
+                reference.getName(),
+                reference.getPosition(),
+                reference.getAvatar())
+            );
+        }
+        final Section references = ReferenceSection.create("References", items);
+        DetailParcel parcel = DetailParcel.builder()
+            .detail1(experience.getName())
+            .detail2(experience.getPosition())
+            .detail3(duration(experience))
+            .hero(experience.getLogo())
+            .back(R.drawable.ic_arrow_back_white_24dp)
+            .primaryColor(experience.getPrimaryColor())
+            .secondaryColor(experience.getSecondaryColor())
+            .tertiaryColor(experience.getTertiaryColor())
+            .action1(DetailAction.builder()
+                .action(R.drawable.ic_public_white_24dp)
+                .intent(Intents.createUrlIntent(experience.getWebsite()))
+                .build())
+            .action2(DetailAction.builder()
+                .action(R.drawable.ic_place_white_24dp)
+                .intent(Intents.createEmailIntent(experience.getLocation()))
+                .build())
+            .sections(Lists.newArrayList(
+                company, work, references
+            ))
+            .build();
+
+        bus.post(new ShowDetailsEvent(parcel, view));
     }
 
     private String duration(Experience experience) {

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.parcelable.DetailAction;
@@ -25,7 +26,7 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
     private final EventBus bus;
     private final List<Skill> skills;
 
-    public SkillsAdapter(Context context, EventBus bus, List<Skill> skills) {
+    public SkillsAdapter(Context context, EventBus bus, Storage storage, List<Skill> skills) {
         this.context = context;
         this.bus = bus;
         this.skills = skills;

@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_activity);
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final Storage storage = new Storage(this);
         String endpoint = getString(R.string.base_url);
         RestAdapter restAdapter = new RestAdapter.Builder()
             .setEndpoint(endpoint)
@@ -44,17 +44,16 @@ public class SplashActivity extends Activity {
 
                 @Override
                 public void onError(Throwable e) {
-                    String data = preferences.getString("RESUME_DATA", null);
                     // TODO: If there's no data, then send the user to a friendly
                     // TODO: activity that says they need internet to get resume
-                    startActivity(ResumeActivity.start(SplashActivity.this, data));
+                    startActivity(ResumeActivity.start(SplashActivity.this));
                     finishAfterTransition();
                 }
 
                 @Override
                 public void onNext(String data) {
-                    preferences.edit().putString("RESUME_DATA", data).apply();
-                    startActivity(ResumeActivity.start(SplashActivity.this, data));
+                    storage.save(data);
+                    startActivity(ResumeActivity.start(SplashActivity.this));
                     finishAfterTransition();
                 }
             });

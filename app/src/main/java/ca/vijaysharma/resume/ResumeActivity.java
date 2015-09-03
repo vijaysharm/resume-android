@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.Toolbar;
 
-import com.google.gson.Gson;
-
 import java.util.Map;
 
 import butterknife.Bind;
@@ -29,13 +27,8 @@ import ca.vijaysharma.resume.utils.Metrics;
 import de.greenrobot.event.EventBus;
 
 public class ResumeActivity extends AppCompatActivity {
-    private static final String PARCELABLE_DATA_KEY = "details";
-
-    public static Intent start(Context context, String data) {
-        Intent intent = new Intent(context, ResumeActivity.class);
-        intent.putExtra(PARCELABLE_DATA_KEY, data);
-
-        return intent;
+    public static Intent start(Context context) {
+        return new Intent(context, ResumeActivity.class);
     }
 
     @Bind(R.id.container) ViewGroup container;
@@ -53,19 +46,17 @@ public class ResumeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resume);
         ButterKnife.bind(this);
         bus = EventBus.getDefault();
+        Storage storage = new Storage(this);
 
         setActionBar(toolbar);
         getActionBar().setTitle(null);
         applyInsets(container, toolbarHeight(this));
 
-        Intent intent = getIntent();
-        String data = intent.getStringExtra(PARCELABLE_DATA_KEY);
-        Gson gson = new Gson();
-        Map<String, Object> resume = gson.fromJson(data, Map.class);
-        preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile(resume)));
-        preparePager(experience, new ExperienceAdapter(this, bus, ResumeData.experiences(resume)));
-        preparePager(social, new SocialAdapter(this, bus, ResumeData.social(resume)));
-        preparePager(skills, new SkillsAdapter(this, bus, ResumeData.skills(resume)));
+        Map<String, Object> resume = storage.read();
+        preparePager(profile, new ProfileAdapter(this, bus, storage, ResumeData.profile(resume)));
+        preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume)));
+        preparePager(social, new SocialAdapter(this, bus, storage, ResumeData.social(resume)));
+        preparePager(skills, new SkillsAdapter(this, bus, storage, ResumeData.skills(resume)));
     }
 
     @Override

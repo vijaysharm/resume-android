@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.IntentEvent;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Profile;
@@ -26,7 +27,7 @@ public class ProfileAdapter extends PagerAdapter {
     public ProfileAdapter(
         Context context,
         EventBus bus,
-        Profile profile
+        Storage storage, Profile profile
     ) {
         this.context = context;
         this.bus = bus;

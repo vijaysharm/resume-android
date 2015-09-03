@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.vijaysharma.resume.models.Experience;
+import ca.vijaysharma.resume.models.ListItem;
 import ca.vijaysharma.resume.models.Profile;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.models.Skill;
@@ -82,8 +83,85 @@ public class ResumeData {
             name, avatar(name), email, site, location, position, biography, objective
         );
     }
+    public static List<ListItem> experiences(Map<String, Object> data) {
+        Map<String, Object> exp = v(data, "professionalexperience");
+        List<Map<String, Object>> companies = v(exp, "companies");
+        ArrayList<ListItem> experience = new ArrayList<>(companies.size());
+        int companyIndex = 0;
+        for (Map<String, Object> company : companies) {
+            String name = v(company, "location");
+            List<Map<String, Object>> positions = v(company, "positions");
+            for (Map<String, Object> position : positions) {
+                List<String> enabled = v(position, "enabled");
+                if (!enabled.contains("mobile"))
+                    continue;
 
-    public static List<Experience> experiences(Map<String, Object> data) {
+                experience.add(new ListItem(
+                    logo(name),
+                    companyIndex++
+                ));
+            }
+        }
+
+        return experience;
+    }
+
+    public static Experience experienceDetail(int index, Map<String, Object> data) {
+        Map<String, Object> exp = v(data, "professionalexperience");
+        List<Map<String, Object>> companies = v(exp, "companies");
+        int companyIndex = 0;
+        for (Map<String, Object> company : companies) {
+            List<Map<String, Object>> positions = v(company, "positions");
+            for (Map<String, Object> position : positions) {
+                List<String> enabled = v(position, "enabled");
+                if (!enabled.contains("mobile"))
+                    continue;
+
+                if (index != companyIndex) {
+                    companyIndex++;
+                    continue;
+                }
+
+                String name = v(company, "location");
+                String address = v(company, "address");
+                String summary = v(company, "summary", "");
+                String site = v(company, "site", "");
+                List<Map<String, Object>> refs = v(company, "references");
+                List<Reference> references = new ArrayList<>(refs.size());
+                for (Map<String, Object> reference : refs) {
+                    String refName = v(reference, "name");
+                    String refPosition = v(reference, "position");
+                    references.add(new Reference(refName, refPosition, avatar(refName)));
+                }
+
+                String title = v(position, "name");
+                String start = v(position, "start_date");
+                String end = v(position, "end_date");
+                List<String> responsibilities = v(position, "responsibilities");
+                List<String> technologies = v(position, "technologies");
+
+                return new Experience(
+                    logo(name),
+                    primary(name),
+                    secondary(name),
+                    tertiary(name),
+                    company(name),
+                    position(title),
+                    "present".equals(start) ? new DateTime() : new DateTime(start),
+                    "present".equals(end) ? new DateTime() : new DateTime(end),
+                    site,
+                    address,
+                    summary,
+                    responsibilities.toArray(new String[0]),
+                    technologies.toArray(new String[0]),
+                    references.toArray(new Reference[0])
+                );
+            }
+        }
+
+        throw new IllegalArgumentException("Unknown Experience index " + index);
+    }
+    public static List<Experience> experienceDetails(Map<String, Object> data) {
         Map<String, Object> exp = v(data, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");
         ArrayList<Experience> experience = new ArrayList<>(companies.size());

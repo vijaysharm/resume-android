@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ca.vijaysharma.resume.R;
+import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.IntentEvent;
 import ca.vijaysharma.resume.models.Social;
 import ca.vijaysharma.resume.utils.Action1;
@@ -20,7 +21,7 @@ public class SocialAdapter extends PagerAdapter implements Action1<Object> {
     private final EventBus bus;
     private final List<Social> socials;
 
-    public SocialAdapter(Context context, EventBus bus, List<Social> social) {
+    public SocialAdapter(Context context, EventBus bus, Storage storage, List<Social> social) {
         this.context = context;
         this.bus = bus;
         this.socials = social;
