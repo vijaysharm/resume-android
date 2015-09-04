@@ -12,12 +12,13 @@ Then I applied myself to implement it as faithful as I could
 ![](images/resume_2.png)
 ![](images/resume_3.png)
 
-And I wanted to play around with animations. I apologize for the poor GIF saturation colors.
-![](images/resume.mov.gif)
+And I wanted to play around with animations.
+![](images/resume.gif)
 
 TODO
 ====
 1. Finish Skills section
   1. Add programming projects
 1. Splash Screen
+1. Add references avatar
 
