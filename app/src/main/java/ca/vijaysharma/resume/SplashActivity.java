@@ -1,11 +1,11 @@
 package ca.vijaysharma.resume;
 
 import android.app.Activity;
-import android.content.SharedPreferences;
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 
@@ -16,6 +16,30 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 
 public class SplashActivity extends Activity {
+    private static int[] RESOURCES = {
+        R.drawable.android_256,
+        R.drawable.apple_256,
+        R.drawable.avatar,
+        R.drawable.cloud_256,
+        R.drawable.concordia,
+        R.drawable.email_48,
+        R.drawable.email_256,
+        R.drawable.github_256,
+        R.drawable.globe_256,
+        R.drawable.html5_256,
+        R.drawable.intelerad,
+        R.drawable.kwilt,
+        R.drawable.linkedin_256,
+        R.drawable.person_image_empty,
+        R.drawable.robarts,
+        R.drawable.signiant,
+        R.drawable.stackoverflow_256,
+        R.drawable.storage_256,
+        R.drawable.toptal,
+        R.drawable.twitter_256,
+        R.drawable.younility
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +70,7 @@ public class SplashActivity extends Activity {
                 public void onError(Throwable e) {
                     // TODO: If there's no data, then send the user to a friendly
                     // TODO: activity that says they need internet to get resume
+                    preload(SplashActivity.this);
                     startActivity(ResumeActivity.start(SplashActivity.this));
                     finishAfterTransition();
                 }
@@ -53,9 +78,16 @@ public class SplashActivity extends Activity {
                 @Override
                 public void onNext(String data) {
                     storage.save(data);
+                    preload(SplashActivity.this);
                     startActivity(ResumeActivity.start(SplashActivity.this));
                     finishAfterTransition();
                 }
             });
+    }
+
+    private static void preload(Context context) {
+        for (int resource : RESOURCES) {
+            Picasso.with(context).load(resource).fetch();
+        }
     }
 }

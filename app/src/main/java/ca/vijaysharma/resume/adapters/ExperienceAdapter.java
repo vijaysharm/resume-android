@@ -115,7 +115,7 @@ public class ExperienceAdapter extends PagerAdapter {
                 .build())
             .action2(DetailAction.builder()
                 .action(R.drawable.ic_place_white_24dp)
-                .intent(Intents.createEmailIntent(experience.getLocation()))
+                .intent(Intents.createLocationIntent(context, experience.getLocation()))
                 .build())
             .sections(Lists.newArrayList(
                 company, work, references

@@ -116,6 +116,6 @@ public class ResumeActivity extends AppCompatActivity {
 
         pager.setAdapter(adapter);
         pager.setPageMargin(pageMarginPx);
-        pager.setOffscreenPageLimit(2);
+        pager.setOffscreenPageLimit(3);
     }
 }
