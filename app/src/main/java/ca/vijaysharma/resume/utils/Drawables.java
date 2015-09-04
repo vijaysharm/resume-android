@@ -36,9 +36,13 @@ public class Drawables {
     }
 
     public static Drawable doubleBorderDrawable(Context context, @ColorRes int primaryColor) {
+        return doubleBorderDrawable(context, primaryColor, R.color.background_color);
+    }
+
+    public static Drawable doubleBorderDrawable(Context context, @ColorRes int primaryColor, @ColorRes int background) {
         int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
         int color = context.getResources().getColor(primaryColor);
-        int innerColor = context.getResources().getColor(R.color.background_color);
+        int innerColor = context.getResources().getColor(background);
 
         GradientDrawable outter = new GradientDrawable();
         outter.setShape(GradientDrawable.OVAL);
@@ -47,8 +51,7 @@ public class Drawables {
 
         GradientDrawable inner = new GradientDrawable();
         inner.setShape(GradientDrawable.OVAL);
-        inner.setColor(null);
-        inner.setStroke(borderThickness, innerColor);
+        inner.setColor(ColorStateList.valueOf(innerColor));
 
         InsetDrawable inset = new InsetDrawable(inner, borderThickness);
 

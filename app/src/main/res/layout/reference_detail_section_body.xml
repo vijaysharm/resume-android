@@ -8,12 +8,11 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/space_between_body_items">
 
-    <ca.vijaysharma.resume.utils.BezelImageView
+    <ImageView
         android:id="@+id/avatar"
         android:layout_width="@dimen/reference_avatar_diameter"
         android:layout_height="@dimen/reference_avatar_diameter"
         android:scaleType="centerCrop"
-        app:maskDrawable="@drawable/circle_mask"
         />
     <LinearLayout
         android:layout_width="wrap_content"

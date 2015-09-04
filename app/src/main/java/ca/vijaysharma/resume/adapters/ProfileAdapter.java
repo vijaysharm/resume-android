@@ -62,6 +62,7 @@ public class ProfileAdapter extends PagerAdapter {
                             .primaryColor(R.color.white)
                             .secondaryColor(R.color.black)
                             .tertiaryColor(R.color.grey)
+                            .background(R.color.white)
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createUrlIntent(profile.getWebsite()))

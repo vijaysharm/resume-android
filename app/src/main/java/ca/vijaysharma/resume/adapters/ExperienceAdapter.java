@@ -108,6 +108,7 @@ public class ExperienceAdapter extends PagerAdapter {
             .primaryColor(experience.getPrimaryColor())
             .secondaryColor(experience.getSecondaryColor())
             .tertiaryColor(experience.getTertiaryColor())
+            .background(experience.getPrimaryColor())
             .action1(DetailAction.builder()
                 .action(R.drawable.ic_public_white_24dp)
                 .intent(Intents.createUrlIntent(experience.getWebsite()))

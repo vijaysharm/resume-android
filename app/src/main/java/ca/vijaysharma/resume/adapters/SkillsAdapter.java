@@ -69,6 +69,7 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
                             .primaryColor(skill.getPrimaryColor())
                             .secondaryColor(R.color.white)
                             .tertiaryColor(R.color.white)
+                            .background(R.color.background_color)
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createEmptyIntent())

@@ -39,7 +39,6 @@ import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
-import ca.vijaysharma.resume.utils.BezelImageView;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Metrics;
@@ -56,6 +55,7 @@ import static com.facebook.rebound.SpringUtil.mapValueFromRangeToRange;
  */
 public class DetailsActivity extends AppCompatActivity {
     private static final String PARCELABLE_DATA_KEY = "details";
+    public static final RoundedTransformation ROUNDED_TRANSFORMATION = new RoundedTransformation();
 
     public static Intent start(Context context, DetailParcel...parcels) {
         Intent intent = new Intent(context, DetailsActivity.class);
@@ -196,7 +196,11 @@ public class DetailsActivity extends AppCompatActivity {
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
         frameLayoutParams.setMargins(marginFromEdge, toolbarHeight, 0, 0);
         hero.setLayoutParams(frameLayoutParams);
-        hero.setBackground(Drawables.doubleBorderDrawable(this, detail.primaryColor()));
+        hero.setBackground(Drawables.doubleBorderDrawable(
+            this,
+            detail.primaryColor(),
+            detail.background()
+        ));
         hero.setClickable(false);
         hero.setFocusable(false);
 
@@ -288,7 +292,7 @@ public class DetailsActivity extends AppCompatActivity {
             .load(detail.hero())
             .placeholder(R.color.background_color)
             .centerCrop()
-            .transform(new RoundedTransformation())
+            .transform(ROUNDED_TRANSFORMATION)
             .resize(heroImageDiameter, heroImageDiameter)
             .into(hero);
 
@@ -419,7 +423,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         final LayoutInflater inflater = LayoutInflater.from(this);
 
-
         for (int index = 0; index < items.size(); index++) {
             ReferenceItemSection section = items.get(index);
             View view = inflater.inflate(R.layout.reference_detail_section_body, linearLayout, false);
@@ -446,12 +449,13 @@ public class DetailsActivity extends AppCompatActivity {
                 .alpha(1)
                 .start();
 
-            final BezelImageView avatar = (BezelImageView) view.findViewById(R.id.avatar);
+            final ImageView avatar = (ImageView) view.findViewById(R.id.avatar);
             avatar.setScaleX(0);
             avatar.setScaleY(0);
             Picasso.with(this)
                 .load(section.avatar())
                 .placeholder(R.color.background_color)
+                .transform(ROUNDED_TRANSFORMATION)
                 .into(avatar, new Callback.EmptyCallback() {
                     @Override
                     public void onSuccess() {
