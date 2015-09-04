@@ -31,37 +31,34 @@
         <LinearLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
     
             <android.support.v4.view.ViewPager
                 android:id="@+id/me"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
-    
-            </android.support.v4.view.ViewPager>
-    
+                android:layout_height="@dimen/section_height"/>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/experience"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
-    
-            </android.support.v4.view.ViewPager>
-    
+                android:layout_height="@dimen/section_height"/>
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/skills"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
-    
-            </android.support.v4.view.ViewPager>
+                android:layout_height="@dimen/section_height"/>
     
             <android.support.v4.view.ViewPager
                 android:id="@+id/social"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/section_height">
-    
-            </android.support.v4.view.ViewPager>
-    
+                android:layout_height="@dimen/section_height"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/education"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/section_height"/>
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

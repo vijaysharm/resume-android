@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ca.vijaysharma.resume.models.Education;
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.ListItem;
 import ca.vijaysharma.resume.models.Profile;
@@ -59,8 +60,15 @@ public class ResumeData {
         logos.put(toptal, R.drawable.toptal);
         primaries.put(toptal, R.color.toptal);
 
+        String western = "The University of Western Ontario";
+        companyNames.put(western, "U. Western Ontario");
+        logos.put(western, R.drawable.western_256);
+        primaries.put(western, R.color.western);
+
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
         positionNames.put("Android Consultant at Datacap Systems Inc", "Android Consultant");
+        positionNames.put("Master of Engineering Sciences", "Masters in Engineering");
+        positionNames.put("Bachelor of Electrical and Computer Engineering", "Bachelors in Engineering");
 
         avatars.put("Vijay Sharma", R.drawable.avatar);
     }
@@ -83,6 +91,7 @@ public class ResumeData {
             name, avatar(name), email, site, location, position, biography, objective
         );
     }
+
     public static List<ListItem> experiences(Map<String, Object> data) {
         Map<String, Object> exp = v(data, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");
@@ -104,6 +113,36 @@ public class ResumeData {
         }
 
         return experience;
+    }
+
+    public static List<Education> education(Map<String, Object> data) {
+        Map<String, Object> exp = v(data, "education");
+        List<Map<String, Object>> schools = v(exp, "schools");
+        ArrayList<Education> education = new ArrayList<>();
+        for (Map<String, Object> school : schools) {
+            String degree = v(school, "name");
+            String name = v(school, "location");
+            String address = v(school, "address");
+            String start = v(school, "start_date");
+            String end = v(school, "end_date");
+            String site = v(school, "site");
+            List<String> responsibilities = v(school, "responsibilities");
+            education.add(new Education(
+                logo(name),
+                primary(name),
+                secondary(name),
+                tertiary(name),
+                company(name),
+                address,
+                position(degree),
+                site,
+                "present".equals(start) ? new DateTime() : new DateTime(start),
+                "present".equals(end) ? new DateTime() : new DateTime(end),
+                responsibilities.toArray(new String[0])
+            ));
+        }
+
+        return education;
     }
 
     public static Experience experienceDetail(int index, Map<String, Object> data) {
@@ -161,6 +200,7 @@ public class ResumeData {
 
         throw new IllegalArgumentException("Unknown Experience index " + index);
     }
+
     public static List<Experience> experienceDetails(Map<String, Object> data) {
         Map<String, Object> exp = v(data, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");

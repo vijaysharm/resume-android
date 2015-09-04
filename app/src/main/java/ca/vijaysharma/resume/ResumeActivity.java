@@ -17,6 +17,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ca.vijaysharma.resume.adapters.EducationAdapter;
 import ca.vijaysharma.resume.adapters.ExperienceAdapter;
 import ca.vijaysharma.resume.adapters.ProfileAdapter;
 import ca.vijaysharma.resume.adapters.SkillsAdapter;
@@ -35,6 +36,7 @@ public class ResumeActivity extends AppCompatActivity {
     @Bind(R.id.me) ViewPager profile;
     @Bind(R.id.experience) ViewPager experience;
     @Bind(R.id.skills) ViewPager skills;
+    @Bind(R.id.education) ViewPager education;
     @Bind(R.id.social) ViewPager social;
     @Bind(R.id.toolbar) Toolbar toolbar;
 
@@ -57,6 +59,7 @@ public class ResumeActivity extends AppCompatActivity {
         preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume)));
         preparePager(social, new SocialAdapter(this, bus, storage, ResumeData.social(resume)));
         preparePager(skills, new SkillsAdapter(this, bus, storage, ResumeData.skills(resume)));
+        preparePager(education, new EducationAdapter(this, bus, storage, ResumeData.education(resume)));
     }
 
     @Override

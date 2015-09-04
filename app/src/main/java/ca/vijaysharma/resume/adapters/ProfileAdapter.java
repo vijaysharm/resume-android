@@ -27,7 +27,8 @@ public class ProfileAdapter extends PagerAdapter {
     public ProfileAdapter(
         Context context,
         EventBus bus,
-        Storage storage, Profile profile
+        Storage storage,
+        Profile profile
     ) {
         this.context = context;
         this.bus = bus;
