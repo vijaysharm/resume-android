@@ -42,6 +42,7 @@ public class ResumeData {
         logos.put(signiant, R.drawable.signiant);
         primaries.put(signiant, R.color.signiant);
         secondaries.put(signiant, R.color.black);
+        tertiaries.put(signiant, R.color.white);
 
         String robarts = "Robarts Research Imaging Institute";
         companyNames.put(robarts, "Robarts");

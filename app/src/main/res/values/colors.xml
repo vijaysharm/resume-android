@@ -10,6 +10,7 @@
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
     <color name="grey">#D8D8D8</color>
+    <color name="dark_grey">#8c8c8c</color>
 
     <color name="younility">#F27629</color>
     <color name="signiant">#C1D72E</color>

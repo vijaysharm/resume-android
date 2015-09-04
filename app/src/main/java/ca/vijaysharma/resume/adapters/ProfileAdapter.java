@@ -62,7 +62,7 @@ public class ProfileAdapter extends PagerAdapter {
                             .back(R.drawable.ic_arrow_back_black_24dp)
                             .primaryColor(R.color.white)
                             .secondaryColor(R.color.black)
-                            .tertiaryColor(R.color.grey)
+                            .tertiaryColor(R.color.dark_grey)
                             .background(R.color.white)
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
