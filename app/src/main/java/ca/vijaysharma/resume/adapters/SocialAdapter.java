@@ -2,7 +2,6 @@ package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,11 +11,10 @@ import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.IntentEvent;
 import ca.vijaysharma.resume.models.Social;
-import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Drawables;
 import de.greenrobot.event.EventBus;
 
-public class SocialAdapter extends PagerAdapter implements Action1<Object> {
+public class SocialAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
     private final List<Social> socials;
@@ -40,8 +38,7 @@ public class SocialAdapter extends PagerAdapter implements Action1<Object> {
                 .setText("Social")
                 .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.yellow_circle_button))
-                .setAddConnection(position != 0)
-                .setListener(this)
+                .setAddConnection(false)
                 .build();
             collection.addView(view);
         } else {
@@ -77,10 +74,5 @@ public class SocialAdapter extends PagerAdapter implements Action1<Object> {
     @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
-    }
-
-    @Override
-    public void call(Object item) {
-        Log.i("SocialAdapter", "Object: " + item);
     }
 }

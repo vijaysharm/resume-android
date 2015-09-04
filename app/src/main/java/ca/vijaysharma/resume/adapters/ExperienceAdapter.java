@@ -21,7 +21,7 @@ import ca.vijaysharma.resume.models.ListItem;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
-import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
+import ca.vijaysharma.resume.parcelable.ReferenceSectionItem;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
@@ -90,12 +90,12 @@ public class ExperienceAdapter extends PagerAdapter {
         final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
         final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
 
-        ArrayList<ReferenceItemSection> items = new ArrayList<>();
+        ArrayList<ReferenceSectionItem> items = new ArrayList<>();
         for (Reference reference : experience.getReferences()) {
-            items.add(ReferenceItemSection.create(
-                reference.getName(),
-                reference.getPosition(),
-                reference.getAvatar())
+            items.add(ReferenceSectionItem.create(
+                    reference.getName(),
+                    reference.getPosition(),
+                    reference.getAvatar())
             );
         }
         final Section references = ReferenceSection.create("References", items);

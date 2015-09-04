@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import ca.vijaysharma.resume.models.Education;
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.ListItem;
 import ca.vijaysharma.resume.models.Profile;
+import ca.vijaysharma.resume.models.Project;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.models.Social;
@@ -254,12 +257,47 @@ public class ResumeData {
     }
 
     public static List<Skill> skills(Map<String, Object> data) {
+        List<Project> android = Arrays.asList(
+            new Project("PixPass",
+                "PixPass iz da best!!!!",
+                "https://play.google.com/store/apps/details?id=ca.vijaysharma.password",
+                new int[]{},
+                new String[]{"https://lh3.googleusercontent.com/KYuKvPJYQiVSnjL5Ry6boDDAB7HQWpdqe1CWDAbtrNrBSdMCYnNcwJxdoCXgisAi4r-f=h900-rw"},
+                new String[]{},
+                new HashSet<String>()
+            )
+        );
+
         ArrayList<Skill> skills = new ArrayList<>(4);
-        skills.add(new Skill("Android", R.drawable.android_256, R.color.android));
-        skills.add(new Skill("iOS", R.drawable.apple_256, R.color.apple));
-        skills.add(new Skill("Frontend Web", R.drawable.html5_256, R.color.html5));
-        skills.add(new Skill("Backend", R.drawable.cloud_256, R.color.white));
-        skills.add(new Skill("Storage", R.drawable.storage_256, R.color.grey));
+        skills.add(
+            new Skill.Builder("Android", R.drawable.android_256, R.color.android)
+                .beginner("Animations")
+                .intermediate("Realm.io").intermediate("Google Play Store")
+                .advanced("RxJava").advanced("Picasso").advanced("Glide")
+                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
+                .project(android.get(0))
+                .build()
+        );
+        skills.add(
+            new Skill.Builder("iOS", R.drawable.apple_256, R.color.apple)
+                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
+                .build()
+        );
+        skills.add(
+            new Skill.Builder("Frontend Web", R.drawable.html5_256, R.color.html5)
+                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
+                .build()
+        );
+        skills.add(
+            new Skill.Builder("Backend", R.drawable.cloud_256, R.color.white)
+                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
+                .build()
+        );
+        skills.add(
+            new Skill.Builder("Storage", R.drawable.storage_256, R.color.grey)
+                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
+                .build()
+        );
 
         return skills;
     }

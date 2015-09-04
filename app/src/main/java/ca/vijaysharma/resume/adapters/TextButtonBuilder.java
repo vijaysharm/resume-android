@@ -10,7 +10,6 @@ import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 
 import ca.vijaysharma.resume.R;
-import ca.vijaysharma.resume.utils.Action1;
 import ca.vijaysharma.resume.utils.Metrics;
 import ca.vijaysharma.resume.utils.Typefaces;
 
@@ -21,7 +20,6 @@ class TextButtonBuilder<T> {
     private Drawable backgroundDrawableResourceId;
     private int connectorColor;
     private boolean addConnection;
-    private Action1<T> listener;
     private T object;
 
     public TextButtonBuilder(Context context, T object) {
@@ -47,11 +45,6 @@ class TextButtonBuilder<T> {
 
     public TextButtonBuilder<T> setAddConnection(boolean addConnection) {
         this.addConnection = addConnection;
-        return this;
-    }
-
-    public TextButtonBuilder<T> setListener(Action1<T> listener) {
-        this.listener = listener;
         return this;
     }
 
@@ -86,7 +79,6 @@ class TextButtonBuilder<T> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (listener != null ) listener.call(object);
             }
         });
 

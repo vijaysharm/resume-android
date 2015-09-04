@@ -1,8 +1,10 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,16 +14,23 @@ import java.util.List;
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
+import ca.vijaysharma.resume.models.Project;
 import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
+import ca.vijaysharma.resume.parcelable.ProjectSection;
+import ca.vijaysharma.resume.parcelable.ProjectSectionItem;
 import ca.vijaysharma.resume.parcelable.Section;
-import ca.vijaysharma.resume.utils.Action1;
+import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
+import ca.vijaysharma.resume.utils.Lists;
+import ca.vijaysharma.resume.utils.Times;
 import de.greenrobot.event.EventBus;
 
-public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
+import static ca.vijaysharma.resume.utils.Strings.join;
+
+public class SkillsAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
     private final List<Skill> skills;
@@ -45,7 +54,6 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
                 .setConnectorColor(this.context.getResources().getColor(R.color.green))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.green_circle_button))
                 .setAddConnection(position != 0)
-                .setListener(this)
                 .build();
 
             collection.addView(view);
@@ -55,18 +63,18 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
             View view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.green))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.green))
-                .setImage(skill.getLogo())
+                .setImage(skill.logo)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         DetailParcel parcel = DetailParcel.builder()
-                            .detail1(skill.getName())
-                            .detail2("")
+                            .detail1(skill.name)
+                            .detail2(Times.duration(skill.start, skill.end))
                             .detail3("")
-                            .hero(skill.getLogo())
+                            .hero(skill.logo)
                             .back(R.drawable.ic_arrow_back_white_24dp)
-                            .primaryColor(skill.getPrimaryColor())
+                            .primaryColor(skill.primary)
                             .secondaryColor(R.color.white)
                             .tertiaryColor(R.color.white)
                             .background(R.color.background_color)
@@ -78,10 +86,7 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
                                 .action(R.drawable.ic_place_white_24dp)
                                 .intent(Intents.createEmptyIntent())
                                 .build())
-                            .sections(new ArrayList<Section>())
-//                            .sections(Lists.newArrayList(
-//                                company, work, references
-//                            ))
+                            .sections(sections(skill))
                             .build();
 
                         bus.post(new ShowDetailsEvent(parcel, view));
@@ -91,6 +96,46 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
             collection.addView(view);
             return view;
         }
+    }
+
+    @NonNull
+    private ArrayList<Section> sections(Skill skill) {
+        ArrayList<Section> sections = new ArrayList<>();
+        if (! skill.beginner.isEmpty())
+            sections.add(TextSection.create("Beginner Knowledge", Lists.newArrayList(join(skill.beginner))));
+
+        if (! skill.intermediate.isEmpty())
+            sections.add(TextSection.create("Intermediate Knowledge", Lists.newArrayList(join(skill.intermediate))));
+
+        if (! skill.advanced.isEmpty())
+            sections.add(TextSection.create("Advanced Knowledge", Lists.newArrayList(join(skill.advanced))));
+
+        if (skill.projects.isEmpty())
+            return sections;
+
+        ArrayList<ProjectSectionItem> items = new ArrayList<>(skill.projects.size());
+        for (Project project : skill.projects) {
+            ArrayList<Integer> locals = new ArrayList<>(project.locals.length);
+            for (int local: project.locals) {
+                locals.add(local);
+            }
+
+            ArrayList<Uri> remotes = new ArrayList<>(project.remote.length);
+            for (String remote : project.remote) {
+                remotes.add(Uri.parse(remote));
+            }
+
+            items.add(ProjectSectionItem.create(
+                project.name,
+                TextUtils.isEmpty(project.url) ? Uri.EMPTY : Uri.parse(project.url),
+                project.description,
+                locals,
+                remotes
+            ));
+        }
+
+        sections.add(ProjectSection.create("Relevant Projects", items));
+        return sections;
     }
 
     @Override
@@ -106,10 +151,5 @@ public class SkillsAdapter extends PagerAdapter implements Action1<Object> {
     @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;
-    }
-
-    @Override
-    public void call(Object item) {
-        Log.i("SkillsAdapter", "Object: " + item);
     }
 }

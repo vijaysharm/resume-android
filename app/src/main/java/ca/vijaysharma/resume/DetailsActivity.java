@@ -3,11 +3,16 @@ package ca.vijaysharma.resume;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -35,8 +40,10 @@ import java.util.Collections;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
-import ca.vijaysharma.resume.parcelable.ReferenceItemSection;
+import ca.vijaysharma.resume.parcelable.ProjectSection;
+import ca.vijaysharma.resume.parcelable.ProjectSectionItem;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
+import ca.vijaysharma.resume.parcelable.ReferenceSectionItem;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Drawables;
@@ -262,6 +269,9 @@ public class DetailsActivity extends AppCompatActivity {
             } else if (section instanceof ReferenceSection) {
                 ReferenceSection referenceSection = (ReferenceSection)section;
                 addReferenceSection(detail.primaryColor(), referenceSection, body);
+            } else if (section instanceof ProjectSection) {
+                ProjectSection projectSection = (ProjectSection)section;
+                addProjectSection(detail.primaryColor(), projectSection, body);
             }
         }
 
@@ -396,7 +406,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void sectionTitle(
-        int primaryColor,
+        @ColorRes int primaryColor,
         String titleString,
         LinearLayout linearLayout
     ) {
@@ -412,7 +422,7 @@ public class DetailsActivity extends AppCompatActivity {
         ReferenceSection detail,
         LinearLayout linearLayout
     ) {
-        final ArrayList<ReferenceItemSection> items = detail.items();
+        final ArrayList<ReferenceSectionItem> items = detail.items();
         if (items.isEmpty())
             return;
 
@@ -424,7 +434,7 @@ public class DetailsActivity extends AppCompatActivity {
         final LayoutInflater inflater = LayoutInflater.from(this);
 
         for (int index = 0; index < items.size(); index++) {
-            ReferenceItemSection section = items.get(index);
+            ReferenceSectionItem section = items.get(index);
             View view = inflater.inflate(R.layout.reference_detail_section_body, linearLayout, false);
 
             TextView name = (TextView) view.findViewById(R.id.name);
@@ -479,6 +489,72 @@ public class DetailsActivity extends AppCompatActivity {
 
             linearLayout.addView(container);
         }
+    }
+
+    private void addProjectSection(@ColorRes final int primaryColor, ProjectSection section, LinearLayout linearLayout) {
+        ArrayList<ProjectSectionItem> items = section.items();
+        if (items.isEmpty())
+            return;
+
+        sectionTitle(primaryColor, section.name(), linearLayout);
+
+        int itemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_items);
+        int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
+
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        for (int index = 0; index < items.size(); index++) {
+            final ProjectSectionItem project = items.get(index);
+            linearLayoutParams.setMargins(0, index == 0 ? firstItemSpacer : itemSpacer, 0, 0);
+            SpannableStringBuilder output = createProjectName(project, primaryColor);
+            View view = inflater.inflate(R.layout.project_detail_section_body, linearLayout, false);
+            view.setLayoutParams(linearLayoutParams);
+
+            TextView content = (TextView)view.findViewById(R.id.header);
+            content.setMovementMethod(LinkMovementMethod.getInstance());
+            content.setText(output);
+            content.setTranslationY(-15.0f);
+            content.setAlpha(0);
+            content.animate()
+                .setStartDelay(400)
+                .setDuration(500)
+                .translationY(0)
+                .alpha(1)
+                .start();
+
+            linearLayout.addView(view);
+
+        }
+    }
+
+    private SpannableStringBuilder createProjectName(final ProjectSectionItem project, @ColorRes final int primaryColor) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+        builder.append(project.name());
+        if (! Uri.EMPTY.equals(project.link())) {
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void updateDrawState(TextPaint tp) {
+                    tp.setColor(getResources().getColor(primaryColor));
+                }
+
+                @Override
+                public void onClick(View widget) {
+                    startActivity(Intents.createUrlIntent(project.link()));
+                }
+            };
+            builder.append(" - ")
+                .append("Link", clickableSpan, 0);
+        }
+
+        if (! TextUtils.isEmpty(project.description())) {
+            builder.append("\n").append(project.description());
+        }
+
+        return builder;
     }
 
     private void addTextSection(

@@ -34,6 +34,13 @@ public class Intents {
         return intent;
     }
 
+    public static Intent createUrlIntent(Uri url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(url);
+
+        return intent;
+    }
+
     public static Intent createEmptyIntent() {
         Intent intent = new Intent();
         intent.putExtra("EMPTY_INTENT", true);

@@ -5,10 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.joda.time.Days;
-import org.joda.time.Months;
-import org.joda.time.Years;
-
 import java.util.List;
 
 import ca.vijaysharma.resume.R;
@@ -22,6 +18,7 @@ import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Lists;
+import ca.vijaysharma.resume.utils.Times;
 import de.greenrobot.event.EventBus;
 
 public class EducationAdapter extends PagerAdapter {
@@ -108,18 +105,7 @@ public class EducationAdapter extends PagerAdapter {
     }
 
     private String duration(Education experience) {
-        final Years years = Years.yearsBetween(experience.start, experience.end);
-        if (years.getYears() != 0) {
-            return years.getYears() == 1 ? years.getYears() + " year" : years.getYears() + " years";
-        }
-
-        final Months months = Months.monthsBetween(experience.start, experience.end);
-        if (months.getMonths() != 0) {
-            return months.getMonths() == 1 ? months.getMonths() + " month" : months.getMonths() + " months";
-        }
-
-        final Days days = Days.daysBetween(experience.start, experience.end);
-        return days.getDays() + " days";
+        return Times.duration(experience.start, experience.end);
     }
 
     @Override

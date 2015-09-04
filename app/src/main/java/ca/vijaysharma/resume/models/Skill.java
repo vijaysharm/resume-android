@@ -3,26 +3,107 @@ package ca.vijaysharma.resume.models;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 
-public class Skill {
-    private final String name;
-    private final @DrawableRes int logo;
-    private final @ColorRes int primary;
+import org.joda.time.DateTime;
 
-    public Skill(String name, int logo, int primary) {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Skill {
+    public final String name;
+    public final @DrawableRes int logo;
+    public final @ColorRes int primary;
+    public final List<String> beginner;
+    public final List<String> intermediate;
+    public final List<String> advanced;
+    public final List<Project> projects;
+    public final DateTime start;
+    public final DateTime end;
+
+    public Skill(
+        String name,
+        int logo,
+        int primary,
+        List<String> beginner,
+        List<String> intermediate,
+        List<String> advanced,
+        List<Project> projects,
+        DateTime start, DateTime end) {
         this.name = name;
         this.logo = logo;
         this.primary = primary;
+        this.beginner = beginner;
+        this.intermediate = intermediate;
+        this.advanced = advanced;
+        this.projects = projects;
+        this.start = start;
+        this.end = end;
     }
 
-    public String getName() {
-        return name;
-    }
+    public static class Builder {
+        private final String name;
+        private final @DrawableRes int logo;
+        private final @ColorRes int primary;
+        private ArrayList<String> beginner;
+        private ArrayList<String> intermediate;
+        private ArrayList<String> advanced;
+        private ArrayList<Project> projects;
+        private DateTime start;
+        private DateTime end;
 
-    public int getLogo() {
-        return logo;
-    }
+        public Builder(String name, int logo, int primary) {
+            this.name = name;
+            this.logo = logo;
+            this.primary = primary;
+        }
 
-    public @ColorRes int getPrimaryColor() {
-        return primary;
+        public Builder beginner(String beginner) {
+            if (this.beginner == null)
+                this.beginner = new ArrayList<>();
+            this.beginner.add(beginner);
+            return this;
+        }
+
+        public Builder intermediate(String intermediate) {
+            if (this.intermediate == null)
+                this.intermediate = new ArrayList<>();
+            this.intermediate.add(intermediate);
+            return this;
+        }
+
+        public Builder advanced(String advanced) {
+            if (this.advanced == null)
+                this.advanced = new ArrayList<>();
+            this.advanced.add(advanced);
+            return this;
+        }
+
+        public Builder span(DateTime start, DateTime end) {
+            this.start = start;
+            this.end = end;
+            return this;
+        }
+
+        public Builder project(Project project) {
+            if (this.projects == null)
+                this.projects = new ArrayList<>();
+            this.projects.add(project);
+
+            return this;
+        }
+
+        public Skill build() {
+            return new Skill(
+                name,
+                logo,
+                primary,
+                beginner == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(beginner),
+                intermediate == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(intermediate),
+                advanced == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(advanced),
+                projects == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(projects),
+                start,
+                end
+            );
+        }
     }
 }
