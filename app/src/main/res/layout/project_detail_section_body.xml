@@ -13,4 +13,11 @@
         android:layout_marginBottom="@dimen/space_between_body_items"
         layout="@layout/text_detail_section_body"
         />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/image_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/image_container_height"
+        android:layout_marginTop="@dimen/space_between_body_items"
+        android:scrollbars="horizontal"
+        />
 </LinearLayout>

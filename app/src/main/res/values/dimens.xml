@@ -28,4 +28,6 @@
     <dimen name="body_text_section_title">18sp</dimen>
     <dimen name="body_text_section_content">20sp</dimen>
     <dimen name="body_section_margin">60dp</dimen>
+    <dimen name="image_item_spacing">4dp</dimen>
+    <dimen name="image_container_height">240dp</dimen>
 </resources>

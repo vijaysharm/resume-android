@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.TextUtils;
@@ -36,6 +38,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -502,7 +505,7 @@ public class DetailsActivity extends AppCompatActivity {
         int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
 
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         );
 
@@ -526,8 +529,11 @@ public class DetailsActivity extends AppCompatActivity {
                 .alpha(1)
                 .start();
 
+            RecyclerView list = (RecyclerView)view.findViewById(R.id.image_container);
+            list.setHasFixedSize(true);
+            list.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
+            list.setAdapter(new LayoutAdapter(this, project.locals(), project.remotes()));
             linearLayout.addView(view);
-
         }
     }
 
@@ -645,5 +651,54 @@ public class DetailsActivity extends AppCompatActivity {
                 detail3Spring.setEndValue(endValue);
             }
         }, 400);
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView imageView;
+        public ViewHolder(ImageView imageView) {
+            super(imageView);
+            this.imageView = imageView;
+        }
+    }
+
+    private static class LayoutAdapter extends RecyclerView.Adapter<ViewHolder> {
+        private final Context context;
+        private final List<Integer> locals;
+        private final List<Uri> remotes;
+
+        public LayoutAdapter(Context context, List<Integer> locals, List<Uri> remotes) {
+            this.context = context;
+            this.locals = locals;
+            this.remotes = remotes;
+        }
+
+        @Override
+        public int getItemCount() {
+            return locals.size() + remotes.size();
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            ImageView imageView = new ImageView(context);
+            imageView.setAdjustViewBounds(true);
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT
+            ));
+            return new ViewHolder(imageView);
+        }
+
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+            int majorSpacing = (int)context.getResources().getDimension(R.dimen.body_section_margin);
+            int minorSpacing = (int)context.getResources().getDimension(R.dimen.image_item_spacing);
+            holder.imageView.setPadding(position == 0 ? majorSpacing : minorSpacing, 0, 0, 0);
+
+            if (position < locals.size()) {
+                Picasso.with(context).load(locals.get(position)).into(holder.imageView);
+            } else {
+                int remotePosition = position - locals.size();
+                Picasso.with(context).load(remotes.get(remotePosition)).into(holder.imageView);
+            }
+        }
     }
 }
