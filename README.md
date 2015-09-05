@@ -18,12 +18,12 @@ And I wanted to play around with animations.
 In Progress
 ===========
 1. Finish Skills section
-  1. Add programming projects
+  1. Add more data
+  1. Move and read data from json
 
 TODO
 ====
 1. Splash Screen
 1. Add references avatar
-1. Add relevant technologies to experience
 1. Github Blog?
 

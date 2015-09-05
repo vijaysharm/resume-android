@@ -22,13 +22,16 @@ import ca.vijaysharma.resume.models.Projects;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
-import ca.vijaysharma.resume.parcelable.ReferenceSectionItem;
+import ca.vijaysharma.resume.parcelable.ProjectSection;
+import ca.vijaysharma.resume.parcelable.ProjectSectionItem;
 import ca.vijaysharma.resume.parcelable.ReferenceSection;
+import ca.vijaysharma.resume.parcelable.ReferenceSectionItem;
 import ca.vijaysharma.resume.parcelable.Section;
 import ca.vijaysharma.resume.parcelable.TextSection;
 import ca.vijaysharma.resume.utils.Drawables;
 import ca.vijaysharma.resume.utils.Intents;
 import ca.vijaysharma.resume.utils.Lists;
+import ca.vijaysharma.resume.utils.Strings;
 import de.greenrobot.event.EventBus;
 
 public class ExperienceAdapter extends PagerAdapter {
@@ -93,6 +96,8 @@ public class ExperienceAdapter extends PagerAdapter {
         final Experience experience = ResumeData.experienceDetail(index, storage.read());
         final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
         final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
+        final Section projects = ProjectSection.create("Projects", ProjectSectionItem.items(this.projects.all(experience.getName().toLowerCase())));
+        final Section skills = TextSection.create("Technologies", Lists.newArrayList(Strings.join(experience.getSkills())));
 
         ArrayList<ReferenceSectionItem> items = new ArrayList<>();
         for (Reference reference : experience.getReferences()) {
@@ -122,7 +127,7 @@ public class ExperienceAdapter extends PagerAdapter {
                 .intent(Intents.createLocationIntent(context, experience.getLocation()))
                 .build())
             .sections(Lists.newArrayList(
-                company, work, references
+                company, work, skills, projects, references
             ))
             .build();
 

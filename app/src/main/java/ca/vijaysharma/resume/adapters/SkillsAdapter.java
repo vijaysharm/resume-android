@@ -1,10 +1,8 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,7 +12,6 @@ import java.util.List;
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
-import ca.vijaysharma.resume.models.Project;
 import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
@@ -113,28 +110,7 @@ public class SkillsAdapter extends PagerAdapter {
         if (skill.projects.isEmpty())
             return sections;
 
-        ArrayList<ProjectSectionItem> items = new ArrayList<>(skill.projects.size());
-        for (Project project : skill.projects) {
-            ArrayList<Integer> locals = new ArrayList<>(project.locals.length);
-            for (int local: project.locals) {
-                locals.add(local);
-            }
-
-            ArrayList<Uri> remotes = new ArrayList<>(project.remote.length);
-            for (String remote : project.remote) {
-                remotes.add(Uri.parse(remote));
-            }
-
-            items.add(ProjectSectionItem.create(
-                project.name,
-                TextUtils.isEmpty(project.url) ? Uri.EMPTY : Uri.parse(project.url),
-                project.description,
-                locals,
-                remotes
-            ));
-        }
-
-        sections.add(ProjectSection.create("Relevant Projects", items));
+        sections.add(ProjectSection.create("Relevant Projects", ProjectSectionItem.items(skill.projects)));
         return sections;
     }
 
