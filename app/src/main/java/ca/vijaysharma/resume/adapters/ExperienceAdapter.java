@@ -18,6 +18,7 @@ import ca.vijaysharma.resume.Storage;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
 import ca.vijaysharma.resume.models.Experience;
 import ca.vijaysharma.resume.models.ListItem;
+import ca.vijaysharma.resume.models.Projects;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.parcelable.DetailAction;
 import ca.vijaysharma.resume.parcelable.DetailParcel;
@@ -35,17 +36,20 @@ public class ExperienceAdapter extends PagerAdapter {
     private final EventBus bus;
     private final Storage storage;
     private final List<ListItem> experiences;
+    private final Projects projects;
 
     public ExperienceAdapter(
         Context context,
         EventBus bus,
         Storage storage,
-        List<ListItem> experiences
+        List<ListItem> experiences,
+        Projects projects
     ) {
         this.context = context;
         this.bus = bus;
         this.storage = storage;
         this.experiences = experiences;
+        this.projects = projects;
     }
 
     @Override

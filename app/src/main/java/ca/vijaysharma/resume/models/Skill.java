@@ -84,10 +84,10 @@ public class Skill {
             return this;
         }
 
-        public Builder project(Project project) {
+        public Builder projects(List<Project> projects) {
             if (this.projects == null)
                 this.projects = new ArrayList<>();
-            this.projects.add(project);
+            this.projects.addAll(projects);
 
             return this;
         }

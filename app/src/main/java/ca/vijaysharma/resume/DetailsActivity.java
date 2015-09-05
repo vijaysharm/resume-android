@@ -3,6 +3,7 @@ package ca.vijaysharma.resume;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -501,17 +503,16 @@ public class DetailsActivity extends AppCompatActivity {
 
         sectionTitle(primaryColor, section.name(), linearLayout);
 
-        int itemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_items);
+        int itemSpacer = (int)getResources().getDimension(R.dimen.space_between_project_items);
         int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
-
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        );
 
         LayoutInflater inflater = LayoutInflater.from(this);
         for (int index = 0; index < items.size(); index++) {
             final ProjectSectionItem project = items.get(index);
+            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            );
             linearLayoutParams.setMargins(0, index == 0 ? firstItemSpacer : itemSpacer, 0, 0);
             SpannableStringBuilder output = createProjectName(project, primaryColor);
             View view = inflater.inflate(R.layout.project_detail_section_body, linearLayout, false);
@@ -539,7 +540,7 @@ public class DetailsActivity extends AppCompatActivity {
 
     private SpannableStringBuilder createProjectName(final ProjectSectionItem project, @ColorRes final int primaryColor) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(project.name());
+        builder.append(project.name(), new StyleSpan(Typeface.BOLD), 0);
         if (! Uri.EMPTY.equals(project.link())) {
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
@@ -579,14 +580,13 @@ public class DetailsActivity extends AppCompatActivity {
         int itemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_items);
         int firstItemSpacer = (int)getResources().getDimension(R.dimen.space_between_body_first_item);
 
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (int index = 0; index < items.size(); index++) {
+            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            );
             linearLayoutParams.setMargins(leftMargin, index == 0 ? firstItemSpacer : itemSpacer, rightMargin, 0);
             String item = items.get(index);
             TextView content = (TextView) inflater.inflate(R.layout.text_detail_section_body, linearLayout, false);

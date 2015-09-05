@@ -24,6 +24,7 @@ import ca.vijaysharma.resume.adapters.SkillsAdapter;
 import ca.vijaysharma.resume.adapters.SocialAdapter;
 import ca.vijaysharma.resume.events.IntentEvent;
 import ca.vijaysharma.resume.events.ShowDetailsEvent;
+import ca.vijaysharma.resume.models.Projects;
 import ca.vijaysharma.resume.utils.Metrics;
 import de.greenrobot.event.EventBus;
 
@@ -55,10 +56,11 @@ public class ResumeActivity extends AppCompatActivity {
         applyInsets(container, toolbarHeight(this));
 
         Map<String, Object> resume = storage.read();
+        Projects projects = ResumeData.projects(resume);
         preparePager(profile, new ProfileAdapter(this, bus, storage, ResumeData.profile(resume)));
-        preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume)));
+        preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume), projects));
         preparePager(social, new SocialAdapter(this, bus, storage, ResumeData.social(resume)));
-        preparePager(skills, new SkillsAdapter(this, bus, storage, ResumeData.skills(resume)));
+        preparePager(skills, new SkillsAdapter(this, bus, storage, ResumeData.skills(resume, projects)));
         preparePager(education, new EducationAdapter(this, bus, storage, ResumeData.education(resume)));
     }
 

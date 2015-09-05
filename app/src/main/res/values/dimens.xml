@@ -17,6 +17,7 @@
     <dimen name="space_between_action_items">16dp</dimen>
     <dimen name="space_between_sections">12dp</dimen>
     <dimen name="space_between_body_items">4dp</dimen>
+    <dimen name="space_between_project_items">16dp</dimen>
     <dimen name="space_between_body_first_item">4dp</dimen>
     <dimen name="action_item_diameter">48dp</dimen>
     <dimen name="reference_avatar_diameter">48dp</dimen>
