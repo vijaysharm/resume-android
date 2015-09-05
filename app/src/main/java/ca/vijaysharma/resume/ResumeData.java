@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,6 @@ import ca.vijaysharma.resume.models.Projects;
 import ca.vijaysharma.resume.models.Reference;
 import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.models.Social;
-import ca.vijaysharma.resume.utils.Sets;
 
 public class ResumeData {
     private static final Map<String, String> companyNames = new HashMap<>();
@@ -258,85 +256,24 @@ public class ResumeData {
     }
 
     public static Projects projects(Map<String, Object> data) {
-        List<Project> projects = Arrays.asList(
-            new Project("PixPass",
-                "The best image-keyboard-password manager ever!",
-                "https://play.google.com/store/apps/details?id=ca.vijaysharma.password",
-                new int[]{},
-                new String[]{
-                    "https://lh3.googleusercontent.com/Yg8j1l7b78KqGsQhmt1YjlvVAcXMLf2XqcKRezXVmXjqL8K3Y-SzFD3zLpKE_h9q92Va=h900-rw",
-                    "https://lh3.googleusercontent.com/2vYsXpssAd2pQTGQHVgAeWYxzIn1oNnwX5CVMmHYXmZydaaelu7yitp86xthJhk7Vvw=h900-rw",
-                    "https://lh3.googleusercontent.com/KYuKvPJYQiVSnjL5Ry6boDDAB7HQWpdqe1CWDAbtrNrBSdMCYnNcwJxdoCXgisAi4r-f=h900-rw",
-                    "https://lh3.googleusercontent.com/9-eLvkGN8YQriBHxByG6qTYSYsIdAPv3_lOZi_s4qU3lx4Vm2oU03uBKJ6ht0m2QEw=h900-rw"
-                },
-                new String[]{},
-                Sets.newHashSet("android")
-            ),
-            new Project("Kwilt Photos",
-                "The Universal Photo Roll: View, Edit and Share Your Photos",
-                "https://itunes.apple.com/app/kwilt/id929742170?mt=8&ign-mpt=uo%3D2",
-                new int[]{},
-                new String[]{
-                    "http://a3.mzstatic.com/us/r30/Purple7/v4/28/8d/6a/288d6a78-594b-ccc7-eb99-3b3809340724/screen322x572.jpeg",
-                    "http://a1.mzstatic.com/us/r30/Purple5/v4/25/0f/a6/250fa631-af33-9922-9794-55ec2a6d484a/screen322x572.jpeg",
-                    "http://a2.mzstatic.com/us/r30/Purple7/v4/98/18/cd/9818cdf9-e483-0f8f-75a9-a9a8e7aac271/screen322x572.jpeg",
-                    "http://a1.mzstatic.com/us/r30/Purple5/v4/3b/b4/3a/3bb43a66-f4d5-43ce-70a9-328522b5bc6c/screen322x572.jpeg",
-                    "http://a2.mzstatic.com/us/r30/Purple1/v4/f8/45/d2/f845d263-b9a2-ea31-d9d6-4658b6823f1d/screen322x572.jpeg"
-                },
-                new String[]{},
-                Sets.newHashSet("ios", "kwilt")
-            ),
-            new Project("Younility for Android",
-                "Make Work Simple",
-                "https://play.google.com/store/apps/details?id=com.touchfleet.dispatch&hl=en",
-                new int[]{},
-                new String[]{
-                    "https://lh3.googleusercontent.com/JgDSv0hm2gmJ5lKqTT7APuVVrfFKoA85V8HPkFmdA95hIPnguEJwmozsSLS4IOAucg=h900-rw",
-                    "https://lh3.googleusercontent.com/gZ8pPqR8FYRxQuSTJN9N6kAlGzxaA7X96wPt36VmZMxDiIDA1aP9MVBacFX-s7um0UKE=h900-rw",
-                    "https://lh3.googleusercontent.com/LWmCGoQt-271RBAB695RfATLAl-rF-zvsJ3jNkjjqQc0f5mTZq52eihVPfn0ikclmDI=h900-rw",
-                    "https://lh3.googleusercontent.com/3qZGBzqGjQBxSanCLP2fnVBqyMx7L90ELlg_67bnNSXu-5moixftCdJDgmSQj5nItLg=h900-rw",
-                    "https://lh3.googleusercontent.com/21CJHIdw-WRx5Cv7o4AcwK8cPV_Ea1X2wVm8BqEIKrl2eemWxjj84cNs10IRksoFVQ=h900-rw"
-                },
-                new String[]{},
-                Sets.newHashSet("android", "younility")
-            ),
-            new Project("Younility for iOS",
-                "Make Work Simple",
-                "https://itunes.apple.com/us/app/younility/id865948605?mt=8",
-                new int[]{},
-                new String[]{
-                    "http://a5.mzstatic.com/us/r30/Purple7/v4/5a/50/20/5a502032-ab95-4c0a-df0d-f860ecea6324/screen568x568.jpeg",
-                    "http://a2.mzstatic.com/us/r30/Purple7/v4/c8/6f/e0/c86fe0a9-2c44-f913-f1e1-2f1876c0b9c9/screen568x568.jpeg",
-                    "http://a5.mzstatic.com/us/r30/Purple1/v4/3c/5a/b2/3c5ab2a4-aa0c-e161-5dee-05ad38296952/screen568x568.jpeg",
-                    "http://a5.mzstatic.com/us/r30/Purple7/v4/1e/68/dd/1e68ddd2-1482-ebf8-74c5-abfedf8d654f/screen568x568.jpeg",
-                    "http://a5.mzstatic.com/us/r30/Purple5/v4/17/30/53/173053e7-8ab1-a021-906d-7557827126e7/screen568x568.jpeg"
-                },
-                new String[]{},
-                Sets.newHashSet("ios", "younility")
-            ),
-            new Project("Media Shuttle Mobile",
-                "Media Shuttle, from Signiant, is the easiest, most reliable way to send any size file, anywhere fast.",
-                "https://itunes.apple.com/ca/app/media-shuttle-mobile/id885878921?mt=8",
-                new int[]{},
-                new String[]{
-                    "http://a5.mzstatic.com/us/r30/Purple4/v4/ae/4b/ae/ae4bae9a-3cdf-5d81-fc7f-2e3131b00cc0/screen568x568.jpeg"
-                },
-                new String[]{},
-                Sets.newHashSet("ios", "signiant")
-            ),
-            new Project("InteleConnect",
-                "InteleConnect™, designed specifically for referring physicians to conveniently deliver high-quality medical imaging studies and notifications on iPad®, iPhone®, and iPod touch®.",
-                "https://itunes.apple.com/ca/app/inteleconnect/id562270725?mt=8",
-                new int[]{},
-                new String[]{
-                    "http://a3.mzstatic.com/us/r30/Purple/v4/0d/fb/be/0dfbbefc-f074-fe3d-42f6-666d71b9c293/screen568x568.jpeg",
-                    "http://a5.mzstatic.com/us/r30/Purple/v4/1c/27/86/1c278689-8972-ce42-847a-9240a81a4395/screen568x568.jpeg",
-                    "http://a4.mzstatic.com/us/r30/Purple/v4/a0/56/0e/a0560e83-b129-2bb5-b388-883e6471538e/screen568x568.jpeg"
-                },
-                new String[]{},
-                Sets.newHashSet("ios", "intelerad")
-            )
-        );
+        Map<String, Object> p = v(data, "projects");
+        List<Map<String, Object>> pi = v(p, "items");
+        List<Project> projects = new ArrayList<>(pi.size());
+        for (Map<String, Object> i : pi) {
+            List<String> enabled = v(i, "enabled");
+            if (! enabled.contains("mobile"))
+                continue;
+
+            String name = v(i, "title");
+            String description = v(i, "description");
+            String link = v(i, "url");
+            List<String> tags = v(i, "tags");
+            List<String> images = v(i, "images");
+
+            projects.add(new Project(
+                name, description, link, new int[]{}, images.toArray(new String[0]), new String[]{}, tags
+            ));
+        }
 
         Map<String, List<Project>> mapping = new HashMap<>();
         for (Project project : projects) {
@@ -350,7 +287,6 @@ public class ResumeData {
                 all.add(project);
             }
         }
-
         return new Projects(mapping);
     }
 

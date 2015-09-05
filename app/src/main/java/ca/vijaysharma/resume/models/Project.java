@@ -1,6 +1,6 @@
 package ca.vijaysharma.resume.models;
 
-import java.util.Set;
+import java.util.List;
 
 public class Project {
     public final String name;
@@ -9,7 +9,7 @@ public class Project {
     public final int[] locals;
     public final String[] remote;
     public final String[] technologies;
-    public final Set<String> tags;
+    public final List<String> tags;
 
     public Project(
         String name,
@@ -18,7 +18,7 @@ public class Project {
         int[] locals,
         String[] remote,
         String[] technologies,
-        Set<String> tags
+        List<String> tags
     ) {
         this.name = name;
         this.description = description;

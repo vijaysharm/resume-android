@@ -19,7 +19,6 @@ In Progress
 ===========
 1. Finish Skills section
   1. Add more data
-  1. Move and read data from json
 
 TODO
 ====
