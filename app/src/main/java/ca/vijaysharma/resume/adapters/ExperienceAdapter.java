@@ -102,10 +102,10 @@ public class ExperienceAdapter extends PagerAdapter {
         ArrayList<ReferenceSectionItem> items = new ArrayList<>();
         for (Reference reference : experience.getReferences()) {
             items.add(ReferenceSectionItem.create(
-                    reference.getName(),
-                    reference.getPosition(),
-                    reference.getAvatar())
-            );
+                reference.getName(),
+                reference.getPosition(),
+                reference.getAvatar()
+            ));
         }
         final Section references = ReferenceSection.create("References", items);
         DetailParcel parcel = DetailParcel.builder()

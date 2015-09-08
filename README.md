@@ -17,12 +17,17 @@ And I wanted to play around with animations.
 
 In Progress
 ===========
-1. Finish Skills section
-  1. Add more data
+
 
 TODO
 ====
+1. Finish Skills section
+  1. Add more data
 1. Splash Screen
 1. Add references avatar
 1. Github Blog?
+1. Add a "settings" section to profile which shows
+ 1. Version
+ 1. Open source libraries/licenses
+ 1. About?
 

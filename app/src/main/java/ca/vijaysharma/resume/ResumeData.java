@@ -68,6 +68,26 @@ public class ResumeData {
         logos.put(western, R.drawable.western_256);
         primaries.put(western, R.color.western);
 
+        String android = "android";
+        logos.put(android, R.drawable.android_256);
+        primaries.put(android, R.color.android);
+
+        String ios = "ios";
+        logos.put(ios, R.drawable.apple_256);
+        primaries.put(ios, R.color.apple);
+
+        String web = "web";
+        logos.put(web, R.drawable.html5_256);
+        primaries.put(web, R.color.html5);
+
+        String server = "server";
+        logos.put(server, R.drawable.cloud_256);
+        primaries.put(server, R.color.white);
+
+        String db = "db";
+        logos.put(db, R.drawable.storage_256);
+        primaries.put(db, R.color.grey);
+
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
         positionNames.put("Android Consultant at Datacap Systems Inc", "Android Consultant");
         positionNames.put("Master of Engineering Sciences", "Masters in Engineering");
@@ -292,49 +312,30 @@ public class ResumeData {
 
     public static List<Skill> skills(Map<String, Object> data, Projects projects) {
         ArrayList<Skill> skills = new ArrayList<>(4);
-        skills.add(
-            new Skill.Builder("Android", R.drawable.android_256, R.color.android)
-                .beginner("Animations")
-                .intermediate("Realm.io").intermediate("Google Play Store")
-                .advanced("RxJava").advanced("Picasso").advanced("Glide")
-                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
-                .projects(projects.all("android"))
-                .build()
-        );
-        skills.add(
-            new Skill.Builder("iOS", R.drawable.apple_256, R.color.apple)
-                .span(new DateTime("2012-01-01T00:00:00.000-03:00"), new DateTime())
-                .beginner("Swift")
-                .intermediate("CoreData").intermediate("CoreAnimation").intermediate("AdaptiveLayout")
-                .advanced("AFNetworking").advanced("ReactiveCocoa").advanced("CocoaPods").advanced("AutoLayout").advanced("Code Signing")
-                .projects(projects.all("ios"))
-                .build()
-        );
-        skills.add(
-            new Skill.Builder("Frontend Web", R.drawable.html5_256, R.color.html5)
-                .span(new DateTime("2010-01-01T00:00:00.000-03:00"), new DateTime())
-                .intermediate("AngularJS").intermediate("EmberJS")
-                .advanced("jQuery").advanced("BackboneJS").advanced("MarionetteJS")
-                .projects(projects.all("web"))
-                .build()
-        );
-        skills.add(
-            new Skill.Builder("Backend", R.drawable.cloud_256, R.color.white)
-                .span(new DateTime("2007-01-01T00:00:00.000-03:00"), new DateTime())
-                .intermediate("NodeJS").intermediate("Google App Engine")
-                .advanced("Tomcat")
-                .projects(projects.all("server"))
-                .build()
-        );
-        skills.add(
-            new Skill.Builder("Storage", R.drawable.storage_256, R.color.grey)
-                .span(new DateTime("2007-01-01T00:00:00.000-03:00"), new DateTime())
-                .beginner("Couchbase")
-                .intermediate("Postgresql").intermediate("MongoDB")
-                .advanced("Sqlite")
-                .projects(projects.all("db"))
-                .build()
-        );
+        Map<String, Object> s = v(data, "skills");
+        List<Map<String, Object>> items = v(s, "items");
+        for (Map<String, Object> item : items) {
+            List<String> enabled = v(item, "enabled");
+            if (! enabled.contains("mobile"))
+                continue;
+
+            String name = v(item, "name");
+            String type = v(item, "type");
+            String start = v(item, "start");
+            String end = v(item, "end");
+            List<String> beginner = v(item, "beginner");
+            List<String> intermediate = v(item, "intermediate");
+            List<String> advanced = v(item, "advanced");
+
+            Skill.Builder skill = new Skill.Builder(name, logo(type), primary(type))
+                .span("present".equals(start) ? new DateTime() : new DateTime(start), "present".equals(end) ? new DateTime() : new DateTime(end))
+                .projects(projects.all(type));
+            for (String b : beginner) skill.beginner(b);
+            for (String i : intermediate) skill.intermediate(i);
+            for (String a : advanced) skill.advanced(a);
+
+            skills.add(skill.build());
+        }
 
         return skills;
     }
@@ -379,7 +380,7 @@ public class ResumeData {
     }
 
     private static @ColorRes int primary(String name) {
-        return defaultValue(primaries, name, R.color.younility);
+        return defaultValue(primaries, name, R.color.grey);
     }
 
     private static @ColorRes int secondary(String name) {

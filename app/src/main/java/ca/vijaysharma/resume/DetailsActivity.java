@@ -534,6 +534,7 @@ public class DetailsActivity extends AppCompatActivity {
             list.setHasFixedSize(true);
             list.setLayoutManager(new GridLayoutManager(this, 1, GridLayoutManager.HORIZONTAL, false));
             list.setAdapter(new LayoutAdapter(this, project.locals(), project.remotes()));
+            list.setFocusable(false);
             linearLayout.addView(view);
         }
     }
