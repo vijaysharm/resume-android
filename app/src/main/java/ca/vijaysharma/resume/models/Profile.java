@@ -2,6 +2,8 @@ package ca.vijaysharma.resume.models;
 
 import android.support.annotation.DrawableRes;
 
+import java.util.ArrayList;
+
 public class Profile {
     private final String name;
     private final @DrawableRes int avatarId;
@@ -9,6 +11,7 @@ public class Profile {
     private final String email;
     private final String title;
     private final String website;
+    private final ArrayList<String> awards;
     private final String biography;
     private final String objective;
 
@@ -20,7 +23,8 @@ public class Profile {
         String location,
         String title,
         String biography,
-        String objective
+        String objective,
+        ArrayList<String> awards
     ) {
         this.name = name;
         this.avatarId = avatarId;
@@ -30,6 +34,7 @@ public class Profile {
         this.objective = objective;
         this.title = title;
         this.website = website;
+        this.awards = awards;
     }
 
     public String getName() {
@@ -62,5 +67,9 @@ public class Profile {
 
     public String getWebsite() {
         return website;
+    }
+
+    public ArrayList<String> getAwards() {
+        return awards;
     }
 }

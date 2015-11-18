@@ -59,6 +59,15 @@ public class ResumeData {
         logos.put(kwilt, R.drawable.kwilt);
         primaries.put(kwilt, R.color.kwilt);
 
+        String testfairy = "TestFairy";
+        logos.put(testfairy, R.drawable.testfairy);
+        primaries.put(testfairy, R.color.testfairy);
+
+        String datacap = "Datacap Systems Inc";
+        companyNames.put(datacap, "Datacap Systems");
+        logos.put(datacap, R.drawable.datacap);
+        primaries.put(datacap, R.color.datacap);
+
         String toptal = "Toptal";
         logos.put(toptal, R.drawable.toptal);
         primaries.put(toptal, R.color.toptal);
@@ -92,6 +101,7 @@ public class ResumeData {
         positionNames.put("Android Consultant at Datacap Systems Inc", "Android Consultant");
         positionNames.put("Master of Engineering Sciences", "Masters in Engineering");
         positionNames.put("Bachelor of Electrical and Computer Engineering", "Bachelors in Engineering");
+        positionNames.put("Android Consultant (contract)", "Android Consultant");
 
         avatars.put("Vijay Sharma", R.drawable.avatar);
     }
@@ -109,9 +119,16 @@ public class ResumeData {
         List<Object> outlets = v(contact, "outlet");
         Map<String, Object> web = (Map<String, Object>) outlets.get(0);
         String site = v(web, "url");
+        Map<String, Object> awards = v(data, "awards");
+        List<Map<String, Object>> awardItems = v(awards, "items");
+        ArrayList<String> items = new ArrayList<>(awardItems.size());
+        for (Map<String, Object> award : awardItems) {
+            String title = v(award, "title");
+            items.add(title);
+        }
 
         return new Profile(
-            name, avatar(name), email, site, location, position, biography, objective
+            name, avatar(name), email, site, location, position, biography, objective, items
         );
     }
 

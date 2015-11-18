@@ -46,6 +46,8 @@ public class ProfileAdapter extends PagerAdapter {
         if (position == 0) {
             final Section objective = TextSection.create("Objective", Lists.newArrayList(profile.getObjective()));
             final Section biography = TextSection.create("Bio", Lists.newArrayList(profile.getBiography()));
+            final Section awards = TextSection.create("Awards", profile.getAwards());
+
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.white))
                 .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.white))
@@ -73,7 +75,7 @@ public class ProfileAdapter extends PagerAdapter {
                                 .intent(Intents.createEmailIntent(profile.getEmail()))
                                 .build())
                             .sections(Lists.newArrayList(
-                                objective, biography
+                                objective, biography, awards
                             ))
                             .build();
 

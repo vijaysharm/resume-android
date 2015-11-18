@@ -22,6 +22,7 @@ public class SplashActivity extends Activity {
         R.drawable.avatar,
         R.drawable.cloud_256,
         R.drawable.concordia,
+        R.drawable.datacap,
         R.drawable.email_48,
         R.drawable.email_256,
         R.drawable.github_256,
@@ -37,6 +38,7 @@ public class SplashActivity extends Activity {
         R.drawable.storage_256,
         R.drawable.toptal,
         R.drawable.twitter_256,
+        R.drawable.testfairy,
         R.drawable.younility
     };
 
