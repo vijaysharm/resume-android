@@ -93,7 +93,7 @@ public class ExperienceAdapter extends PagerAdapter {
     }
 
     private void show(int index, View view) {
-        final Experience experience = ResumeData.experienceDetail(index, storage.read());
+        final Experience experience = ResumeData.experienceDetail(index, storage.load());
         final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
         final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
         final Section projects = ProjectSection.create("Projects", ProjectSectionItem.items(this.projects.all(experience.getName().toLowerCase())));

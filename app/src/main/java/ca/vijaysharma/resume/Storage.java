@@ -22,10 +22,13 @@ public class Storage {
         preferences.edit().putString("RESUME_DATA", data).apply();
     }
 
-    public Map<String, Object> read() {
-        String data = preferences.getString("RESUME_DATA", null);
-        if (data == null)
-            return Collections.emptyMap();
+    public String read() {
+        return preferences.getString("RESUME_DATA", null);
+    }
+
+    public Map<String, Object> load() {
+        String data = read();
+        if (data == null) return Collections.emptyMap();
 
         return gson.fromJson(data, Map.class);
     }

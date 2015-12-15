@@ -55,7 +55,7 @@ public class ResumeActivity extends AppCompatActivity {
         getActionBar().setTitle(null);
         applyInsets(container, toolbarHeight(this));
 
-        Map<String, Object> resume = storage.read();
+        Map<String, Object> resume = storage.load();
         Projects projects = ResumeData.projects(resume);
         preparePager(profile, new ProfileAdapter(this, bus, storage, ResumeData.profile(resume)));
         preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume), projects));

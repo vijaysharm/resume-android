@@ -1,0 +1,746 @@
+{
+    "name":"Vijay Sharma",
+    "title":"Senior Mobile Engineer",
+    "address": [
+        "519 Acceptance Pl",
+        "Ottawa, Ontario",
+        "Canada, K2M 0K4",
+        "(514) 690 8458",
+        "vijay.sharm@gmail.com"
+    ],
+    "personal": {
+        "enabled":["mobile"],
+        "label":"Personal",
+        "objective":"To obtain a position as a senior software developer for mobile applications that will enable me to use my diverse experience, educational background, and ability to work well with people in order to deliver powerful, high quality, and feature rich software to the end-user.",
+        "biography":"Super hero origin story"
+    },
+    "professionalexperience": {
+        "enabled": ["mobile", "web"],
+        "label": "Professional Experience",
+        "companies": [{
+            "location": "TestFairy",
+            "address": "Israel",
+            "site": "https://www.testfairy.com",
+            "summary": "TestFairy makes app testing and metric gathering easy",
+            "positions": [{
+                "name": "Android Consultant (contract)",
+                "start_date": "2015-09-01T00:00:00.000-03:00",
+                "end_date": "present",
+                "responsibilities": [
+                    "Extract existing Android code base into reusable SDK used by thousands of developers on millions of devices",
+                    "Developed plugins for Xamarin, Unity, Cordova and Adobe Air to expand user reach",
+                    "Developed novel solutions included in proprietary testing library"
+                ],
+                "enabled": ["mobile", "web"],
+                "technologies": ["Android", "IntelliJ IDEA", "Ant", "Xamarin", "Unity", "Cordova", "Adobe Air"]
+            }],
+            "references":[{"name":"Gil Megidish", "position":"CTO", "contact":"gil@testfairy.com"}]
+        }, {
+            "location": "Kwilt",
+            "address": "Ottawa, Ontario",
+            "site": "https://www.kwiltapp.com",
+            "summary": "Taking your photo experience to the next level",
+            "positions": [{
+                "name": "Senior Mobile Architect",
+                "start_date": "2015-07-01T00:00:00.000-03:00",
+                "end_date": "2015-12-01T00:00:00.000-03:00",
+                "enabled": ["mobile", "web"],
+                "technologies": ["iOS", "XCode", "Objective-C", "Android Studio", "Android SDK", "FogBugz", "Git", "KilnHg"],
+                "responsibilities": [
+                    "Made decisions on the approach to be taken for each architectural change or addition to the product",
+                    "Turned requirements and high level features into smaller tasks",
+                    "Managed resource allocation on projects and deliverables",
+                    "Arranged releases to beta programs and Apple iOS App store as well as internal releases for QA purposes",
+                    "Developed Android port of company's KwiltKey app",
+                    "Helped develop the Kwilt Social Network"
+                ]
+            }],
+            "references":[
+                { "name":"Sylvain Lambert", "position":"Chief Brand Officer", "contact":"sylvain.lambert@kwilt.it" }
+            ]
+        }, {
+            "location": "Datacap Systems Inc",
+            "address": "Chalfont, Philadelphia",
+            "site": "https://www.datacapsystems.com",
+            "summary": "Datacap develops payment interfaces used by hundreds of PC-based, mobile, and embedded Point of Sale Systems.",
+            "positions": [{
+                "name": "Android Consultant (contract)",
+                "start_date": "2015-05-01T00:00:00.000-03:00",
+                "end_date": "2015-07-01T00:00:00.000-03:00",
+                "responsibilities": [
+                    "Helped transition company from using Eclipse into using Android Studio and BitBucket",
+                    "Rearchitected Android client library for improved stability, testability, and extensibility",
+                    "Established automated build process using Gradle, to generate test reports and library artifacts",
+                    "Prototyped applications requiring deep Android knowledge to validate business requirements"
+                ],
+                "enabled": ["mobile", "web"],
+                "technologies": ["Android Studio", "Android SDK", "Gradle"]
+            }],
+            "references": [
+                {"name":"Justin Zeigler", "position":"Marketing", "contact":"justin.zeigler@dcap.com"},
+                {"name":"Doug McCann", "position":"Android Developer", "contact":"pdmccann@gmail.com"}
+            ]
+        }, {
+            "location": "Younility",
+            "address": "Ottawa, Ontario",
+            "site": "https://www.younility.com",
+            "summary": "Leaders in field communication software",
+            "positions": [{
+                "name": "Senior Mobile Engineer",
+                "start_date": "2014-10-01T00:00:00.000-03:00",
+                "end_date": "2015-07-01T00:00:00.000-03:00",
+                "responsibilities": [
+                    "Boostrapped continuous delivery environment for both iOS and Android eliminating manual build artifact creation",
+                    "Rearchitected both iOS and Android mobile application to make efficient use of battery life and network bandwidth",
+                    "Rearchitecture of Android mobile application yielded improved test coverage from 5% to 40% in 2 months",
+                    "Redesigned and implemented revamped end-user experience as part of the company's re-branding",
+                    "Managed app deployment to both Apple's App Store and Google's Play Store",
+                    "Helped establish Agile process across the entire company",
+                    "Help secure IRAPP government funding for business applications using NFC"
+                ],
+                "enabled":["mobile", "web"],
+                "technologies":["iOS", "XCode", "Cocoapods", "Android SDK", "Android Studio", "Gradle", "Circle CI", "Git", "GitHub"]
+            }],
+            "references":[
+                {"name":"Chris Cameron", "position":"Chief Technology Officer", "contact":"chris.cameron@younility.com"},
+                {"name":"Ryan Cassels", "position":"Chief Executive Officer", "contact":"ryan@younility.com"}
+            ]
+        },
+            {
+                "location":"Signiant",
+                "address":"Ottawa, Ontario",
+                "site":"https://www.signiant.com",
+                "summary":"Helps distributors ensure fast, secure delivery of large files over public and private networks.",
+                "positions":[
+                    {
+                        "name":"Java Software Developer (Cloud Applications)",
+                        "start_date":"2014-02-01T00:00:00.000-03:00",
+                        "end_date":"2014-10-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Developed Cloud and Mobile-based solutions that extend the reach of Signiant products beyond traditional enterprise environments",
+                            "Implemented full-stack solutions, using technologies such as Android, iOS, JavaScript, Java, and NoSQL solutions",
+                            "Designed system components to align with high performance system architecture",
+                            "Implemented interfaces among system components and with external systems, for example REST",
+                            "Worked effectively within Agile software development team"
+                        ],
+                        "enabled":[
+                            "mobile",
+                            "web"
+                        ],
+                        "technologies":[
+                            "MarionetteJS",
+                            "Java",
+                            "Android SDK",
+                            "iOS",
+                            "AWS Elastic Beanstalk",
+                            "Jersey",
+                            "DynamoDB",
+                            "Maven",
+                            "SVN"
+                        ]
+                    }
+                ],
+                "references":[
+                    {
+                        "name":"Peter Hodgkinson",
+                        "position":"Software Developer",
+                        "contact":"pboos@signiant.com"
+                    },
+                    {
+                        "name":"Peter Boos",
+                        "position":"Director of Engineering",
+                        "contact":"pdhodgkinson@gmail.com"
+                    }
+                ]
+            },
+            {
+                "location":"Intelerad Medical Systems",
+                "address":"Montreal, Quebec",
+                "site":"https://www.intelerad.com",
+                "summary":"Provides medical imaging solutions and services to radiology groups, hospitals, imaging centers, and teleradiology businesses.",
+                "positions":[
+                    {
+                        "name":"Senior Member of R&D",
+                        "start_date":"2011-01-01T00:00:00.000-03:00",
+                        "end_date":"2014-02-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Lead the development of the company's new flagship online clinical image viewer using latest HTML5 technologies to develop a high performance viewer targeted for the web and mobile devices",
+                            "Wrote, managed and peer-reviewed requirements, design and test plan documents for all team projects, working closely with stakeholders to ensure both company's best interest, and the integrity of the software",
+                            "Architected new advanced visualization 3D application to integrate into large enterprise code base, working closely with UI designers to develop cutting edge, feature rich applications",
+                            "Mentored new employees to adapt to company's culture, in a lead position on projects, and spearheading new software development practices",
+                            "Developed support for multiple platforms including Mobile-Web, Android and iOS"
+                        ],
+                        "enabled":[
+                            "mobile",
+                            "web"
+                        ],
+                        "technologies":[
+                            "AngularJS",
+                            "EmberJS",
+                            "GWT",
+                            "Android",
+                            "iOS",
+                            "Tomcat",
+                            "PostgreSQL"
+                        ]
+                    },
+                    {
+                        "name":"Intermediate Member of R&D",
+                        "start_date":"2009-12-01T00:00:00.000-03:00",
+                        "end_date":"2011-01-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Worked in an agile team and managed projects from design through to deployment stages",
+                            "Researched new open-source technologies to use in both client and server applications",
+                            "Developed client-server based desktop applications in Java to meet the our client's workflow needs",
+                            "Frequently volunteered to provide in-house demonstrations of new software modules to other departments, including field-analysts, project managers and stakeholders",
+                            "Awarded for going \"Beyond the Call of Duty\" by providing expert opinion and hands-on aid to all projects, including projects outside my team"
+                        ],
+                        "enabled":[
+                            "mobile",
+                            "web"
+                        ],
+                        "technologies":[
+                            "Java",
+                            "JNI",
+                            "Swing",
+                            "XMPP",
+                            "Smack",
+                            "Tigase",
+                            "Hessian",
+                            "Guice",
+                            "Guava",
+                            "Eclipse",
+                            "JUnit",
+                            "Mercurial",
+                            "PostgreSQL"
+                        ]
+                    },
+                    {
+                        "name":"Junior Member of R&D",
+                        "start_date":"2007-09-01T00:00:00.000-03:00",
+                        "end_date":"2009-12-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Developed and maintained tight integrations with third party partners in with short turn-around time",
+                            "First-level contact for support for troubleshooting client issues, which included off-hour support for clients in Australia",
+                            "Received the \"Culture Creature\" award for quickly adapting into company ecosystem, and upholding the software's integrity, while operating at high standards"
+                        ],
+                        "enabled":[
+                            "mobile",
+                            "web"
+                        ],
+                        "technologies":[
+                            "Java",
+                            "Swing",
+                            "C/C++",
+                            "MFC",
+                            "CVS",
+                            "STL",
+                            "Boost",
+                            "Python"
+                        ]
+                    }
+                ],
+                "references":[
+                    {
+                        "name":"Hormoz Pirzadeh",
+                        "position":"Director of Engineering",
+                        "contact":"hpirzadeh@gmail.com"
+                    },
+                    {
+                        "name":"Kent Tse",
+                        "position":"Director of Engineering",
+                        "contact":"kent@alitse.org"
+                    },
+                    {
+                        "name":"Amos Chan",
+                        "position":"Software Developer",
+                        "contact":"ac@amoschan.com"
+                    }
+                ]
+            },
+            {
+                "location":"Robarts Research Imaging Institute",
+                "address":"London, Ontario",
+                "site":"http://www.robarts.ca",
+                "summary":"Bringing medical discoveries and new technologies faster to clinical trials, faster to market, and, ultimately, faster to customers",
+                "positions":[
+                    {
+                        "name":"Research Assistant",
+                        "start_date":"2005-09-01T00:00:00.000-03:00",
+                        "end_date":"2007-09-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Implemented stereo reconstruction and image segmentation using OpenCV",
+                            "Developed and integrated segmentation modules with VTK/ITK in to in-house image viewer",
+                            "Ported several 2D segmentation and 3D reconstruction code written in Python in to C/C++"
+                        ],
+                        "enabled":[
+
+                        ],
+                        "technologies":[
+                            "C/C++",
+                            "Python",
+                            "Matlab",
+                            "Linux",
+                            "OpenCV",
+                            "VTK/ITK"
+                        ]
+                    }
+                ],
+                "references":[
+                    {
+                        "name":"David McErlain",
+                        "position":"Colleague",
+                        "contact":""
+                    }
+                ]
+            },
+            {
+                "location":"Concordia University",
+                "address":"Montreal, Quebec",
+                "site":"http://www.concordia.ca",
+                "summary":"A comprehensive university searching for innovative solutions and make positive contributions to society, powering Montreal and connecting students to the world.",
+                "positions":[
+                    {
+                        "name":"Research Assistant",
+                        "start_date":"2004-01-01T00:00:00.000-03:00",
+                        "end_date":"2005-09-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Researched new background subtraction algorithms for surveillance videos",
+                            "Implemented background subtraction algorithms in C/C++ for in-house video processing library",
+                            "Implemented several video format (YUV to RGB) conversion algorithms for in-house library",
+                            "Taught numerous classes on Object-Oriented design and development using Java and C/C++"
+                        ],
+                        "enabled":[
+
+                        ],
+                        "technologies":[
+                            "Java",
+                            "C/C++",
+                            "Linux"
+                        ]
+                    }
+                ],
+                "references":[
+                    {
+                        "name":"Dr. Anjali Agarwal",
+                        "position":"Engineering Professor",
+                        "contact":"aagarwal@ece.concordia.ca"
+                    }
+                ]
+            },
+            {
+                "location":"Nuance Communications",
+                "address":"Montreal, Quebec",
+                "site":"http://www.nuance.com",
+                "summary":"Reinventing the relationship between people and technology",
+                "positions":[
+                    {
+                        "name":"Quality Assurance Engineer (Internship)",
+                        "start_date":"2003-05-01T00:00:00.000-03:00",
+                        "end_date":"2003-08-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Engineered integration and system test suites for Voice Application Server in Java and XML",
+                            "Developed and maintained test plans documents based on business and software requirements"
+                        ],
+                        "technologies":[
+                            "Java",
+                            "Perl",
+                            "XHTML",
+                            "CSS2",
+                            "JavaScript",
+                            "Linux"
+                        ],
+                        "enabled":[
+
+                        ]
+                    }
+                ],
+                "references":[
+
+                ]
+            },
+            {
+                "location":"Speechworks",
+                "address":"Montreal, Quebec",
+                "site":"http://www.nuance.com",
+                "positions":[
+                    {
+                        "name":"Embedded Systems Developer (Internship)",
+                        "start_date":"2002-08-01T00:00:00.000-03:00",
+                        "end_date":"2002-12-01T00:00:00.000-03:00",
+                        "responsibilities":[
+                            "Developed client applications using proprietary speech recognition engine for Windows Mobile",
+                            "Enhanced embedded speech recognition products to meet their functional requirements"
+                        ],
+                        "technologies":[
+                            "C/C++",
+                            "Bash Scripting",
+                            "Perl",
+                            "Win32",
+                            "Visual Studio"
+                        ],
+                        "enabled":[
+
+                        ]
+                    }
+                ],
+                "references":[
+
+                ]
+            }
+        ]
+    },
+    "education":{
+        "enabled":[
+            "web"
+        ],
+        "label":"Education",
+        "schools":[
+            {
+                "location":"The University of Western Ontario",
+                "address":"London, Ontario Canada",
+                "name":"Master of Engineering Sciences",
+                "start_date":"2005-09-01T00:00:00.000-03:00",
+                "end_date":"2007-09-01T00:00:00.000-03:00",
+                "site":"https://www.uwo.ca",
+                "responsibilities":[
+                    "M.E.Sc. in Biomedical Engineering",
+                    "Thesis: Full 3D Integration of Stereo Laparoscope and Freehand Ultrasound Data",
+                    "Advisor: Dr. Terry M. Peters Ph.D. FCCPM"
+                ]
+            },
+            {
+                "name":"Bachelor of Electrical and Computer Engineering",
+                "start_date":"2001-09-01T00:00:00.000-03:00",
+                "end_date":"2005-05-01T00:00:00.000-03:00",
+                "location":"Concordia University",
+                "address":"Montreal, Quebec Canada",
+                "site":"https://www.concordia.ca",
+                "responsibilities":[
+                    "GPA: 4.02/4.30",
+                    "Gold Medal Recipient as Top Graduating Student in Computer Engineering",
+                    "Graduated from the Concordia University Cooperative Studies Program"
+                ]
+            }
+        ]
+    },
+    "skills":{
+        "label":"Skills",
+        "items":[
+            {
+                "name":"Android",
+                "type":"android",
+                "start":"2010-01-01T00:00:00.000-03:00",
+                "end":"present",
+                "beginner":[
+                    "Animations"
+                ],
+                "intermediate":[
+                    "Realm.io",
+                    "Google Play Store"
+                ],
+                "advanced":[
+                    "RxJava",
+                    "Picasso",
+                    "Glide"
+                ],
+                "enabled":[
+                    "mobile"
+                ]
+            },
+            {
+                "name":"iOS",
+                "type":"ios",
+                "start":"2012-01-01T00:00:00.000-03:00",
+                "end":"present",
+                "beginner":[
+                    "Swift"
+                ],
+                "intermediate":[
+                    "CoreData",
+                    "CoreAnimation",
+                    "AdaptiveLayout"
+                ],
+                "advanced":[
+                    "AFNetworking",
+                    "ReactiveCocoa",
+                    "CocoaPods",
+                    "AutoLayout",
+                    "Code Signing"
+                ],
+                "enabled":[
+                    "mobile"
+                ]
+            },
+            {
+                "name":"Frontend Web",
+                "type":"web",
+                "start":"2010-01-01T00:00:00.000-03:00",
+                "end":"present",
+                "beginner":[
+
+                ],
+                "intermediate":[
+                    "AngularJS",
+                    "EmberJS"
+                ],
+                "advanced":[
+                    "jQuery",
+                    "BackboneJS",
+                    "MarionetteJS"
+                ],
+                "enabled":[
+                    "mobile"
+                ]
+            },
+            {
+                "name":"Backend",
+                "type":"server",
+                "start":"2007-01-01T00:00:00.000-03:00",
+                "end":"present",
+                "beginner":[
+
+                ],
+                "intermediate":[
+                    "NodeJS",
+                    "Google App Engine"
+                ],
+                "advanced":[
+                    "Tomcat"
+                ],
+                "enabled":[
+                    "mobile"
+                ]
+            },
+            {
+                "name":"Storage",
+                "type":"db",
+                "start":"2007-01-01T00:00:00.000-03:00",
+                "end":"present",
+                "beginner":[
+                    "Couchbase"
+                ],
+                "intermediate":[
+                    "Postgresql",
+                    "MongoDB"
+                ],
+                "advanced":[
+                    "SQLite"
+                ],
+                "enabled":[
+                    "mobile"
+                ]
+            }
+        ]
+    },
+    "awards":{
+        "enabled":[
+            "web"
+        ],
+        "label":"Awards and Honors",
+        "items":[
+            {
+                "title":"Beyond the Call of Duty award at Intelerad Medical Systems",
+                "start_date":"2010",
+                "description":""
+            },
+            {
+                "title":"Culture Creature award at Intelerad Medical Systems",
+                "start_date":"2009",
+                "description":""
+            },
+            {
+                "title":"Western Univeristy Graduate Research Scholarship (WGRS)",
+                "start_date":"2005, 2006",
+                "description":""
+            },
+            {
+                "title":"Fonds quebecois de la recherche sur la nature et les technologies (FQRNT)",
+                "start_date":"2005, 2006, 2007",
+                "description":""
+            },
+            {
+                "title":"Concordia University Engineering Gold Medal Award for Top Graduate",
+                "start_date":"2005",
+                "description":""
+            },
+            {
+                "title":"Final Year Project in Engineering, Third Place",
+                "start_date":"2005",
+                "description":""
+            },
+            {
+                "title":"Concordia University Engineering Deans List",
+                "start_date":"2002, 2003, 2005",
+                "description":""
+            }
+        ]
+    },
+    "languages":{
+        "enabled":[
+            "web"
+        ],
+        "label":"Languages",
+        "items":[
+            {
+                "title":"English"
+            },
+            {
+                "title":"French"
+            },
+            {
+                "title":"Hindi"
+            },
+            {
+                "title":"Spanish"
+            }
+        ]
+    },
+    "contact":{
+        "enabled":[
+            "mobile"
+        ],
+        "label":"Contact Me",
+        "outlet":[
+            {
+                "title":"web",
+                "url":"http://www.vijaysharma.ca"
+            },
+            {
+                "title":"email",
+                "url":"vijay.sharm@gmail.com"
+            },
+            {
+                "title":"twitter",
+                "url":"https://twitter.com/v_sharm"
+            },
+            {
+                "title":"github",
+                "url":"https://github.com/vijaysharm"
+            },
+            {
+                "title":"linkedIn",
+                "url":"http://ca.linkedin.com/in/vijaysharm"
+            },
+            {
+                "title":"stackoverflow",
+                "url":"http://stackoverflow.com/users/529692/vijay-sharma"
+            }
+        ]
+    },
+    "projects":{
+        "label":"Projects",
+        "items":[{
+            "enabled":["mobile"],
+            "title":"KeyPeeps",
+            "description":"World's first keyboard compliment that gives you access to your contacts",
+            "url":"https://play.google.com/store/apps/details?id=ca.vijaysharma.contacts",
+            "tags":["android"],
+            "images":[
+                "https://lh3.googleusercontent.com/9J5nf5QoblmwaDNPLRV23LrMe7k-hGCYJ9VsgxapOT8wwWusNi4XpLTmjgtbSNycNf0=h310-rw",
+                "https://lh3.googleusercontent.com/E5vBkSqiY3UgxOJQLrv97NZdnq21M4knSlcTTCdd-60eMMdBZEAPnnZFlaLl1wfwxLI=h310-rw",
+                "https://lh3.googleusercontent.com/g3uxBJf53cK4uKOl91Ri2O3b32uVIp0MqIYeHZOXd0CDJAheI86Itc75TOy7QWlfvpsh=h310-rw",
+                "https://lh3.googleusercontent.com/E0rwMmEXQFpNw0IgNQC5D8HRtySu2K5VZik7ZkFJ1-NRI_xWnG9EVS3XkitLkWqDe7I=h310-rw"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"PixPass",
+            "description":"The best image-keyboard-password manager ever!",
+            "url":"https://play.google.com/store/apps/details?id=ca.vijaysharma.password",
+            "tags":["android"],
+            "images":[
+                "https://lh3.googleusercontent.com/Yg8j1l7b78KqGsQhmt1YjlvVAcXMLf2XqcKRezXVmXjqL8K3Y-SzFD3zLpKE_h9q92Va=h900-rw",
+                "https://lh3.googleusercontent.com/2vYsXpssAd2pQTGQHVgAeWYxzIn1oNnwX5CVMmHYXmZydaaelu7yitp86xthJhk7Vvw=h900-rw",
+                "https://lh3.googleusercontent.com/KYuKvPJYQiVSnjL5Ry6boDDAB7HQWpdqe1CWDAbtrNrBSdMCYnNcwJxdoCXgisAi4r-f=h900-rw",
+                "https://lh3.googleusercontent.com/9-eLvkGN8YQriBHxByG6qTYSYsIdAPv3_lOZi_s4qU3lx4Vm2oU03uBKJ6ht0m2QEw=h900-rw"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"KwiltKeys",
+            "description":"KwiltKeys is the world's first photo keyboard that offers the best workflow to find and share your photos from anywhere. And it’s A-awesome!",
+            "url":"https://itunes.apple.com/us/app/kwiltkeys-photo-keyboard-share/id1003799569?mt=8",
+            "tags":["ios", "kwilt"],
+            "images":[
+                "http://a4.mzstatic.com/us/r30/Purple6/v4/ef/c8/38/efc838fc-b125-0656-d03e-0c5e65795e53/screen322x572.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple3/v4/6b/3d/55/6b3d55cb-fc42-245d-fbba-1079a2d1cd10/screen322x572.jpeg",
+                "http://a3.mzstatic.com/us/r30/Purple3/v4/f2/63/87/f263873e-5cc9-143e-96c5-6b8e6c240a33/screen322x572.jpeg",
+                "http://a2.mzstatic.com/us/r30/Purple6/v4/fe/98/70/fe9870a6-afcc-1df9-8494-0e2de8ebe647/screen322x572.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple3/v4/cd/cd/3e/cdcd3ec5-795a-6be3-d6c0-d4b88a2a1bfa/screen322x572.jpeg"
+            ]
+        }, {
+            "enabled": ["mobile"],
+            "title": "Resume",
+            "description": "It's my resume!",
+            "url": "https://play.google.com/store/apps/details?id=ca.vijaysharma.resume",
+            "tags":["android"],
+            "images":[
+                "https://lh3.googleusercontent.com/WT-9rFWfVZSn9Cy7gESIKmeSXHWM9IhvTvYv9IjJFrKAlwNHalsNctXTPeXvKGmTCMQ6=h310-rw",
+                "https://lh3.googleusercontent.com/ACEhOkWf5K0darp5l1b8wOQvsDpsC8xYUkXD4007smjcrIubwdNsbvyHIl6ZBaBLyg=h310-rw",
+                "https://lh3.googleusercontent.com/sz9neeT0FgUwehZKMWREyZJBZlU0smTSMkembCpo-qXQxAuqaXUQNSwTj8fKjvrqpN8=h310-rw",
+                "https://lh3.googleusercontent.com/CkmIU3x0Huw6g8g5bmbfuOceiXeSoinMQCUaC4el5SiCofLak9-vrLLUxu9j76rnOz8=h310-rw",
+                "https://lh3.googleusercontent.com/R_4V_g_WqlTN3UyChY_vz0ynYBKOwxaSc7ocEgtwCEJ_C4LuLpuYdtb6RVSQSeLGtjvf=h310-rw",
+                "https://lh3.googleusercontent.com/sbZjfvzdWJcTpKy0SuGpQSBa4BXLTEKbYbJQw3xkiQyOho-Y3AzMx7T7hXJkUQOQaEoZ=h310-rw",
+                "https://lh3.googleusercontent.com/Q54o9L-hgqZv42JuBrr3Dy5kTH03IBMTqRco-ytve2KXpw470gUSMSCJJjpMn_bMXym9=h310-rw"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"Kwilt Photos",
+            "description":"The Universal Photo Roll: View, Edit and Share Your Photos",
+            "url":"https://itunes.apple.com/app/kwilt/id929742170?mt=8&ign-mpt=uo%3D2",
+            "tags":["ios", "kwilt"],
+            "images":[
+                "http://a3.mzstatic.com/us/r30/Purple7/v4/28/8d/6a/288d6a78-594b-ccc7-eb99-3b3809340724/screen322x572.jpeg",
+                "http://a1.mzstatic.com/us/r30/Purple5/v4/25/0f/a6/250fa631-af33-9922-9794-55ec2a6d484a/screen322x572.jpeg",
+                "http://a2.mzstatic.com/us/r30/Purple7/v4/98/18/cd/9818cdf9-e483-0f8f-75a9-a9a8e7aac271/screen322x572.jpeg",
+                "http://a1.mzstatic.com/us/r30/Purple5/v4/3b/b4/3a/3bb43a66-f4d5-43ce-70a9-328522b5bc6c/screen322x572.jpeg",
+                "http://a2.mzstatic.com/us/r30/Purple1/v4/f8/45/d2/f845d263-b9a2-ea31-d9d6-4658b6823f1d/screen322x572.jpeg"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"Younility for Android",
+            "description":"Make Work Simple",
+            "url":"https://play.google.com/store/apps/details?id=com.touchfleet.dispatch&hl=en",
+            "tags":["android", "younility"],
+            "images":[
+                "https://lh3.googleusercontent.com/JgDSv0hm2gmJ5lKqTT7APuVVrfFKoA85V8HPkFmdA95hIPnguEJwmozsSLS4IOAucg=h900-rw",
+                "https://lh3.googleusercontent.com/gZ8pPqR8FYRxQuSTJN9N6kAlGzxaA7X96wPt36VmZMxDiIDA1aP9MVBacFX-s7um0UKE=h900-rw",
+                "https://lh3.googleusercontent.com/LWmCGoQt-271RBAB695RfATLAl-rF-zvsJ3jNkjjqQc0f5mTZq52eihVPfn0ikclmDI=h900-rw",
+                "https://lh3.googleusercontent.com/3qZGBzqGjQBxSanCLP2fnVBqyMx7L90ELlg_67bnNSXu-5moixftCdJDgmSQj5nItLg=h900-rw",
+                "https://lh3.googleusercontent.com/21CJHIdw-WRx5Cv7o4AcwK8cPV_Ea1X2wVm8BqEIKrl2eemWxjj84cNs10IRksoFVQ=h900-rw"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"Younility for iOS",
+            "description":"Make Work Simple",
+            "url":"https://itunes.apple.com/us/app/younility/id865948605?mt=8",
+            "tags":["ios", "younility"],
+            "images":[
+                "http://a5.mzstatic.com/us/r30/Purple7/v4/5a/50/20/5a502032-ab95-4c0a-df0d-f860ecea6324/screen568x568.jpeg",
+                "http://a2.mzstatic.com/us/r30/Purple7/v4/c8/6f/e0/c86fe0a9-2c44-f913-f1e1-2f1876c0b9c9/screen568x568.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple1/v4/3c/5a/b2/3c5ab2a4-aa0c-e161-5dee-05ad38296952/screen568x568.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple7/v4/1e/68/dd/1e68ddd2-1482-ebf8-74c5-abfedf8d654f/screen568x568.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple5/v4/17/30/53/173053e7-8ab1-a021-906d-7557827126e7/screen568x568.jpeg"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"Media Shuttle Mobile",
+            "description":"Media Shuttle, from Signiant, is the easiest, most reliable way to send any size file, anywhere fast.",
+            "url":"https://itunes.apple.com/ca/app/media-shuttle-mobile/id885878921?mt=8",
+            "tags":["ios", "signiant"],
+            "images":[
+                "http://a5.mzstatic.com/us/r30/Purple4/v4/ae/4b/ae/ae4bae9a-3cdf-5d81-fc7f-2e3131b00cc0/screen568x568.jpeg"
+            ]
+        }, {
+            "enabled":["mobile"],
+            "title":"InteleConnect",
+            "description":"InteleConnect™, designed specifically for referring physicians to conveniently deliver high-quality medical imaging studies and notifications on iPad®, iPhone®, and iPod touch®.",
+            "url":"https://itunes.apple.com/ca/app/inteleconnect/id562270725?mt=8",
+            "tags":["ios","intelerad"],
+            "images":[
+                "http://a3.mzstatic.com/us/r30/Purple/v4/0d/fb/be/0dfbbefc-f074-fe3d-42f6-666d71b9c293/screen568x568.jpeg",
+                "http://a5.mzstatic.com/us/r30/Purple/v4/1c/27/86/1c278689-8972-ce42-847a-9240a81a4395/screen568x568.jpeg",
+                "http://a4.mzstatic.com/us/r30/Purple/v4/a0/56/0e/a0560e83-b129-2bb5-b388-883e6471538e/screen568x568.jpeg"
+            ]
+        }]
+    }
+}
