@@ -25,7 +25,7 @@ public class ResumeData {
     private static final Map<String, String> companyNames = new HashMap<>();
     private static final Map<String, String> positionNames = new HashMap<>();
     private static final Map<String, Integer> avatars = new HashMap<>();
-    private static final Map<String, Integer> logos = new HashMap<>();
+    private static final Map<String, String> logos = new HashMap<>();
     private static final Map<String, Integer> primaries = new HashMap<>();
     private static final Map<String, Integer> secondaries = new HashMap<>();
     private static final Map<String, Integer> tertiaries = new HashMap<>();
