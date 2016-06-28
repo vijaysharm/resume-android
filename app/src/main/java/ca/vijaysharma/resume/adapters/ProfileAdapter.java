@@ -36,7 +36,6 @@ public class ProfileAdapter extends PagerAdapter {
     public ProfileAdapter(
         Context context,
         EventBus bus,
-        Storage storage,
         Profile profile
     ) {
         this.context = context;
@@ -59,7 +58,7 @@ public class ProfileAdapter extends PagerAdapter {
 
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
-                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(false)
                 .setImage(profile.getAvatarUrl())
                 .setListener(new View.OnClickListener() {
@@ -71,10 +70,10 @@ public class ProfileAdapter extends PagerAdapter {
                             .detail3(profile.getLocation())
                             .hero(profile.getAvatarUrl())
                             .back(R.drawable.ic_arrow_back_black_24dp)
-                            .primaryColor(R.color.white)
-                            .secondaryColor(R.color.black)
-                            .tertiaryColor(R.color.dark_grey)
-                            .background(R.color.white)
+                            .primaryColor(ContextCompat.getColor(context, R.color.white))
+                            .secondaryColor(ContextCompat.getColor(context, R.color.black))
+                            .tertiaryColor(ContextCompat.getColor(context, R.color.dark_grey))
+                            .background(ContextCompat.getColor(context, R.color.white))
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createUrlIntent(profile.getWebsite()))
@@ -95,7 +94,7 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 1) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
                 .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/globe_256.png")
                 .setListener(new View.OnClickListener() {
@@ -108,7 +107,7 @@ public class ProfileAdapter extends PagerAdapter {
         } else if (position == 2) {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
                 .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/email_256.png")
                 .setListener(new View.OnClickListener() {
@@ -127,7 +126,7 @@ public class ProfileAdapter extends PagerAdapter {
 
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.white))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
                 .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/settings_256.png")
                 .setListener(new View.OnClickListener() {
@@ -139,10 +138,10 @@ public class ProfileAdapter extends PagerAdapter {
                             .detail3("")
                             .hero("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/settings_256.png")
                             .back(R.drawable.ic_arrow_back_black_24dp)
-                            .primaryColor(R.color.white)
-                            .secondaryColor(R.color.black)
-                            .tertiaryColor(R.color.dark_grey)
-                            .background(R.color.background_color)
+                            .primaryColor(ContextCompat.getColor(context, R.color.white))
+                            .secondaryColor(ContextCompat.getColor(context, R.color.black))
+                            .tertiaryColor(ContextCompat.getColor(context, R.color.dark_grey))
+                            .background(ContextCompat.getColor(context, R.color.background_color))
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createEmptyIntent())

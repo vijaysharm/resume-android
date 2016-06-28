@@ -8,46 +8,25 @@ import android.graphics.drawable.InsetDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.RippleDrawable;
 import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 
 import ca.vijaysharma.resume.R;
 
 public class Drawables {
 
-    public static Drawable borderlessDrawable(Context context, @ColorRes int primaryColor) {
-        int color = context.getResources().getColor(primaryColor);
-
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.OVAL);
-        shape.setColor(ColorStateList.valueOf(color));
-
-        return shape;
+    public static Drawable doubleBorderDrawable(Context context, int primaryColor) {
+        return doubleBorderDrawable(context, primaryColor, ContextCompat.getColor(context, R.color.background_color));
     }
 
-    public static Drawable borderDrawable(Context context, @ColorRes int primaryColor) {
+    public static Drawable doubleBorderDrawable(Context context, int primaryColor, int background) {
         int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
-        int color = context.getResources().getColor(primaryColor);
+        int color = primaryColor;
+        int innerColor = background;
 
-        GradientDrawable shape = new GradientDrawable();
-        shape.setShape(GradientDrawable.OVAL);
-        shape.setStroke(borderThickness, color);
-        shape.setColor(null);
-
-        return shape;
-    }
-
-    public static Drawable doubleBorderDrawable(Context context, @ColorRes int primaryColor) {
-        return doubleBorderDrawable(context, primaryColor, R.color.background_color);
-    }
-
-    public static Drawable doubleBorderDrawable(Context context, @ColorRes int primaryColor, @ColorRes int background) {
-        int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
-        int color = context.getResources().getColor(primaryColor);
-        int innerColor = context.getResources().getColor(background);
-
-        GradientDrawable outter = new GradientDrawable();
-        outter.setShape(GradientDrawable.OVAL);
-        outter.setStroke(borderThickness, color);
-        outter.setColor(null);
+        GradientDrawable outer = new GradientDrawable();
+        outer.setShape(GradientDrawable.OVAL);
+        outer.setStroke(borderThickness, color);
+        outer.setColor(null);
 
         GradientDrawable inner = new GradientDrawable();
         inner.setShape(GradientDrawable.OVAL);
@@ -55,13 +34,13 @@ public class Drawables {
 
         InsetDrawable inset = new InsetDrawable(inner, borderThickness);
 
-        return new LayerDrawable(new Drawable[]{outter, inset});
+        return new LayerDrawable(new Drawable[]{outer, inset});
     }
 
-    public static Drawable rippleDrawable(Context context, @ColorRes int primaryColor) {
+    public static Drawable rippleDrawable(Context context, int primaryColor) {
         int borderThickness = (int)context.getResources().getDimension(R.dimen.circle_item_border_width);
-        int color = context.getResources().getColor(primaryColor);
-        int background = context.getResources().getColor(R.color.background_color);
+        int color = primaryColor;
+        int background = ContextCompat.getColor(context, R.color.background_color);
 
         GradientDrawable shape = new GradientDrawable();
         shape.setShape(GradientDrawable.OVAL);

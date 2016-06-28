@@ -55,13 +55,17 @@ public class ResumeActivity extends AppCompatActivity {
         getActionBar().setTitle(null);
         applyInsets(container, toolbarHeight(this));
 
-        Map<String, Object> resume = storage.load();
+        Map<String, Object> data = storage.load();
+        Map<String, Object> metadata = (Map<String, Object>) data.get("metadata");
+        Map<String, Object> resume = (Map<String, Object>) data.get("resume");
+
         Projects projects = ResumeData.projects(resume);
-        preparePager(profile, new ProfileAdapter(this, bus, storage, ResumeData.profile(resume)));
-        preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume), projects));
-        preparePager(social, new SocialAdapter(this, bus, storage, ResumeData.social(resume)));
-        preparePager(skills, new SkillsAdapter(this, bus, storage, ResumeData.skills(resume, projects)));
-        preparePager(education, new EducationAdapter(this, bus, storage, ResumeData.education(resume)));
+
+        preparePager(profile, new ProfileAdapter(this, bus, ResumeData.profile(resume)));
+        preparePager(experience, new ExperienceAdapter(this, bus, storage, ResumeData.experiences(resume, metadata), projects));
+        preparePager(social, new SocialAdapter(this, bus, ResumeData.social(resume)));
+        preparePager(skills, new SkillsAdapter(this, bus, ResumeData.skills(resume, metadata, projects)));
+        preparePager(education, new EducationAdapter(this, bus, ResumeData.education(resume, metadata)));
     }
 
     @Override

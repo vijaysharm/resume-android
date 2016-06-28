@@ -8,4 +8,7 @@ import rx.Observable;
 public interface ResumeService {
     @GET("/vijaysharm/resume-web/master/resume.json")
     Observable<Map<String, Object>> resume();
+
+    @GET("/vijaysharm/resume-web/master/metadata.json")
+    Observable<Map<String, Object>> metadata();
 }

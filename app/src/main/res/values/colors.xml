@@ -11,19 +11,4 @@
     <color name="red">#FF0000</color>
     <color name="grey">#D8D8D8</color>
     <color name="dark_grey">#8c8c8c</color>
-
-    <color name="younility">#F27629</color>
-    <color name="signiant">#C1D72E</color>
-    <color name="intelerad">#EC1B30</color>
-    <color name="robarts">#1279C7</color>
-    <color name="concordia">#8C263B</color>
-    <color name="kwilt">#DB2B5D</color>
-    <color name="testfairy">#E83400</color>
-    <color name="datacap">#B50021</color>
-    <color name="toptal">#274b90</color>
-    <color name="western">#4F2E84</color>
-
-    <color name="apple">#656565</color>
-    <color name="android">#79C05E</color>
-    <color name="html5">#EF6534</color>
 </resources>

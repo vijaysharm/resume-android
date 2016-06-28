@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class SocialAdapter extends PagerAdapter {
     private final EventBus bus;
     private final List<Social> socials;
 
-    public SocialAdapter(Context context, EventBus bus, Storage storage, List<Social> social) {
+    public SocialAdapter(Context context, EventBus bus, List<Social> social) {
         this.context = context;
         this.bus = bus;
         this.socials = social;
@@ -36,7 +37,7 @@ public class SocialAdapter extends PagerAdapter {
         if (position == 0) {
             view = new TextButtonBuilder<>(this.context, null)
                 .setText("Social")
-                .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.yellow))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.yellow_circle_button))
                 .setAddConnection(false)
                 .build();
@@ -44,8 +45,8 @@ public class SocialAdapter extends PagerAdapter {
         } else {
             final Social social = socials.get(position - 1);
             view = new ImageButtonBuilder(this.context)
-                .setConnectorColor(this.context.getResources().getColor(R.color.yellow))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.yellow))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.yellow))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.yellow)))
                 .setAddConnection(true)
                 .setImage(social.getIcon())
                 .setListener(new View.OnClickListener() {

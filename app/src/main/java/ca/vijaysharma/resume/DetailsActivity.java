@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.ColorRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -186,10 +187,10 @@ public class DetailsActivity extends AppCompatActivity {
         int statusBarHeight = Metrics.statusBarHeight(this);
         applyInsets(container, statusBarHeight);
 
-        toolbar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
+        toolbar.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
         toolbar.setNavigationIcon(detail.back());
         title.setText(detail.detail1());
-        title.setTextColor(getResources().getColor(detail.secondaryColor()));
+        title.setTextColor(detail.secondaryColor());
 
         setActionBar(toolbar);
         getActionBar().setTitle(null);
@@ -201,8 +202,8 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        background.setBackgroundColor(getResources().getColor(detail.primaryColor()));
-        statusBarBackground.setBackgroundColor(getResources().getColor(detail.primaryColor()));
+        background.setBackgroundColor(detail.primaryColor());
+        statusBarBackground.setBackgroundColor(detail.primaryColor());
 
         int heroDiameter = (int)getResources().getDimension(R.dimen.circle_item_diameter);
         FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(heroDiameter, heroDiameter);
@@ -226,15 +227,15 @@ public class DetailsActivity extends AppCompatActivity {
 
         title1.setText(detail.detail1());
         title1.setVisibility(TextUtils.isEmpty(detail.detail1()) ? View.GONE : View.VISIBLE);
-        title1.setTextColor(getResources().getColor(detail.secondaryColor()));
+        title1.setTextColor(detail.secondaryColor());
 
         title2.setText(TextUtils.isEmpty(detail.detail2()) ? "" : detail.detail2());
         title3.setVisibility(TextUtils.isEmpty(detail.detail2()) ? View.GONE : View.VISIBLE);
-        title2.setTextColor(getResources().getColor(detail.secondaryColor()));
+        title2.setTextColor(detail.secondaryColor());
 
         title3.setText(TextUtils.isEmpty(detail.detail3()) ? "" : detail.detail3());
         title3.setVisibility(TextUtils.isEmpty(detail.detail3()) ? View.GONE : View.VISIBLE);
-        title3.setTextColor(getResources().getColor(detail.tertiaryColor()));
+        title3.setTextColor(detail.tertiaryColor());
 
         int backgroundHeight = (int)getResources().getDimension(R.dimen.background_view_height);
         int actionItemDiameter = (int)getResources().getDimension(R.dimen.action_item_diameter);
@@ -411,19 +412,19 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void sectionTitle(
-        @ColorRes int primaryColor,
+        int primaryColor,
         String titleString,
         LinearLayout linearLayout
     ) {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final TextView title = (TextView) inflater.inflate(R.layout.text_detail_section_header, linearLayout, false);
         title.setText(titleString);
-        title.setTextColor(getResources().getColor(primaryColor));
+        title.setTextColor(primaryColor);
         linearLayout.addView(title);
     }
 
     private void addReferenceSection(
-        @ColorRes int primaryColor,
+        int primaryColor,
         ReferenceSection detail,
         LinearLayout linearLayout
     ) {
@@ -496,7 +497,7 @@ public class DetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void addProjectSection(@ColorRes final int primaryColor, ProjectSection section, LinearLayout linearLayout) {
+    private void addProjectSection(final int primaryColor, ProjectSection section, LinearLayout linearLayout) {
         ArrayList<ProjectSectionItem> items = section.items();
         if (items.isEmpty())
             return;
@@ -547,7 +548,7 @@ public class DetailsActivity extends AppCompatActivity {
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void updateDrawState(TextPaint tp) {
-                    tp.setColor(getResources().getColor(primaryColor));
+                    tp.setColor(primaryColor);
                 }
 
                 @Override
@@ -628,10 +629,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         int difference = backgroundHeight - maxHeight;
         title.setVisibility(view.getScrollY() > difference ? View.VISIBLE : View.INVISIBLE);
+        int primaryColor = detail.primaryColor();
         toolbar.setBackgroundColor(
-            view.getScrollY() > difference ?
-            getResources().getColor(detail.primaryColor()) :
-            getResources().getColor(android.R.color.transparent)
+            view.getScrollY() > difference ? primaryColor : ContextCompat.getColor(this, android.R.color.transparent)
         );
 
         final int endValue = view.getScrollY() > maxHeight ? 0 : 1;

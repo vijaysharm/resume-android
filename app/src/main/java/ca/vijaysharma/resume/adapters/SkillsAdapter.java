@@ -2,6 +2,7 @@ package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class SkillsAdapter extends PagerAdapter {
     private final EventBus bus;
     private final List<Skill> skills;
 
-    public SkillsAdapter(Context context, EventBus bus, Storage storage, List<Skill> skills) {
+    public SkillsAdapter(Context context, EventBus bus, List<Skill> skills) {
         this.context = context;
         this.bus = bus;
         this.skills = skills;
@@ -48,7 +49,7 @@ public class SkillsAdapter extends PagerAdapter {
         if (position == 0) {
             View view = new TextButtonBuilder<>(this.context, null)
                 .setText("Skills")
-                .setConnectorColor(this.context.getResources().getColor(R.color.green))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.green))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.green_circle_button))
                 .setAddConnection(position != 0)
                 .build();
@@ -58,8 +59,8 @@ public class SkillsAdapter extends PagerAdapter {
         } else {
             final Skill skill = skills.get(position - 1);
             View view = new ImageButtonBuilder(this.context)
-                .setConnectorColor(this.context.getResources().getColor(R.color.green))
-                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.green))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.green))
+                .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.green)))
                 .setImage(skill.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
@@ -72,9 +73,9 @@ public class SkillsAdapter extends PagerAdapter {
                             .hero(skill.logoUrl)
                             .back(R.drawable.ic_arrow_back_white_24dp)
                             .primaryColor(skill.primary)
-                            .secondaryColor(R.color.white)
-                            .tertiaryColor(R.color.white)
-                            .background(R.color.background_color)
+                            .secondaryColor(ContextCompat.getColor(context, R.color.white))
+                            .tertiaryColor(ContextCompat.getColor(context, R.color.white))
+                            .background(ContextCompat.getColor(context, R.color.background_color))
                             .action1(DetailAction.builder()
                                 .action(R.drawable.ic_public_white_24dp)
                                 .intent(Intents.createEmptyIntent())

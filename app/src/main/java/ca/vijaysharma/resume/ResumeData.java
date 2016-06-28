@@ -1,5 +1,6 @@
 package ca.vijaysharma.resume;
 
+import android.graphics.Color;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.text.TextUtils;
@@ -7,6 +8,7 @@ import android.text.TextUtils;
 import org.joda.time.DateTime;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,71 +24,11 @@ import ca.vijaysharma.resume.models.Skill;
 import ca.vijaysharma.resume.models.Social;
 
 public class ResumeData {
-    private static final Map<String, String> companyNames = new HashMap<>();
+
     private static final Map<String, String> positionNames = new HashMap<>();
     private static final Map<String, String> avatars = new HashMap<>();
-    private static final Map<String, String> logos = new HashMap<>();
-    private static final Map<String, Integer> primaries = new HashMap<>();
-    private static final Map<String, Integer> secondaries = new HashMap<>();
-    private static final Map<String, Integer> tertiaries = new HashMap<>();
 
     static {
-        String younility = "Younility";
-        primaries.put(younility, R.color.younility);
-
-        String intelerad = "Intelerad Medical Systems";
-        companyNames.put(intelerad, "Intelerad");
-        primaries.put(intelerad, R.color.intelerad);
-
-        String signiant = "Signiant";
-        primaries.put(signiant, R.color.signiant);
-        secondaries.put(signiant, R.color.black);
-        tertiaries.put(signiant, R.color.white);
-
-        String robarts = "Robarts Research Imaging Institute";
-        companyNames.put(robarts, "Robarts");
-        primaries.put(robarts, R.color.robarts);
-
-        String concorida = "Concordia University";
-        primaries.put(concorida, R.color.concordia);
-
-        String kwilt = "Kwilt";
-        primaries.put(kwilt, R.color.kwilt);
-
-        String testfairy = "TestFairy";
-        primaries.put(testfairy, R.color.testfairy);
-
-        String datacap = "Datacap Systems Inc";
-        companyNames.put(datacap, "Datacap Systems");
-        primaries.put(datacap, R.color.datacap);
-
-        String toptal = "Toptal";
-        primaries.put(toptal, R.color.toptal);
-
-        String western = "The University of Western Ontario";
-        companyNames.put(western, "U. Western Ontario");
-        primaries.put(western, R.color.western);
-
-        String android = "android";
-        logos.put(android, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/android_256.png");
-        primaries.put(android, R.color.android);
-
-        String ios = "ios";
-        logos.put(ios, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/apple_256.png");
-        primaries.put(ios, R.color.apple);
-
-        String web = "web";
-        logos.put(web, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/html5_256.png");
-        primaries.put(web, R.color.html5);
-
-        String server = "server";
-        logos.put(server, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/cloud_256.png");
-        primaries.put(server, R.color.white);
-
-        String db = "db";
-        logos.put(db, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/storage_256.png");
-        primaries.put(db, R.color.grey);
-
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
         positionNames.put("Android Consultant at Datacap Systems Inc", "Android Consultant");
         positionNames.put("Master of Engineering Sciences", "Masters in Engineering");
@@ -122,13 +64,16 @@ public class ResumeData {
         );
     }
 
-    public static List<ListItem> experiences(Map<String, Object> data) {
-        Map<String, Object> exp = v(data, "professionalexperience");
+    static List<ListItem> experiences(Map<String, Object> resume, Map<String, Object> metadata) {
+        Map<String, Object> meta = metadata(metadata, "companies");
+        Map<String, Object> exp = v(resume, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");
         ArrayList<ListItem> experience = new ArrayList<>(companies.size());
         int companyIndex = 0;
         for (Map<String, Object> company : companies) {
-            String logo = v(company, "logo");
+            String name = v(company, "location");
+            Map<String, Object> data = v(meta, name, Collections.EMPTY_MAP);
+            String logo = logo(data);
             List<Map<String, Object>> positions = v(company, "positions");
             for (Map<String, Object> position : positions) {
                 List<String> enabled = v(position, "enabled");
@@ -136,7 +81,7 @@ public class ResumeData {
                     continue;
 
                 experience.add(new ListItem(
-                    logo(logo),
+                    logo,
                     companyIndex++
                 ));
             }
@@ -145,24 +90,37 @@ public class ResumeData {
         return experience;
     }
 
-    public static List<Education> education(Map<String, Object> data) {
-        Map<String, Object> exp = v(data, "education");
+    private static Map<String, Object> metadata(Map<String, Object> metadata, String key) {
+        List<Map<String, Object>> companyMetadata = v(metadata, key);
+        Map<String, Object> result = new HashMap<>();
+        for (Map<String, Object> company : companyMetadata) {
+            String name = v(company, "name");
+            result.put(name, company);
+        }
+
+        return result;
+    }
+
+    static List<Education> education(Map<String, Object> resume, Map<String, Object> metadata) {
+        Map<String, Object> meta = metadata(metadata, "education");
+        Map<String, Object> exp = v(resume, "education");
         List<Map<String, Object>> schools = v(exp, "schools");
         ArrayList<Education> education = new ArrayList<>();
         for (Map<String, Object> school : schools) {
             String degree = v(school, "name");
             String name = v(school, "location");
+            Map<String, Object> data = v(meta, name);
             String address = v(school, "address");
             String start = v(school, "start_date");
             String end = v(school, "end_date");
             String site = v(school, "site");
             List<String> responsibilities = v(school, "responsibilities");
             education.add(new Education(
-                logo(name),
-                primary(name),
-                secondary(name),
-                tertiary(name),
-                company(name),
+                logo(data),
+                primary(data),
+                secondary(data),
+                tertiary(data),
+                company(data),
                 address,
                 position(degree),
                 site,
@@ -175,8 +133,9 @@ public class ResumeData {
         return education;
     }
 
-    public static Experience experienceDetail(int index, Map<String, Object> data) {
-        Map<String, Object> exp = v(data, "professionalexperience");
+    public static Experience experienceDetail(int index, Map<String, Object> resume, Map<String, Object> metadata) {
+        Map<String, Object> meta = metadata(metadata, "companies");
+        Map<String, Object> exp = v(resume, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");
         int companyIndex = 0;
         for (Map<String, Object> company : companies) {
@@ -192,7 +151,8 @@ public class ResumeData {
                 }
 
                 String name = v(company, "location");
-                String logo = v(company, "logo");
+                Map<String, Object> data = v(meta, name, Collections.EMPTY_MAP);
+
                 String address = v(company, "address");
                 String summary = v(company, "summary", "");
                 String site = v(company, "site", "");
@@ -201,7 +161,8 @@ public class ResumeData {
                 for (Map<String, Object> reference : refs) {
                     String refName = v(reference, "name");
                     String refPosition = v(reference, "position");
-                    references.add(new Reference(refName, refPosition, avatar(refName)));
+                    String refAvatarUrl = v(reference, "avatar");
+                    references.add(new Reference(refName, refPosition, TextUtils.isEmpty(refAvatarUrl) ? avatar(refName) : refAvatarUrl));
                 }
 
                 String title = v(position, "name");
@@ -211,11 +172,11 @@ public class ResumeData {
                 List<String> technologies = v(position, "technologies");
 
                 return new Experience(
-                    logo(logo),
-                    primary(name),
-                    secondary(name),
-                    tertiary(name),
-                    company(name),
+                    logo(data),
+                    primary(data),
+                    secondary(data),
+                    tertiary(data),
+                    company(data),
                     position(title),
                     "present".equals(start) ? new DateTime() : new DateTime(start),
                     "present".equals(end) ? new DateTime() : new DateTime(end),
@@ -232,8 +193,9 @@ public class ResumeData {
         throw new IllegalArgumentException("Unknown Experience index " + index);
     }
 
-    public static List<Experience> experienceDetails(Map<String, Object> data) {
-        Map<String, Object> exp = v(data, "professionalexperience");
+    public static List<Experience> experienceDetails(Map<String, Object> resume, Map<String, Object> metadata) {
+        Map<String, Object> meta = metadata(metadata, "companies");
+        Map<String, Object> exp = v(resume, "professionalexperience");
         List<Map<String, Object>> companies = v(exp, "companies");
         ArrayList<Experience> experience = new ArrayList<>(companies.size());
         for (Map<String, Object> company : companies) {
@@ -241,6 +203,7 @@ public class ResumeData {
             String address = v(company, "address");
             String summary = v(company, "summary", "");
             String site = v(company, "site", "");
+            Map<String, Object> data = v(meta, name, Collections.EMPTY_MAP);
             List<Map<String, Object>> refs = v(company, "references");
             List<Reference> references = new ArrayList<>(refs.size());
             for (Map<String, Object> reference : refs) {
@@ -262,11 +225,11 @@ public class ResumeData {
                 List<String> technologies = v(position, "technologies");
 
                 experience.add(new Experience(
-                    logo(name),
-                    primary(name),
-                    secondary(name),
-                    tertiary(name),
-                    company(name),
+                    logo(data),
+                    primary(data),
+                    secondary(data),
+                    tertiary(data),
+                    company(data),
                     position(title),
                     "present".equals(start) ? new DateTime() : new DateTime(start),
                     "present".equals(end) ? new DateTime() : new DateTime(end),
@@ -318,9 +281,11 @@ public class ResumeData {
         return new Projects(mapping);
     }
 
-    public static List<Skill> skills(Map<String, Object> data, Projects projects) {
-        ArrayList<Skill> skills = new ArrayList<>(4);
-        Map<String, Object> s = v(data, "skills");
+    static List<Skill> skills(Map<String, Object> resume, Map<String, Object> metadata, Projects projects) {
+        Map<String, Object> meta = metadata(metadata, "skills");
+        ArrayList<Skill> skills = new ArrayList<>(5);
+
+        Map<String, Object> s = v(resume, "skills");
         List<Map<String, Object>> items = v(s, "items");
         for (Map<String, Object> item : items) {
             List<String> enabled = v(item, "enabled");
@@ -334,8 +299,8 @@ public class ResumeData {
             List<String> beginner = v(item, "beginner");
             List<String> intermediate = v(item, "intermediate");
             List<String> advanced = v(item, "advanced");
-
-            Skill.Builder skill = new Skill.Builder(name, logo(type), primary(type))
+            Map<String, Object> data = v(meta, name, Collections.EMPTY_MAP);
+            Skill.Builder skill = new Skill.Builder(name, logo(data), primary(data))
                 .span("present".equals(start) ? new DateTime() : new DateTime(start), "present".equals(end) ? new DateTime() : new DateTime(end))
                 .projects(projects.all(type));
             for (String b : beginner) skill.beginner(b);
@@ -348,7 +313,7 @@ public class ResumeData {
         return skills;
     }
 
-    public static List<Social> social(Map<String, Object> data) {
+    static List<Social> social(Map<String, Object> data) {
         Map<String, Object> contact = v(data, "contact");
         List<Map<String, Object>> outlets = v(contact, "outlet");
         ArrayList<Social> socials = new ArrayList<>(4);
@@ -369,9 +334,8 @@ public class ResumeData {
         return socials;
     }
 
-    private static String company(String name) {
-        String found = companyNames.get(name);
-        return TextUtils.isEmpty(found) ? name : found;
+    private static String company(Map<String, Object> data) {
+        return v(data, "short_name");
     }
 
     private static String position(String title) {
@@ -383,20 +347,23 @@ public class ResumeData {
         return defaultValue(avatars, name, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/person_image_empty.png");
     }
 
-    private static String logo(String name) {
-        return defaultValue(logos, name, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/globe_256.png");
+    private static String logo(Map<String, Object> data) {
+        return v(data, "logo", "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/logo_256.png");
     }
 
-    private static @ColorRes int primary(String name) {
-        return defaultValue(primaries, name, R.color.grey);
+    private static int primary(Map<String, Object> data) {
+        String colorString = v(data, "primary_color", "#D8D8D8");
+        return Color.parseColor(colorString);
     }
 
-    private static @ColorRes int secondary(String name) {
-        return defaultValue(secondaries, name, R.color.white);
+    private static int secondary(Map<String, Object> data) {
+        String colorString = v(data, "secondary_color", "#FFFFFF");
+        return Color.parseColor(colorString);
     }
 
-    private static @ColorRes int tertiary(String name) {
-        return defaultValue(tertiaries, name, R.color.grey);
+    private static int tertiary(Map<String, Object> data) {
+        String colorString = v(data, "tertiary_color", "#D8D8D8");
+        return Color.parseColor(colorString);
     }
 
     private static <T> T defaultValue(Map<String, T> source, String key, T def) {

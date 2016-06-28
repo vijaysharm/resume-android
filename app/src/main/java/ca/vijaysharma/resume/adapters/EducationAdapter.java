@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +25,15 @@ import de.greenrobot.event.EventBus;
 public class EducationAdapter extends PagerAdapter {
     private final Context context;
     private final EventBus bus;
-    private final Storage storage;
     private final List<Education> education;
 
     public EducationAdapter(
         Context context,
         EventBus bus,
-        Storage storage,
         List<Education> education
     ) {
         this.context = context;
         this.bus = bus;
-        this.storage = storage;
         this.education = education;
     }
 
@@ -51,15 +49,15 @@ public class EducationAdapter extends PagerAdapter {
         if (position == 0) {
             view = new TextButtonBuilder<>(this.context, null)
                 .setText("Education")
-                .setConnectorColor(this.context.getResources().getColor(R.color.blue))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.blue))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.blue_circle_button))
                 .setAddConnection(false)
                 .build();
         } else {
             final Education school = education.get(position - 1);
             view = new ImageButtonBuilder(this.context)
-                .setConnectorColor(this.context.getResources().getColor(R.color.blue))
-                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.blue))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.blue))
+                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, ContextCompat.getColor(context, R.color.blue)))
                 .setImage(school.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
@@ -87,7 +85,7 @@ public class EducationAdapter extends PagerAdapter {
             .primaryColor(education.primaryColor)
             .secondaryColor(education.secondaryColor)
             .tertiaryColor(education.tertiaryColor)
-            .background(R.color.background_color)
+            .background(ContextCompat.getColor(context, R.color.background_color))
             .action1(DetailAction.builder()
                 .action(R.drawable.ic_public_white_24dp)
                 .intent(Intents.createUrlIntent(education.site))

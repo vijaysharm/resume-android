@@ -7,9 +7,9 @@ import org.joda.time.DateTime;
 
 public class Experience {
     private final String logoUrl;
-    private final @ColorRes int primaryColor;
-    private final @ColorRes int secondaryColor;
-    private final @ColorRes int tertiaryColor;
+    private final int primaryColor;
+    private final int secondaryColor;
+    private final int tertiaryColor;
     private final String name;
     private final String position;
     private final DateTime start;
@@ -23,9 +23,9 @@ public class Experience {
 
     public Experience(
         String logo,
-        @ColorRes int primaryColor,
-        @ColorRes int secondaryColor,
-        @ColorRes int tertiaryColor,
+        int primaryColor,
+        int secondaryColor,
+        int tertiaryColor,
         String name,
         String position,
         DateTime start,

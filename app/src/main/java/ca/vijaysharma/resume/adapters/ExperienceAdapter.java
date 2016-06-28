@@ -1,6 +1,7 @@
 package ca.vijaysharma.resume.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import org.joda.time.Years;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import ca.vijaysharma.resume.R;
 import ca.vijaysharma.resume.ResumeData;
@@ -67,15 +69,15 @@ public class ExperienceAdapter extends PagerAdapter {
         if (position == 0) {
             view = new TextButtonBuilder<>(this.context, null)
                 .setText("Experience")
-                .setConnectorColor(this.context.getResources().getColor(R.color.purple))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.purple))
                 .setBackgroundDrawable(this.context.getDrawable(R.drawable.purple_circle_button))
                 .setAddConnection(false)
                 .build();
         } else {
             final ListItem item = experiences.get(position - 1);
             view = new ImageButtonBuilder(this.context)
-                .setConnectorColor(this.context.getResources().getColor(R.color.purple))
-                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.purple))
+                .setConnectorColor(ContextCompat.getColor(context, R.color.purple))
+                .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, ContextCompat.getColor(context, R.color.purple)))
                 .setImage(item.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
@@ -93,7 +95,10 @@ public class ExperienceAdapter extends PagerAdapter {
     }
 
     private void show(int index, View view) {
-        final Experience experience = ResumeData.experienceDetail(index, storage.load());
+        Map<String, Object> data = storage.load();
+        Map<String, Object> metadata = (Map<String, Object>) data.get("metadata");
+        Map<String, Object> resume = (Map<String, Object>) data.get("resume");
+        final Experience experience = ResumeData.experienceDetail(index, resume, metadata);
         final Section company = TextSection.create("Company", Lists.newArrayList(experience.getSummary()));
         final Section work = TextSection.create("Experience", Lists.newArrayList(experience.getJobs()));
         final Section projects = ProjectSection.create("Projects", ProjectSectionItem.items(this.projects.all(experience.getName().toLowerCase())));
