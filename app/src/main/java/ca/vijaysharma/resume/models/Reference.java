@@ -1,20 +1,18 @@
 package ca.vijaysharma.resume.models;
 
-import android.support.annotation.DrawableRes;
-
 public class Reference {
     private final String name;
     private final String position;
-    private final @DrawableRes int avatar;
+    private final String avatarUrl;
 
     public Reference(
         String name,
         String position,
-        @DrawableRes int avatar
+        String avatar
     ) {
         this.name = name;
         this.position = position;
-        this.avatar = avatar;
+        this.avatarUrl = avatar;
     }
 
     public String getName() {
@@ -25,7 +23,7 @@ public class Reference {
         return position;
     }
 
-    public int getAvatar() {
-        return avatar;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 }

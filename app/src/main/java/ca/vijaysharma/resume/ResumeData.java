@@ -24,7 +24,7 @@ import ca.vijaysharma.resume.models.Social;
 public class ResumeData {
     private static final Map<String, String> companyNames = new HashMap<>();
     private static final Map<String, String> positionNames = new HashMap<>();
-    private static final Map<String, Integer> avatars = new HashMap<>();
+    private static final Map<String, String> avatars = new HashMap<>();
     private static final Map<String, String> logos = new HashMap<>();
     private static final Map<String, Integer> primaries = new HashMap<>();
     private static final Map<String, Integer> secondaries = new HashMap<>();
@@ -32,69 +32,59 @@ public class ResumeData {
 
     static {
         String younility = "Younility";
-        logos.put(younility, R.drawable.younility);
         primaries.put(younility, R.color.younility);
 
         String intelerad = "Intelerad Medical Systems";
         companyNames.put(intelerad, "Intelerad");
-        logos.put(intelerad, R.drawable.intelerad);
         primaries.put(intelerad, R.color.intelerad);
 
         String signiant = "Signiant";
-        logos.put(signiant, R.drawable.signiant);
         primaries.put(signiant, R.color.signiant);
         secondaries.put(signiant, R.color.black);
         tertiaries.put(signiant, R.color.white);
 
         String robarts = "Robarts Research Imaging Institute";
         companyNames.put(robarts, "Robarts");
-        logos.put(robarts, R.drawable.robarts);
         primaries.put(robarts, R.color.robarts);
 
         String concorida = "Concordia University";
-        logos.put(concorida, R.drawable.concordia);
         primaries.put(concorida, R.color.concordia);
 
         String kwilt = "Kwilt";
-        logos.put(kwilt, R.drawable.kwilt);
         primaries.put(kwilt, R.color.kwilt);
 
         String testfairy = "TestFairy";
-        logos.put(testfairy, R.drawable.testfairy);
         primaries.put(testfairy, R.color.testfairy);
 
         String datacap = "Datacap Systems Inc";
         companyNames.put(datacap, "Datacap Systems");
-        logos.put(datacap, R.drawable.datacap);
         primaries.put(datacap, R.color.datacap);
 
         String toptal = "Toptal";
-        logos.put(toptal, R.drawable.toptal);
         primaries.put(toptal, R.color.toptal);
 
         String western = "The University of Western Ontario";
         companyNames.put(western, "U. Western Ontario");
-        logos.put(western, R.drawable.western_256);
         primaries.put(western, R.color.western);
 
         String android = "android";
-        logos.put(android, R.drawable.android_256);
+        logos.put(android, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/android_256.png");
         primaries.put(android, R.color.android);
 
         String ios = "ios";
-        logos.put(ios, R.drawable.apple_256);
+        logos.put(ios, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/apple_256.png");
         primaries.put(ios, R.color.apple);
 
         String web = "web";
-        logos.put(web, R.drawable.html5_256);
+        logos.put(web, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/html5_256.png");
         primaries.put(web, R.color.html5);
 
         String server = "server";
-        logos.put(server, R.drawable.cloud_256);
+        logos.put(server, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/cloud_256.png");
         primaries.put(server, R.color.white);
 
         String db = "db";
-        logos.put(db, R.drawable.storage_256);
+        logos.put(db, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/storage_256.png");
         primaries.put(db, R.color.grey);
 
         positionNames.put("Java Software Developer (Cloud Applications)", "Senior Developer");
@@ -103,10 +93,10 @@ public class ResumeData {
         positionNames.put("Bachelor of Electrical and Computer Engineering", "Bachelors in Engineering");
         positionNames.put("Android Consultant (contract)", "Android Consultant");
 
-        avatars.put("Vijay Sharma", R.drawable.avatar);
+        avatars.put("Vijay Sharma", "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/avatar.jpg");
     }
 
-    public static Profile profile(Map<String, Object> data) {
+    static Profile profile(Map<String, Object> data) {
         String name = v(data, "name");
         String position = v(data, "title");
         List<String> address = v(data, "address");
@@ -138,7 +128,7 @@ public class ResumeData {
         ArrayList<ListItem> experience = new ArrayList<>(companies.size());
         int companyIndex = 0;
         for (Map<String, Object> company : companies) {
-            String name = v(company, "location");
+            String logo = v(company, "logo");
             List<Map<String, Object>> positions = v(company, "positions");
             for (Map<String, Object> position : positions) {
                 List<String> enabled = v(position, "enabled");
@@ -146,7 +136,7 @@ public class ResumeData {
                     continue;
 
                 experience.add(new ListItem(
-                    logo(name),
+                    logo(logo),
                     companyIndex++
                 ));
             }
@@ -202,6 +192,7 @@ public class ResumeData {
                 }
 
                 String name = v(company, "location");
+                String logo = v(company, "logo");
                 String address = v(company, "address");
                 String summary = v(company, "summary", "");
                 String site = v(company, "site", "");
@@ -220,7 +211,7 @@ public class ResumeData {
                 List<String> technologies = v(position, "technologies");
 
                 return new Experience(
-                    logo(name),
+                    logo(logo),
                     primary(name),
                     secondary(name),
                     tertiary(name),
@@ -365,13 +356,13 @@ public class ResumeData {
             String name = v(outlet, "title");
             String url = v(outlet, "url");
             if ("twitter".equals(name)) {
-                socials.add(new Social("Twitter", url, R.drawable.twitter_256));
+                socials.add(new Social("Twitter", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/twitter_256.png"));
             } else if ("github".equals(name)) {
-                socials.add(new Social("Github", url, R.drawable.github_256));
+                socials.add(new Social("Github", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/github_256.png"));
             } else if ("linkedIn".equals(name)) {
-                socials.add(new Social("LinkedIn", url, R.drawable.linkedin_256));
+                socials.add(new Social("LinkedIn", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/linkedin_256.png"));
             } else if ("stackoverflow".equals(name)) {
-                socials.add(new Social("StackOverflow", url, R.drawable.stackoverflow_256));
+                socials.add(new Social("StackOverflow", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/stackoverflow_256.png"));
             }
         }
 
@@ -388,12 +379,12 @@ public class ResumeData {
         return TextUtils.isEmpty(found) ? title : found;
     }
 
-    private static @DrawableRes int avatar(String name) {
-        return defaultValue(avatars, name, R.drawable.person_image_empty);
+    private static String avatar(String name) {
+        return defaultValue(avatars, name, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/person_image_empty.png");
     }
 
-    private static @DrawableRes int logo(String name) {
-        return defaultValue(logos, name, R.drawable.younility);
+    private static String logo(String name) {
+        return defaultValue(logos, name, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/globe_256.png");
     }
 
     private static @ColorRes int primary(String name) {

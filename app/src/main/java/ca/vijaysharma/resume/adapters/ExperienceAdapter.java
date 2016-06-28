@@ -76,7 +76,7 @@ public class ExperienceAdapter extends PagerAdapter {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.purple))
                 .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.purple))
-                .setImage(item.logo)
+                .setImage(item.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
                     @Override
@@ -104,7 +104,7 @@ public class ExperienceAdapter extends PagerAdapter {
             items.add(ReferenceSectionItem.create(
                 reference.getName(),
                 reference.getPosition(),
-                reference.getAvatar()
+                reference.getAvatarUrl()
             ));
         }
         final Section references = ReferenceSection.create("References", items);
@@ -112,7 +112,7 @@ public class ExperienceAdapter extends PagerAdapter {
             .detail1(experience.getName())
             .detail2(experience.getPosition())
             .detail3(duration(experience))
-            .hero(experience.getLogo())
+            .hero(experience.getLogoUrl())
             .back(R.drawable.ic_arrow_back_white_24dp)
             .primaryColor(experience.getPrimaryColor())
             .secondaryColor(experience.getSecondaryColor())

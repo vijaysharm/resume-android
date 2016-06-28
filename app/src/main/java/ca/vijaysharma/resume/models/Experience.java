@@ -6,7 +6,7 @@ import android.support.annotation.DrawableRes;
 import org.joda.time.DateTime;
 
 public class Experience {
-    private final @DrawableRes int logo;
+    private final String logoUrl;
     private final @ColorRes int primaryColor;
     private final @ColorRes int secondaryColor;
     private final @ColorRes int tertiaryColor;
@@ -22,7 +22,7 @@ public class Experience {
     private final Reference[] references;
 
     public Experience(
-        @DrawableRes int logo,
+        String logo,
         @ColorRes int primaryColor,
         @ColorRes int secondaryColor,
         @ColorRes int tertiaryColor,
@@ -37,7 +37,7 @@ public class Experience {
         String[] skills,
         Reference[] references
     ) {
-        this.logo = logo;
+        this.logoUrl = logo;
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.tertiaryColor = tertiaryColor;
@@ -53,8 +53,8 @@ public class Experience {
         this.references = references;
     }
 
-    public @DrawableRes int getLogo() {
-        return logo;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
     public @ColorRes int getPrimaryColor() {

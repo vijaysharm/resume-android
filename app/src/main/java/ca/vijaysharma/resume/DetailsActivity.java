@@ -468,7 +468,7 @@ public class DetailsActivity extends AppCompatActivity {
             avatar.setScaleX(0);
             avatar.setScaleY(0);
             Picasso.with(this)
-                .load(section.avatar())
+                .load(section.avatarUrl())
                 .placeholder(R.color.background_color)
                 .transform(ROUNDED_TRANSFORMATION)
                 .into(avatar, new Callback.EmptyCallback() {

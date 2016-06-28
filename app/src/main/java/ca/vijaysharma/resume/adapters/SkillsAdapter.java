@@ -60,7 +60,7 @@ public class SkillsAdapter extends PagerAdapter {
             View view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.green))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, R.color.green))
-                .setImage(skill.logo)
+                .setImage(skill.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
                     @Override
@@ -69,7 +69,7 @@ public class SkillsAdapter extends PagerAdapter {
                             .detail1(skill.name)
                             .detail2(Times.duration(skill.start, skill.end))
                             .detail3("")
-                            .hero(skill.logo)
+                            .hero(skill.logoUrl)
                             .back(R.drawable.ic_arrow_back_white_24dp)
                             .primaryColor(skill.primary)
                             .secondaryColor(R.color.white)

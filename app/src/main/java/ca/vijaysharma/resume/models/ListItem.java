@@ -1,13 +1,11 @@
 package ca.vijaysharma.resume.models;
 
-import android.support.annotation.DrawableRes;
-
 public class ListItem {
-    public final @DrawableRes int logo;
+    public final String logoUrl;
     public final int index;
 
-    public ListItem(int logo, int index) {
-        this.logo = logo;
+    public ListItem(String logo, int index) {
+        this.logoUrl = logo;
         this.index = index;
     }
 }

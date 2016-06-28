@@ -21,7 +21,7 @@ class ImageButtonBuilder {
     private Drawable backgroundDrawable;
     private int connectorColor;
     private boolean addConnection;
-    private @DrawableRes int image;
+    private String imageUrl;
     private View.OnClickListener listener;
 
     public ImageButtonBuilder(Context context) {
@@ -49,8 +49,8 @@ class ImageButtonBuilder {
         return this;
     }
 
-    public ImageButtonBuilder setImage(@DrawableRes int image) {
-        this.image = image;
+    public ImageButtonBuilder setImage(String image) {
+        this.imageUrl = image;
         return this;
     }
 
@@ -79,7 +79,7 @@ class ImageButtonBuilder {
 
         int avatarSize = (int)this.context.getResources().getDimension(R.dimen.circle_item_diameter);
         Picasso.with(context)
-            .load(this.image)
+            .load(this.imageUrl)
             .placeholder(R.color.background_color)
             .centerCrop()
             .transform(new RoundedTransformation())

@@ -60,7 +60,7 @@ public class EducationAdapter extends PagerAdapter {
             view = new ImageButtonBuilder(this.context)
                 .setConnectorColor(this.context.getResources().getColor(R.color.blue))
                 .setBackgroundDrawable(Drawables.doubleBorderDrawable(this.context, R.color.blue))
-                .setImage(school.logo)
+                .setImage(school.logoUrl)
                 .setAddConnection(true)
                 .setListener(new View.OnClickListener() {
                     @Override
@@ -82,7 +82,7 @@ public class EducationAdapter extends PagerAdapter {
             .detail1(education.name)
             .detail2(education.position)
             .detail3(duration(education))
-            .hero(education.logo)
+            .hero(education.logoUrl)
             .back(R.drawable.ic_arrow_back_white_24dp)
             .primaryColor(education.primaryColor)
             .secondaryColor(education.secondaryColor)

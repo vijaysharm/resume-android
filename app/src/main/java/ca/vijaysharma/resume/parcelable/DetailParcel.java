@@ -18,9 +18,9 @@ public abstract class DetailParcel implements Parcelable {
     public abstract @ColorRes int secondaryColor();
     public abstract @ColorRes int tertiaryColor();
     public abstract @ColorRes int background();
-    public abstract @DrawableRes int hero();
     public abstract @DrawableRes int back();
 
+    public abstract String hero();
     public abstract String detail1();
     public abstract String detail2();
     public abstract String detail3();
@@ -32,7 +32,7 @@ public abstract class DetailParcel implements Parcelable {
 
     @AutoParcel.Builder
     public interface Builder {
-        Builder hero(@DrawableRes int id);
+        Builder hero(String url);
         Builder back(@DrawableRes int id);
         Builder primaryColor(@ColorRes int color);
         Builder secondaryColor(@ColorRes int color);

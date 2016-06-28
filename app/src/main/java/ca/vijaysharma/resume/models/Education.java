@@ -6,7 +6,7 @@ import android.support.annotation.DrawableRes;
 import org.joda.time.DateTime;
 
 public class Education {
-    public final int logo;
+    public final String logoUrl;
     public final int primaryColor;
     public final int secondaryColor;
     public final int tertiaryColor;
@@ -19,7 +19,7 @@ public class Education {
     public final String[] responsibilities;
 
     public Education(
-        @DrawableRes int logo,
+        String logo,
         @ColorRes int primaryColor,
         @ColorRes int secondaryColor,
         @ColorRes int tertiaryColor,
@@ -31,7 +31,7 @@ public class Education {
         DateTime end,
         String[] responsibilities
     ) {
-        this.logo = logo;
+        this.logoUrl = logo;
         this.primaryColor = primaryColor;
         this.secondaryColor = secondaryColor;
         this.tertiaryColor = tertiaryColor;

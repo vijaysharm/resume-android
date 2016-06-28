@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Skill {
     public final String name;
-    public final @DrawableRes int logo;
+    public final String logoUrl;
     public final @ColorRes int primary;
     public final List<String> beginner;
     public final List<String> intermediate;
@@ -22,7 +22,7 @@ public class Skill {
 
     public Skill(
         String name,
-        int logo,
+        String logoUrl,
         int primary,
         List<String> beginner,
         List<String> intermediate,
@@ -30,7 +30,7 @@ public class Skill {
         List<Project> projects,
         DateTime start, DateTime end) {
         this.name = name;
-        this.logo = logo;
+        this.logoUrl = logoUrl;
         this.primary = primary;
         this.beginner = beginner;
         this.intermediate = intermediate;
@@ -42,7 +42,7 @@ public class Skill {
 
     public static class Builder {
         private final String name;
-        private final @DrawableRes int logo;
+        private final String logoUrl;
         private final @ColorRes int primary;
         private ArrayList<String> beginner;
         private ArrayList<String> intermediate;
@@ -51,9 +51,9 @@ public class Skill {
         private DateTime start;
         private DateTime end;
 
-        public Builder(String name, int logo, int primary) {
+        public Builder(String name, String logo, int primary) {
             this.name = name;
-            this.logo = logo;
+            this.logoUrl = logo;
             this.primary = primary;
         }
 
@@ -95,7 +95,7 @@ public class Skill {
         public Skill build() {
             return new Skill(
                 name,
-                logo,
+                logoUrl,
                 primary,
                 beginner == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(beginner),
                 intermediate == null ? Collections.EMPTY_LIST : Collections.unmodifiableList(intermediate),

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Profile {
     private final String name;
-    private final @DrawableRes int avatarId;
+    private final String avatarUrl;
     private final String location;
     private final String email;
     private final String title;
@@ -17,7 +17,7 @@ public class Profile {
 
     public Profile(
         String name,
-        @DrawableRes int avatarId,
+        String avatarUrl,
         String email,
         String website,
         String location,
@@ -27,7 +27,7 @@ public class Profile {
         ArrayList<String> awards
     ) {
         this.name = name;
-        this.avatarId = avatarId;
+        this.avatarUrl = avatarUrl;
         this.email = email;
         this.location = location;
         this.biography = biography;
@@ -41,8 +41,8 @@ public class Profile {
         return name;
     }
 
-    public @DrawableRes int getAvatarId() {
-        return avatarId;
+    public String getAvatarUrl() {
+        return avatarUrl;
     }
 
     public String getLocation() {

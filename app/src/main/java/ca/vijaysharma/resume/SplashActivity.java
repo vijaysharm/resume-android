@@ -21,29 +21,7 @@ import rx.functions.Func1;
 
 public class SplashActivity extends Activity {
     private static int[] RESOURCES = {
-        R.drawable.android_256,
-        R.drawable.apple_256,
-        R.drawable.avatar,
-        R.drawable.cloud_256,
-        R.drawable.concordia,
-        R.drawable.datacap,
-        R.drawable.email_48,
-        R.drawable.email_256,
-        R.drawable.github_256,
-        R.drawable.globe_256,
-        R.drawable.html5_256,
-        R.drawable.intelerad,
-        R.drawable.kwilt,
-        R.drawable.linkedin_256,
-        R.drawable.person_image_empty,
-        R.drawable.robarts,
-        R.drawable.signiant,
-        R.drawable.stackoverflow_256,
-        R.drawable.storage_256,
-        R.drawable.toptal,
-        R.drawable.twitter_256,
-        R.drawable.testfairy,
-        R.drawable.younility
+
     };
 
     @Override
