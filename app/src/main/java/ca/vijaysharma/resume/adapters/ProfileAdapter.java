@@ -96,7 +96,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
-                .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/globe_256.png")
+                .setImage("https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/globe_256.png")
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -109,7 +109,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
-                .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/email_256.png")
+                .setImage("https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/email_256.png")
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -128,7 +128,7 @@ public class ProfileAdapter extends PagerAdapter {
                 .setConnectorColor(ContextCompat.getColor(context, R.color.white))
                 .setBackgroundDrawable(Drawables.rippleDrawable(this.context, ContextCompat.getColor(context, R.color.white)))
                 .setAddConnection(true)
-                .setImage("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/settings_256.png")
+                .setImage("https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/settings_256.png")
                 .setListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -136,7 +136,7 @@ public class ProfileAdapter extends PagerAdapter {
                             .detail1("Settings")
                             .detail2("")
                             .detail3("")
-                            .hero("https://cdn.rawgit.com/vijaysharm/resume-android/master/images/settings_256.png")
+                            .hero("https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/settings_256.png")
                             .back(R.drawable.ic_arrow_back_black_24dp)
                             .primaryColor(ContextCompat.getColor(context, R.color.white))
                             .secondaryColor(ContextCompat.getColor(context, R.color.black))
