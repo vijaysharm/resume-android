@@ -35,7 +35,7 @@ public class ResumeData {
         positionNames.put("Bachelor of Electrical and Computer Engineering", "Bachelors in Engineering");
         positionNames.put("Android Consultant (contract)", "Android Consultant");
 
-        avatars.put("Vijay Sharma", "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/avatar.jpg");
+        avatars.put("Vijay Sharma", "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/avatar.jpg");
     }
 
     static Profile profile(Map<String, Object> data) {
@@ -321,13 +321,13 @@ public class ResumeData {
             String name = v(outlet, "title");
             String url = v(outlet, "url");
             if ("twitter".equals(name)) {
-                socials.add(new Social("Twitter", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/twitter_256.png"));
+                socials.add(new Social("Twitter", url, "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/twitter_256.png"));
             } else if ("github".equals(name)) {
-                socials.add(new Social("Github", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/github_256.png"));
+                socials.add(new Social("Github", url, "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/github_256.png"));
             } else if ("linkedIn".equals(name)) {
-                socials.add(new Social("LinkedIn", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/linkedin_256.png"));
+                socials.add(new Social("LinkedIn", url, "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/linkedin_256.png"));
             } else if ("stackoverflow".equals(name)) {
-                socials.add(new Social("StackOverflow", url, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/stackoverflow_256.png"));
+                socials.add(new Social("StackOverflow", url, "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/stackoverflow_256.png"));
             }
         }
 
@@ -344,11 +344,11 @@ public class ResumeData {
     }
 
     private static String avatar(String name) {
-        return defaultValue(avatars, name, "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/person_image_empty.png");
+        return defaultValue(avatars, name, "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/person_image_empty.png");
     }
 
     private static String logo(Map<String, Object> data) {
-        return v(data, "logo", "https://cdn.rawgit.com/vijaysharm/resume-android/master/images/logo_256.png");
+        return v(data, "logo", "https://cdn.jsdelivr.net/gh/vijaysharm/resume-android/images/logo_256.png");
     }
 
     private static int primary(Map<String, Object> data) {
